@@ -1,8 +1,1 @@
-package com.kgc.service.impl;
-
-public class asd {
-    public static void main(String[] args) {
-        System.out.println("刘鸥");
-        System.out.println("孙阔");
-    }
-}
+package com.kgc.service.impl;public class asd {    public static void main(String[] args) {        System.out.println("刘鸥");        System.out.println("孙阔");        System.out.println("最近好倒霉");    }}
