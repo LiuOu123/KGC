@@ -1,0 +1,93 @@
+#daohanglogo{
+	margin-left: 180px;
+	position: relative;
+	top: 3px;
+}
+.lia{
+	text-decoration: none;
+	color: #656565;
+	margin-left: 30px;
+    position: relative;
+    top: -20px;	
+    font-size: 16px;
+}
+.lia:hover{
+	color: #9FC105;
+}
+#sousuokuang{
+	padding-left: 10px;
+	position: absolute;
+	top: 12px;
+	width: 170px;
+	height: 30px;
+	left: 930px;
+}
+#sia{
+	float: right;
+	margin-top: 20px;
+	margin-right: 150px;
+}
+.siaa{
+	text-decoration: none;
+	color: #656565;
+}
+.siaa:hover{
+	color: #9FC105;
+}
+#zhihuijiaocaizi{
+	font-size: 33px;
+	color: white;
+	float: left;
+	position: absolute;
+	top: 160px;
+	left: 700px;
+}
+#jiaoshizhuanqu{
+	width: 130px;
+	height: 100px;
+	background-color: white;
+	border-radius: 5px;
+	float: left;
+	position: absolute;
+	top: 130px;
+	left: 1150px;
+}
+#jiaoshizhuanqulogo{
+	float: left;
+	position: absolute;
+	top: 150px;
+	left: 1190px;
+}
+#jiaoshizhuanquzi{
+	color:#9FC105 ;
+	float: left;
+	position: absolute;
+	top: 195px;
+	left: 1180px;
+}
+#shuliudalei{
+   position: absolute;
+   top: 400px;
+   left: 170px;
+}
+.shuliudaleizi{
+	 text-decoration: none;
+    color: #99A7A7 ;
+    font-size: 18px;
+    margin-right: 40px;
+}
+.shuliudaleizi:hover{
+	color: #9FC105;
+}
+.dili{
+	list-style: none;
+	margin-bottom: 15px;
+}
+.dilii{
+	list-style: none;
+	margin-bottom: 15px;
+	color: black;
+}
+.dili:hover{
+	color: black;
+}

@@ -1,0 +1,64 @@
+#zong{
+	/*border:  1px solid red; */
+	width: 500px; 
+	height: 600px;"
+	float: right;
+	position: absolute;
+	top: 60px;
+	left: 360px;
+}
+#xuxian1{
+	float: right;
+	position: absolute;
+	top: 148px;
+	left: 820px;
+}
+#yiyouzhanghao{
+	float: left;
+	position: absolute;
+	top: 140px;
+	left:520px;
+	width: 190px;
+	height: 35px;
+	background-color: #009688;
+	color: white;
+	font-weight: 200px;
+	font-size: 12px;
+}
+#hengxuxian{
+	width: 288px;
+	border: 1px dashed #A7A7A7;
+	display:  inline-block;
+	position: absolute;
+	top: 230px;	
+	left: 475px;
+}
+#qitadenglufangshi{
+	color: #969696;
+	width: 100px;
+	float: right;
+	position: absolute;
+	top: 240px;
+	left: 480px;
+}
+#qitadenglufangshitubiao{
+	float: right;
+	position: absolute;
+	top: 300px;
+	left: 500px;
+}
+#qita1{
+	
+}
+#qita2{
+	float: right;
+	position: absolute;
+	top: 0px;
+	left: 75px;
+}
+#qita3{
+	float: right;
+	position: absolute;
+	top: 0px;
+	left: 150px;
+}
