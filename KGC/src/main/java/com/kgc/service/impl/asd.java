@@ -6,7 +6,6 @@ public class asd {
         System.out.println("孙阔");
         System.out.println("好运来呀 好运来");
         System.out.println("孙阔洗白白");
-        System.out.println("好运来呀 好运来");
     }
 }
 
