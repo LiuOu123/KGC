@@ -3,7 +3,7 @@
 <mapper namespace="com.kgc.mapper.UserInfoMapper" >
   <resultMap id="BaseResultMap" type="com.kgc.pojo.UserInfo" >
     <id column="uId" property="uid" jdbcType="INTEGER" />
-    <result column="accid" property="accid" jdbcType="VARCHAR" />
+    <result column="accid" property="accid" jdbcType="INTEGER" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
@@ -114,7 +114,7 @@
       email, phone, touxiang, 
       qianming, modification, utype, 
       score)
-    values (#{uid,jdbcType=INTEGER}, #{accid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+    values (#{uid,jdbcType=INTEGER}, #{accid,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{touxiang,jdbcType=VARCHAR}, 
       #{qianming,jdbcType=VARCHAR}, #{modification,jdbcType=TIMESTAMP}, #{utype,jdbcType=INTEGER}, 
@@ -168,7 +168,7 @@
         #{uid,jdbcType=INTEGER},
       </if>
       <if test="accid != null" >
-        #{accid,jdbcType=VARCHAR},
+        #{accid,jdbcType=INTEGER},
       </if>
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
         uId = #{record.uid,jdbcType=INTEGER},
       </if>
       <if test="record.accid != null" >
-        accid = #{record.accid,jdbcType=VARCHAR},
+        accid = #{record.accid,jdbcType=INTEGER},
       </if>
       <if test="record.nickname != null" >
         nickname = #{record.nickname,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
   <update id="updateByExample" parameterType="map" >
     update userinfo
     set uId = #{record.uid,jdbcType=INTEGER},
-      accid = #{record.accid,jdbcType=VARCHAR},
+      accid = #{record.accid,jdbcType=INTEGER},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
       sex = #{record.sex,jdbcType=VARCHAR},
@@ -281,7 +281,7 @@
     update userinfo
     <set >
       <if test="accid != null" >
-        accid = #{accid,jdbcType=VARCHAR},
+        accid = #{accid,jdbcType=INTEGER},
       </if>
       <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
@@ -321,7 +321,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kgc.pojo.UserInfo" >
     update userinfo
-    set accid = #{accid,jdbcType=VARCHAR},
+    set accid = #{accid,jdbcType=INTEGER},
       nickname = #{nickname,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       sex = #{sex,jdbcType=VARCHAR},

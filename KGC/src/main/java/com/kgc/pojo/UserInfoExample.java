@@ -175,62 +175,52 @@ public class UserInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andAccidEqualTo(String value) {
+        public Criteria andAccidEqualTo(Integer value) {
             addCriterion("accid =", value, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidNotEqualTo(String value) {
+        public Criteria andAccidNotEqualTo(Integer value) {
             addCriterion("accid <>", value, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidGreaterThan(String value) {
+        public Criteria andAccidGreaterThan(Integer value) {
             addCriterion("accid >", value, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidGreaterThanOrEqualTo(String value) {
+        public Criteria andAccidGreaterThanOrEqualTo(Integer value) {
             addCriterion("accid >=", value, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidLessThan(String value) {
+        public Criteria andAccidLessThan(Integer value) {
             addCriterion("accid <", value, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidLessThanOrEqualTo(String value) {
+        public Criteria andAccidLessThanOrEqualTo(Integer value) {
             addCriterion("accid <=", value, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidLike(String value) {
-            addCriterion("accid like", value, "accid");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccidNotLike(String value) {
-            addCriterion("accid not like", value, "accid");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccidIn(List<String> values) {
+        public Criteria andAccidIn(List<Integer> values) {
             addCriterion("accid in", values, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidNotIn(List<String> values) {
+        public Criteria andAccidNotIn(List<Integer> values) {
             addCriterion("accid not in", values, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidBetween(String value1, String value2) {
+        public Criteria andAccidBetween(Integer value1, Integer value2) {
             addCriterion("accid between", value1, value2, "accid");
             return (Criteria) this;
         }
 
-        public Criteria andAccidNotBetween(String value1, String value2) {
+        public Criteria andAccidNotBetween(Integer value1, Integer value2) {
             addCriterion("accid not between", value1, value2, "accid");
             return (Criteria) this;
         }

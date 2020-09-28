@@ -5,7 +5,7 @@ import java.util.Date;
 public class UserInfo {
     private Integer uid;
 
-    private String accid;
+    private Integer accid;
 
     private String nickname;
 
@@ -37,12 +37,12 @@ public class UserInfo {
         this.uid = uid;
     }
 
-    public String getAccid() {
+    public Integer getAccid() {
         return accid;
     }
 
-    public void setAccid(String accid) {
-        this.accid = accid == null ? null : accid.trim();
+    public void setAccid(Integer accid) {
+        this.accid = accid;
     }
 
     public String getNickname() {
