@@ -1,7 +1,5 @@
 package com.kgc.service.impl;
 
-
-
 import com.kgc.mapper.UserInfoMapper;
 import com.kgc.mapper.UserMapper;
 import com.kgc.pojo.User;
@@ -9,10 +7,11 @@ import com.kgc.pojo.UserExample;
 import com.kgc.pojo.UserInfo;
 import com.kgc.pojo.UserInfoExample;
 import com.kgc.service.loQianTaiService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Service("loQianTaiService")
 public class loQianTaiServiceImpl implements loQianTaiService {
     @Resource
     UserMapper userMapper;
