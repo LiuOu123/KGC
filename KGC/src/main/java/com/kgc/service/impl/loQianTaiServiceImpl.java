@@ -1,11 +1,9 @@
 package com.kgc.service.impl;
 
+import com.kgc.mapper.PictureMapper;
 import com.kgc.mapper.UserInfoMapper;
 import com.kgc.mapper.UserMapper;
-import com.kgc.pojo.User;
-import com.kgc.pojo.UserExample;
-import com.kgc.pojo.UserInfo;
-import com.kgc.pojo.UserInfoExample;
+import com.kgc.pojo.*;
 import com.kgc.service.loQianTaiService;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +15,8 @@ public class loQianTaiServiceImpl implements loQianTaiService {
     UserMapper userMapper;
     @Resource
     UserInfoMapper userInfoMapper;
+    @Resource
+    PictureMapper pictureMapper;
     @Override
     public List<User> login(String username, String password) {
         UserExample example=new UserExample();
@@ -34,6 +34,21 @@ public class loQianTaiServiceImpl implements loQianTaiService {
         criteria.andAccidEqualTo(id);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         return userInfos;
+    }
+
+    @Override
+    public List<Picture> selectAll() {
+        List<Picture> pictures = pictureMapper.selectByExample(null);
+        return pictures;
+    }
+
+    @Override
+    public List<Picture> selectBy(int lei) {
+        PictureExample example=new PictureExample();
+        PictureExample.Criteria criteria = example.createCriteria();
+        criteria.andLeiEqualTo(lei);
+        List<Picture> pictures = pictureMapper.selectByExample(example);
+        return pictures;
     }
 
 

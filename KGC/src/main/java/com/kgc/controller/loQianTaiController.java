@@ -1,5 +1,6 @@
 package com.kgc.controller;
 
+import com.kgc.pojo.Picture;
 import com.kgc.pojo.User;
 import com.kgc.pojo.UserInfo;
 import com.kgc.service.loQianTaiService;
@@ -16,7 +17,7 @@ import java.util.List;
 public class loQianTaiController {
     @Resource
     loQianTaiService loQianTaiService;
-    @RequestMapping("/")
+    @RequestMapping("/")//初始页面跳转
     public String kai() {
         return "denglu";
     }
@@ -37,4 +38,21 @@ public class loQianTaiController {
             return "denglu";
         }
     }
+
+    @RequestMapping("/xilie")//第一次进入系列 读取全部
+    public String xilie(Model model){
+        List<Picture> pictures = loQianTaiService.selectAll();
+        model.addAttribute("pictures",pictures);
+        return "xilie";
+    }
+
+    @RequestMapping("/xiliemo")//根据类型去查询系列
+    public String xiliemo(Model model,int lei){
+        List<Picture> pictures = loQianTaiService.selectBy(lei);
+        model.addAttribute("pictures",pictures);
+        return "xilie";
+    }
+    
+
+
 }
