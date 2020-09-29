@@ -32,14 +32,14 @@
             <p id="denglubiaoti">欢迎登录</p>
             <p>
                 <!--登录框和登录框前面的图片-->
-            <form action="GetAll" method="post">
+            <form action="/login" method="post">
                 <i class="icon-user"><img src="/static/img/1586394090(1).png" width="29px" height="34px" id="denglukuangtu"/></i>
-                <input id="login_name"  name="email" style="padding-left: 30px;"  type="text" />
+                <input id="login_name"  name="username" style="padding-left: 30px;"  type="text" />
             </p>
             <p>
                 <!--密码框和密码前面的图片-->
                 <i class="icon-pass"><img src="/static/img/1586394102(1).png"  width="29px" height="34px" id="denglumimatu"/></i>
-                <input id="login_pass" name="passwd" style="padding-left: 30px;"  type="password" />
+                <input id="login_pass" name="password" style="padding-left: 30px;"  type="password" />
             </p>
             <p>
                 <!--登录按钮-->

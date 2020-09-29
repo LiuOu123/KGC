@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -166,11 +167,15 @@
     <img src="/static/statics/images/shouji.ico" style="margin-left: 720px;position: relative;top: 5px;" />
     <d style="color: #545454;color: #545454;position: relative;top: 2px;">手机网</d>
 
-    <a href="xiaoquchaxun.html"><input type="button" value="线下服务中心" style="width: 130px; background-color: #AECA2D;height: 20px;position: relative;top: 2px;color: white;border-radius: 5px;font-size: 12px;" /></a>
-    <a class="xinwenhover" id="liuou" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">登录</a>
-    <o  style="font-size:13px ;position: relative;top: 2px;margin-left: 5px;">|</o>
-    <a class="xinwenhover"	 id="liuou1" href="zhuce.html" style="font-size:13px ;position: relative;top: 2px;margin-left: 5px;">注册</a>
-    <a class="xinwenhover"	 id="liuou1" href="zhuce.html" style="font-size:13px ;position: relative;top: 2px;margin-left: 5px;">同学</a>
+    <a href="/static/jsp/xiaoquchaxun.jsp"><input type="button" value="线下服务中心" style="width: 130px; background-color: #AECA2D;height: 20px;position: relative;top: 2px;color: white;border-radius: 5px;font-size: 12px;" /></a>
+    <c:if test="${sessionScope.username==null}">
+        <a class="xinwenhover" id="liuou1" href="/static/jsp/denglu.jsp" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">登录</a>
+        <o style="font-size:13px ;position: relative;top: 2px;margin-left: 5px;">|</o>
+        <a class="xinwenhover"	 id="liuou1" href="/static/jsp/zhuce.jsp" style="font-size:13px ;position: relative;top: 2px;margin-left: 5px;">注册</a>
+    </c:if>
+    <c:if test="${sessionScope.username!=null}">
+        <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你，${sessionScope.username}同学</a>
+    </c:if>
 </div>
 <script type="text/javascript">
     $("#liuou").mouseover(function(){
@@ -1412,7 +1417,7 @@
 
                     <a href="#" id="biaozizi" style="position: relative;left: 40px;">课工场学院</a>
 
-                    <a href="daxuejiaocai.html" id="biaozizi" style="position: relative;left: 50px;">大学教材</a>
+                    <a href="/static/jsp/daxuejiaocai.jsp" id="biaozizi" style="position: relative;left: 50px;">大学教材</a>
 
                     <a href="#" id="biaozizi" style="position: relative;left: 60px;">师资力量</a>
 
@@ -1420,7 +1425,7 @@
 
                     <a href="#" id="biaozizi" style="position: relative;left: 80px;">在线课程</a>
 
-                    <a href="pinpaijieshao.html" id="biaozizi" style="position: relative;left: 90px;">关于我们</a>
+                    <a href="/static/jsp/pinpaijieshao.jsp" id="biaozizi" style="position: relative;left: 90px;">关于我们</a>
                 </center>
             </div>
 

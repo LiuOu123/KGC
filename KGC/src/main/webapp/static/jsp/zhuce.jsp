@@ -16,13 +16,13 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="/static/res/layui//static/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/res/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/static/res/admin.css" media="all">
     <link rel="stylesheet" href="/static/res/login.css" media="all">
     <link rel="stylesheet" type="text/css" href="/static/css/zhuce.css" />
-    <script src="/static/res/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/res/js/jquery-3.4.1.min.js"></script>
     <script src="/static/res/layui/layui.js"></script>
-    <script src="/static/res/static/js/add.js"></script>
+    <script src="/static/res/js/add.js"></script>
     <script src="/static/js/denglu.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
