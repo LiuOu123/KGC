@@ -25,6 +25,35 @@ public class LunTan {
 
     private Integer type;
 
+    private UserInfo userInfo;
+
+
+    @Override
+    public String toString() {
+        return "LunTan{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", neirong='" + neirong + '\'' +
+                ", userid=" + userid +
+                ", img='" + img + '\'' +
+                ", time=" + time +
+                ", liulanliang=" + liulanliang +
+                ", lei='" + lei + '\'' +
+                ", wanjie=" + wanjie +
+                ", jingtie=" + jingtie +
+                ", type=" + type +
+                ", userInfo=" + userInfo +
+                '}';
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -112,4 +141,5 @@ public class LunTan {
     public void setType(Integer type) {
         this.type = type;
     }
+
 }

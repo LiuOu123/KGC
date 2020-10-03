@@ -15,6 +15,29 @@ public class TieZiHiuFu {
 
     private Integer tiezitype;
 
+    private UserInfo userInfo;
+
+    @Override
+    public String toString() {
+        return "TieZiHiuFu{" +
+                "id=" + id +
+                ", luntanid=" + luntanid +
+                ", userid=" + userid +
+                ", neirong='" + neirong + '\'' +
+                ", time=" + time +
+                ", tiezitype=" + tiezitype +
+                ", userInfo=" + userInfo +
+                '}';
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
     public Integer getId() {
         return id;
     }
