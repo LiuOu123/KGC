@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html>
@@ -40,8 +41,21 @@
     <input type="text" placeholder="搜索" id="sousuokuang" />
     <!--app下载 登录|注册-->
     <div id="sia">
-        <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative;left: -30px;">APP下载</a>
-        <a href="#" class="siaa" style="position:relative;left:-20px ;">欢迎&nbsp;&nbsp;&nbsp;${d.name }&nbsp;&nbsp;&nbsp;同学</a>
+        <c:if test="${sessionScope.username==null}">
+            <a href="#" class="siaa" style="position:relative;left:-20px ;">登陆&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;注册</a>
+        </c:if>
+        <c:if test="${sessionScope.username!=null}">
+            <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative; left: 30px">APP下载</a>
+            <c:if test="${sessionScope.usertype==1}">
+                <a href="#" class="siaa" style="position:relative;left:50px ;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username}同学</a>
+            </c:if>
+            <c:if test="${sessionScope.usertype==2}">
+                <a href="#" class="siaa" style="position:relative;left:50px ;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username}老师</a>
+            </c:if>
+            <c:if test="${sessionScope.usertype==3}">
+                <a href="#" class="siaa" style="position:relative;left:50px ;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username}管理员</a>
+            </c:if>
+        </c:if>
     </div>
     <img src="/static/img/zhihuierweima.jpg" id="apperweima" style="float: right;position: absolute;top: 50px;left: 1180px;" />
 </div>

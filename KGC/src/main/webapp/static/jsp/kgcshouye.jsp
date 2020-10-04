@@ -174,7 +174,15 @@
         <a class="xinwenhover"	 id="liuou1" href="/static/jsp/zhuce.jsp" style="font-size:13px ;position: relative;top: 2px;margin-left: 5px;">注册</a>
     </c:if>
     <c:if test="${sessionScope.username!=null}">
-        <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你，${sessionScope.username}同学</a>
+        <c:if test="${sessionScope.usertype==1}">
+            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${sessionScope.username}同学</a>
+        </c:if>
+        <c:if test="${sessionScope.usertype==2}">
+            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${sessionScope.username}老师</a>
+        </c:if>
+        <c:if test="${sessionScope.usertype==3}">
+            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${sessionScope.username}管理员</a>
+        </c:if>
     </c:if>
 </div>
 <script type="text/javascript">

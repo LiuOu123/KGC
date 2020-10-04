@@ -101,8 +101,18 @@
         <li>
             <a class="wode" href="#" name="tou" style="position: relative;top: -20px;">社区</a>
         </li>
-        <c:if test="${sessionScope.denglu != null }">
-            <c:forEach items="${sessionScope.denglu}" var="d">
+        <c:if test="${sessionScope.username != null }">
+            <c:if test="${sessionScope.usertype==1}">
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;同学</a>
+            </c:if>
+            <c:if test="${sessionScope.usertype==2}">
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;老师</a>
+            </c:if>
+            <c:if test="${sessionScope.usertype==3}">
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;管理员</a>
+                <a style="margin-left:50px" href="guanlizhu">后台</a>
+            </c:if>
+           <%-- <c:forEach items="${sessionScope.denglu}" var="d">
 
                 <c:if test="${d.lei == 0 }">
                     <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.nicheng }&nbsp;&nbsp;&nbsp;同学</a>
@@ -114,9 +124,9 @@
                     <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${SessionScope.nicheng }&nbsp;&nbsp;&nbsp;管理员</a>
                     <a style="margin-left:50px" href="guanlizhu">后台</a>
                 </c:if>
-            </c:forEach>
+            </c:forEach>--%>
         </c:if>
-        <c:if test="${sessionScope.denglu == null }">
+        <c:if test="${sessionScope.username == null }">
             <li>
                 <a href="#" style="margin-left: 120px; color: #AECA2D;position: relative;top: -20px">APP下载</a>
             </li>
