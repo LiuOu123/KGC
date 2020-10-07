@@ -1,6 +1,7 @@
 package com.kgc.service.impl;
 
 import com.kgc.mapper.PictureMapper;
+import com.kgc.mapper.PleiMapper;
 import com.kgc.mapper.UserInfoMapper;
 import com.kgc.mapper.UserMapper;
 import com.kgc.pojo.*;
@@ -17,6 +18,8 @@ public class loQianTaiServiceImpl implements loQianTaiService {
     UserInfoMapper userInfoMapper;
     @Resource
     PictureMapper pictureMapper;
+    @Resource
+    PleiMapper pleiMapper;
     @Override
     public List<User> login(String username, String password) {
         UserExample example=new UserExample();
@@ -49,6 +52,12 @@ public class loQianTaiServiceImpl implements loQianTaiService {
         criteria.andLeiEqualTo(lei);
         List<Picture> pictures = pictureMapper.selectByExample(example);
         return pictures;
+    }
+
+    @Override
+    public List<Plei> selectAllPLei() {
+        List<Plei> pleis = pleiMapper.selectByExample(null);
+        return pleis;
     }
 
 

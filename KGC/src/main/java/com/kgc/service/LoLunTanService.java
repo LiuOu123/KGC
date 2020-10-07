@@ -19,4 +19,9 @@ public interface LoLunTanService {
     List<LunTan> selectZhiDing();//查找置顶的帖子
     LunTan selectLunTanByTiTle(String title);//根据标题查帖子
     List<TieZiHiuFu> selectHuiFU(int tieziid);//根据帖子的id查找该帖子的回复 并且将回复的用户信息一起查出来
+    int insertTieZiHuiFu(TieZiHiuFu tieZiHiuFu);//添加帖子的回复
+    LunTan selectByLunTanId(int id);//根据论坛id查找论坛信息
+    UserInfo selectByNiCheng(String username);//根据昵称查找用户信息
+    List<LunTan> selectLunTanByUserId(int id);//根据用户id查找发过的帖子
+    List<TieZiHiuFu> selectTZHFByUserId(int id);//根据用户id查找给帖子的回复
 }

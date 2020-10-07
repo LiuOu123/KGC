@@ -192,4 +192,43 @@ public class LoLunTanServiceImpl implements LoLunTanService {
         }
         return tieZiHiuFus;
     }
+
+    @Override
+    public int insertTieZiHuiFu(TieZiHiuFu tieZiHiuFu) {
+        int i = tieZiHiuFuMapper.insertSelective(tieZiHiuFu);
+        return i;
+    }
+
+    @Override
+    public LunTan selectByLunTanId(int id) {
+        LunTan lunTan = lunTanMapper.selectByPrimaryKey(id);
+        return lunTan;
+    }
+
+    @Override
+    public UserInfo selectByNiCheng(String username) {
+        UserInfoExample example=new UserInfoExample();
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andNicknameEqualTo(username);
+        List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
+        return userInfos.get(userInfos.size()-1);
+    }
+
+    @Override
+    public List<LunTan> selectLunTanByUserId(int id) {
+        LunTanExample example=new LunTanExample();
+        LunTanExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(id);
+        List<LunTan> lunTans = lunTanMapper.selectByExample(example);
+        return lunTans;
+    }
+
+    @Override
+    public List<TieZiHiuFu> selectTZHFByUserId(int id) {
+        TieZiHiuFuExample example=new TieZiHiuFuExample();
+        TieZiHiuFuExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(id);
+        List<TieZiHiuFu> tieZiHiuFus = tieZiHiuFuMapper.selectByExample(example);
+        return tieZiHiuFus;
+    }
 }

@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class LoLunTanController {
@@ -172,4 +169,49 @@ public class LoLunTanController {
         model.addAttribute("tiezihuifu",tieZiHiuFus);//回复信息
         return "luntanxiang";
     }
+    //论坛详细页面给帖子的回复
+    @RequestMapping("/huitie")
+    public String huitie(Model model,TieZiHiuFu tieZiHiuFu){
+        tieZiHiuFu.setTime(new Date());
+        tieZiHiuFu.setTiezitype(1);
+        System.out.println(tieZiHiuFu.toString());
+        int pljie = loLunTanService.insertTieZiHuiFu(tieZiHiuFu);
+        System.out.println("评论添加："+pljie);
+        LunTan lunTan = loLunTanService.selectByLunTanId(tieZiHiuFu.getLuntanid());
+        return "redirect:/luntanxiangxi?title="+lunTan.getTitle();
+    }
+
+    //论坛用户主页
+
+    //主页用户信息
+    @RequestMapping("/zhuye{username}")
+    @ResponseBody
+    public Map<String,Object> zhuye(String username,Model model){
+        Map<String,Object> map=new HashMap<>();
+        UserInfo userInfo = loLunTanService.selectByNiCheng(username);//根据用户昵称查找用户信息
+        map.put("data",userInfo);
+        return map;
+    }
+    //主页用户发过的帖子
+    @RequestMapping("/zhuyefatie{id}")
+    @ResponseBody
+    public Map<String,Object> fatie(int id,Model model){
+        Map<String,Object> map=new HashMap<>();
+        List<LunTan> lunTans = loLunTanService.selectLunTanByUserId(id);//根据用户id返回发过的帖子
+        PageInfo<LunTan> pageInfo = new PageInfo<>(lunTans);
+        map.put("data",pageInfo);
+        return map;
+    }
+    //主页用户发过的回帖
+    @RequestMapping("/zhuyehuitie{id}")
+    @ResponseBody
+    public Map<String,Object> zhuyehuitie(int id,Model model){
+        Map<String,Object> map=new HashMap<>();
+        List<TieZiHiuFu> tieZiHiuFus = loLunTanService.selectTZHFByUserId(id);//根据用户id查询给所有帖子的回帖
+        PageInfo<TieZiHiuFu> pageInfo = new PageInfo<>(tieZiHiuFus);
+        map.put("data",pageInfo);
+        return map;
+    }
+
+
 }

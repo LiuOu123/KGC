@@ -1,6 +1,7 @@
 package com.kgc.controller;
 
 import com.kgc.pojo.Picture;
+import com.kgc.pojo.Plei;
 import com.kgc.pojo.User;
 import com.kgc.pojo.UserInfo;
 import com.kgc.service.loQianTaiService;
@@ -42,8 +43,10 @@ public class loQianTaiController {
 
     @RequestMapping("/xilie")//第一次进入系列 读取全部
     public String xilie(Model model){
-        List<Picture> pictures = loQianTaiService.selectAll();
+        List<Picture> pictures = loQianTaiService.selectAll();//查询所有课程
+        List<Plei> pleis = loQianTaiService.selectAllPLei();//查找课程的分类
         model.addAttribute("pictures",pictures);
+        model.addAttribute("pleis",pleis);
         return "xilie";
     }
 
@@ -53,6 +56,7 @@ public class loQianTaiController {
         model.addAttribute("pictures",pictures);
         return "xilie";
     }
+
     
 
 
