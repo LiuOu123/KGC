@@ -1,6 +1,7 @@
 package com.kgc.service.impl;
 
 import com.kgc.mapper.LunTanMapper;
+import com.kgc.mapper.ShouCangMapper;
 import com.kgc.mapper.TieZiHiuFuMapper;
 import com.kgc.mapper.UserInfoMapper;
 import com.kgc.pojo.*;
@@ -21,6 +22,8 @@ public class LoLunTanServiceImpl implements LoLunTanService {
     TieZiHiuFuMapper tieZiHiuFuMapper;
     @Resource
     LoLunTanService loLunTanService;
+    @Resource
+    ShouCangMapper shouCangMapper;
 
 
     @Override
@@ -218,6 +221,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
     public List<LunTan> selectLunTanByUserId(int id) {
         LunTanExample example=new LunTanExample();
         LunTanExample.Criteria criteria = example.createCriteria();
+        criteria.andTypeNotEqualTo(2);
         criteria.andUseridEqualTo(id);
         List<LunTan> lunTans = lunTanMapper.selectByExample(example);
         return lunTans;
@@ -230,5 +234,31 @@ public class LoLunTanServiceImpl implements LoLunTanService {
         criteria.andUseridEqualTo(id);
         List<TieZiHiuFu> tieZiHiuFus = tieZiHiuFuMapper.selectByExample(example);
         return tieZiHiuFus;
+    }
+
+    @Override
+    public List<ShouCang> selectSCByUserId(int id) {
+        ShouCangExample example=new ShouCangExample();
+        ShouCangExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(id);
+        criteria.andSctypeNotEqualTo(2);
+        List<ShouCang> shouCangs = shouCangMapper.selectByExample(example);
+        for(int i=0;i<shouCangs.size();i++){
+            LunTan lunTan = lunTanMapper.selectByPrimaryKey(shouCangs.get(i).getTieziid());
+            shouCangs.get(i).setLunTan(lunTan);
+        }
+        return shouCangs;
+    }
+
+    @Override
+    public int updateLunTanType(LunTan lunTan) {
+        int i = lunTanMapper.updateByPrimaryKeySelective(lunTan);
+        return i;
+    }
+
+    @Override
+    public int updateShouCangType(ShouCang shouCang) {
+        int i = shouCangMapper.updateByPrimaryKeySelective(shouCang);
+        return i;
     }
 }

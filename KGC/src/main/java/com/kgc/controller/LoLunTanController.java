@@ -2,10 +2,7 @@ package com.kgc.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kgc.pojo.LunTan;
-import com.kgc.pojo.LunTanHuiTie;
-import com.kgc.pojo.TieZiHiuFu;
-import com.kgc.pojo.UserInfo;
+import com.kgc.pojo.*;
 import com.kgc.service.LoLunTanService;
 import javafx.beans.binding.ObjectExpression;
 import org.springframework.stereotype.Controller;
@@ -192,7 +189,7 @@ public class LoLunTanController {
         map.put("data",userInfo);
         return map;
     }
-    //主页用户发过的帖子
+    //主页用户发过的帖子(分页)
     @RequestMapping("/zhuyefatie{id}")
     @ResponseBody
     public Map<String,Object> fatie(int id,Model model){
@@ -200,6 +197,20 @@ public class LoLunTanController {
         List<LunTan> lunTans = loLunTanService.selectLunTanByUserId(id);//根据用户id返回发过的帖子
         PageInfo<LunTan> pageInfo = new PageInfo<>(lunTans);
         map.put("data",pageInfo);
+        return map;
+    }
+    //删除用户发过的帖子 将type改成2 让用户看不到
+    @RequestMapping("/delfatie{id}")
+    @ResponseBody
+    public Map<String,Object> delfatie(int id){
+        Map<String,Object> map=new HashMap<>();
+        LunTan lunTan=new LunTan(id,2);
+        int i = loLunTanService.updateLunTanType(lunTan);
+        if(i>0){
+            map.put("status","true");
+        }else{
+            map.put("status","false");
+        }
         return map;
     }
     //主页用户发过的回帖
@@ -212,6 +223,39 @@ public class LoLunTanController {
         map.put("data",pageInfo);
         return map;
     }
+    //论坛用户中心收藏的帖子
+    @RequestMapping("/yonghuchoucangtiezi{id}")
+    @ResponseBody
+    public Map<String,Object> yonghuchoucangtiezi(int id){//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
+        Map<String,Object> map=new HashMap<>();
+        List<ShouCang> shouCangs = loLunTanService.selectSCByUserId(id);
+        map.put("data",shouCangs);
+        return map;
+    }
+    //将用户收藏的帖子类型修改为2让用户不可见
+    @RequestMapping("/updateshoucang{id}")
+    @ResponseBody
+    public Map<String,Object> updateshoucang(int id){
+        Map<String,Object> map=new HashMap<>();
+        ShouCang shouCang=new ShouCang(id,2);
+        int i = loLunTanService.updateShouCangType(shouCang);
+        if(i>0){
+            map.put("status","true");
+        }else{
+            map.put("status","false");
+        }
+        return map;
+    }
+    //论坛基本设置
+    @RequestMapping("/jibenshezhiyhxx{id}")
+    @ResponseBody
+    public Map<String,Object> jibenshezhiyhxx(int id) {//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
+        Map<String, Object> map = new HashMap<>();
+        List<UserInfo> userInfos = loLunTanService.selectByUserId(id);
+        map.put("data",userInfos);
+        return map;
+    }
+    
 
 
 }

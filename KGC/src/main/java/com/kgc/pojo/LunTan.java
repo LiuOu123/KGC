@@ -27,6 +27,13 @@ public class LunTan {
 
     private UserInfo userInfo;
 
+    public LunTan() {
+    }
+
+    public LunTan(Integer id, Integer type) {
+        this.id = id;
+        this.type = type;
+    }
 
     @Override
     public String toString() {
@@ -46,14 +53,6 @@ public class LunTan {
                 '}';
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -67,7 +66,7 @@ public class LunTan {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getNeirong() {
@@ -75,7 +74,7 @@ public class LunTan {
     }
 
     public void setNeirong(String neirong) {
-        this.neirong = neirong == null ? null : neirong.trim();
+        this.neirong = neirong;
     }
 
     public Integer getUserid() {
@@ -91,7 +90,7 @@ public class LunTan {
     }
 
     public void setImg(String img) {
-        this.img = img == null ? null : img.trim();
+        this.img = img;
     }
 
     public Date getTime() {
@@ -115,7 +114,7 @@ public class LunTan {
     }
 
     public void setLei(String lei) {
-        this.lei = lei == null ? null : lei.trim();
+        this.lei = lei;
     }
 
     public Integer getWanjie() {
@@ -142,4 +141,11 @@ public class LunTan {
         this.type = type;
     }
 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 }

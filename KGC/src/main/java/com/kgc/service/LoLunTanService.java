@@ -1,9 +1,6 @@
 package com.kgc.service;
 
-import com.kgc.pojo.LunTan;
-import com.kgc.pojo.LunTanHuiTie;
-import com.kgc.pojo.TieZiHiuFu;
-import com.kgc.pojo.UserInfo;
+import com.kgc.pojo.*;
 
 import java.util.List;
 
@@ -24,4 +21,7 @@ public interface LoLunTanService {
     UserInfo selectByNiCheng(String username);//根据昵称查找用户信息
     List<LunTan> selectLunTanByUserId(int id);//根据用户id查找发过的帖子
     List<TieZiHiuFu> selectTZHFByUserId(int id);//根据用户id查找给帖子的回复
+    List<ShouCang> selectSCByUserId(int id);//根据用户id查找收藏的帖子并且显示收藏帖子的信息
+    int updateLunTanType(LunTan lunTan);//根据用户id将这个论坛帖子修改成用户不可见
+    int updateShouCangType(ShouCang shouCang);//根据收藏id将该条信息类型修改为2 让用户不可见
 }
