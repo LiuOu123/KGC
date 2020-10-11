@@ -49,7 +49,7 @@
             <p>
                 <!--忘记密码 注册-->
                 <a href="#" id="dengluzi1">忘记密码</a>
-                <a href="zhuce.html" id="dengluzi2">注册</a>
+                <a href="/static/jsp/zhuce.jsp" id="dengluzi2">注册</a>
             </p>
             <p>
                 <!--其他方式登录-->

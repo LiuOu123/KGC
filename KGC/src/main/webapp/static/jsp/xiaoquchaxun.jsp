@@ -95,25 +95,25 @@
     <div id="sia">
         <c:if test="${sessionScope.username==null}">
             <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative;left: -30px;">APP下载</a>
-            <a href="#" class="siaa" style="position:relative;left:-20px ;" ;>登录</a>
+            <a href="/static/jsp/denglu.jsp" class="siaa" style="position:relative;left:-20px ;" ;>登录</a>
             <a href="#" class="siaa" style="position:relative;left:-20px ;">|</a>
-            <a href="#" class="siaa" style="position:relative;left:-20px ;">注册</a>
+            <a href="/static/jsp/zhuce.jsp" class="siaa" style="position:relative;left:-20px ;">注册</a>
         </c:if>
         <c:if test="${sessionScope.username!=null}">
             <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative;left: 40px;">APP下载</a>
             <c:if test="${sessionScope.usertype==1}">
                 <a href="#" class="siaa" style="position:relative;left:50px ;" ;>欢迎</a>
-                <a href="#" class="siaa" style="position:relative;left:50px ;">${sessionScope.username}</a>
+                <a href="#" class="siaa" style="position:relative;left:50px ;">${userxinxi.nickname}</a>
                 <a href="#" class="siaa" style="position:relative;left:50px ;">同学</a>
             </c:if>
             <c:if test="${sessionScope.usertype==2}">
                 <a href="#" class="siaa" style="position:relative;left:50px ;" ;>欢迎</a>
-                <a href="#" class="siaa" style="position:relative;left:50px ;">${sessionScope.username}</a>
+                <a href="#" class="siaa" style="position:relative;left:50px ;">${userxinxi.nickname}</a>
                 <a href="#" class="siaa" style="position:relative;left:50px ;">老师</a>
             </c:if>
             <c:if test="${sessionScope.usertype==3}">
                 <a href="#" class="siaa" style="position:relative;left:50px ;" ;>欢迎</a>
-                <a href="#" class="siaa" style="position:relative;left:50px ;">${sessionScope.username}</a>
+                <a href="#" class="siaa" style="position:relative;left:50px ;">${userxinxi.nickname}</a>
                 <a href="#" class="siaa" style="position:relative;left:50px ;">管理员</a>
             </c:if>
         </c:if>

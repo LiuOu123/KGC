@@ -175,13 +175,14 @@
     </c:if>
     <c:if test="${sessionScope.username!=null}">
         <c:if test="${sessionScope.usertype==1}">
-            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${sessionScope.username}同学</a>
+            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;同学</a>
         </c:if>
         <c:if test="${sessionScope.usertype==2}">
-            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${sessionScope.username}老师</a>
+            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;老师</a>
         </c:if>
         <c:if test="${sessionScope.usertype==3}">
-            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${sessionScope.username}管理员</a>
+            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;管理员</a>
+            <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
         </c:if>
     </c:if>
 </div>

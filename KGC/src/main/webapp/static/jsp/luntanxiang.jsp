@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +18,7 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="/static/res/layui/css/layui.css">
     <link rel="stylesheet" href="/static/res/css/global.css">
+    <script type="text/javascript" src="/static/res/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 
@@ -39,15 +42,15 @@
         <ul class="layui-nav fly-nav-user">
 
             <!-- 未登入的状态 -->
-            <!--
+            <c:if test="${sessionScope.username==null}">
             <li class="layui-nav-item">
               <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
             </li>
             <li class="layui-nav-item">
-              <a href="user/login.html">登入</a>
+              <a href="/">登入</a>
             </li>
             <li class="layui-nav-item">
-              <a href="user/reg.html">注册</a>
+              <a href="/static/jsp/zhuce.jsp">注册</a>
             </li>
             <li class="layui-nav-item layui-hide-xs">
               <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
@@ -55,15 +58,30 @@
             <li class="layui-nav-item layui-hide-xs">
               <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
             </li>
-             -->
+            </c:if>
+
 
             <!-- 登入后的状态 -->
+            <c:if test="${sessionScope.username!=null}">
             <li class="layui-nav-item">
                 <a class="fly-nav-avatar" href="javascript:;">
-                    <cite class="layui-hide-xs">贤心</cite>
-                    <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-                    <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+                    <cite class="layui-hide-xs">
+                        <c:if test="${usertype==1}">
+                            ${userxinxi.nickname}
+                        </c:if>
+                        <c:if test="${usertype==2}">
+                            ${userxinxi.nickname}
+                        </c:if>
+                        <c:if test="${usertype==3}">
+                            ${userxinxi.nickname}
+                            <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
+                        </c:if>
+                    </cite>
+                    <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
+                        <%--<cite class="layui-hide-xs">${sessionScope.username}</cite>
+                        <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
+                        <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
+                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">--%>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
@@ -73,6 +91,7 @@
                     <dd><a href="" style="text-align: center;">退出</a></dd>
                 </dl>
             </li>
+            </c:if>
         </ul>
     </div>
 </div>
@@ -110,29 +129,47 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
             <div class="fly-panel detail-box">
-                <h1>Fly Template v3.0，基于 layui 的极简社区页面模版</h1>
+                <h1><%--Fly Template v3.0，基于 layui 的极简社区页面模版--%>${luntan.title}</h1>
                 <div class="fly-detail-info">
                     <!-- <span class="layui-badge">审核中</span> -->
                     <span class="layui-badge layui-bg-green fly-detail-column">动态</span>
 
-                    <span class="layui-badge" style="background-color: #999;">未结</span>
+
+                    <c:if test="${luntan.wanjie==0}">
+                        <span class="layui-badge" style="background-color: #999;">未结</span>
+                    </c:if>
+                    <c:if test="${luntan.wanjie==1}">
+                        <span class="layui-badge" style="background-color: #5FB878;">已结</span>
+                    </c:if>
+
                     <!-- <span class="layui-badge" style="background-color: #5FB878;">已结</span> -->
 
-                    <span class="layui-badge layui-bg-black">置顶</span>
-                    <span class="layui-badge layui-bg-red">精帖</span>
+                    <%--<span class="layui-badge layui-bg-black">置顶</span>--%>
+                    <span class="layui-badge layui-bg-red">
+                        <c:if test="${luntan.jingtie==0}">
+                            非精贴
+                        </c:if>
+                        <c:if test="${luntan.jingtie==1}">
+                            精贴
+                        </c:if>
+                    </span>
 
                     <div class="fly-admin-box" data-id="123">
-                        <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
-
+                        <c:if test="${luntan.type==2}">
+                            <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+                        </c:if>
+                        <c:if test="${luntan.type==3}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
                         <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
-
-                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
+                        </c:if>
+                        <c:if test="${luntan.type==1}">
+                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">正常</span>
                         <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+                        </c:if>
                     </div>
                     <span class="fly-list-nums">
-            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>
-            <i class="iconfont" title="人气">&#xe60b;</i> 99999
+            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> ${tiezihuifu.size()}</a>
+            <i class="iconfont" title="人气">&#xe60b;</i> <%--99999--%>${luntan.liulanliang}
           </span>
                 </div>
                 <div class="detail-about">
@@ -141,22 +178,34 @@
                     </a>
                     <div class="fly-detail-user">
                         <a href="../user/home.html" class="fly-link">
-                            <cite>贤心</cite>
-                            <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
-                            <i class="layui-badge fly-badge-vip">VIP3</i>
+                            <cite>
+                                <c:if test="${usertype==1}">
+                                    ${userxinxi.nickname}
+                                </c:if>
+                                <c:if test="${usertype==2}">
+                                    ${userxinxi.nickname}
+                                </c:if>
+                                <c:if test="${usertype==3}">
+                                    ${userxinxi.nickname}
+                                    <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
+                                </c:if>
+                            </cite>
+                            <%--<i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>--%>
+                            <%--<i class="layui-badge fly-badge-vip">VIP3</i>--%>
                         </a>
-                        <span>2017-11-30</span>
+                        <span><%--2017-11-30--%><fmt:formatDate value="${luntan.time}" pattern="yyyy-MM-dd"></fmt:formatDate></span>
                     </div>
                     <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
-                        <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>
+                        <%--<span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>--%>
                         <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
                     </div>
                 </div>
                 <div class="detail-body photos">
-                    <p>
-                        该模版由 layui官方社区（<a href="http://fly.layui.com/" target="_blank">fly.layui.com</a>）倾情提供，只为表明我们对 layui 执着的信念、以及对未来持续加强的承诺。该模版基于 layui 搭建而成，可作为极简通用型社区的页面支撑。
-                    </p>
-                    <p>更新日志：</p>
+                    <%--<p>
+                        &lt;%&ndash;该模版由 layui官方社区（<a href="http://fly.layui.com/" target="_blank">fly.layui.com</a>）倾情提供，只为表明我们对 layui 执着的信念、以及对未来持续加强的承诺。该模版基于 layui 搭建而成，可作为极简通用型社区的页面支撑。&ndash;%&gt;
+                        ${luntan.neirong}
+                    </p>--%>
+                    <%--<p>更新日志：</p>
                     <pre>
 # v3.0 2017-11-30
 * 采用 layui 2.2.3 作为 UI 支撑
@@ -169,10 +218,15 @@
                         官网：<a href="http://www.layui.com/template/fly/" target="_blank">http://www.layui.com/template/fly/</a><br>
                         码云：<a href="https://gitee.com/sentsin/fly/" target="_blank">https://gitee.com/sentsin/fly/</a><br>
                         GitHub：<a href="https://github.com/layui/fly" target="_blank">https://github.com/layui/fly</a>
-                    </p>
-                    封面<hr>
+                    </p>--%>
+                    <h3>内容</h3><hr>
+                        <p>
+                            <%--该模版由 layui官方社区（<a href="http://fly.layui.com/" target="_blank">fly.layui.com</a>）倾情提供，只为表明我们对 layui 执着的信念、以及对未来持续加强的承诺。该模版基于 layui 搭建而成，可作为极简通用型社区的页面支撑。--%>
+                            ${luntan.neirong}
+                        </p>
                     <p>
-                        <img src="/static/res/images/fly.jpg" alt="Fly社区">
+                        <%--<img src="/static/res/images/fly.jpg" alt="Fly社区">--%>
+                            <img src="/static/luntan/touxiang/${luntan.img}" style="width: 750px;height: 500px;" alt="Fly社区">
                     </p>
                 </div>
             </div>
@@ -183,54 +237,67 @@
                 </fieldset>
 
                 <ul class="jieda" id="jieda">
-                    <li data-id="111" class="jieda-daan">
-                        <a name="item-1111111111"></a>
-                        <div class="detail-about detail-about-reply">
-                            <a class="fly-avatar" href="">
-                                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">
-                            </a>
-                            <div class="fly-detail-user">
-                                <a href="" class="fly-link">
-                                    <cite>贤心</cite>
-                                    <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                                    <i class="layui-badge fly-badge-vip">VIP3</i>
+                    <c:forEach items="${tiezihuifu}" var="tiezihuifu">
+                        <li data-id="111" class="jieda-daan">
+                            <a name="item-1111111111"></a>
+                            <div class="detail-about detail-about-reply">
+                                <a class="fly-avatar" href="">
+                                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">
                                 </a>
+                                <div class="fly-detail-user">
+                                    <a href="" class="fly-link">
+                                        <cite>
+                                            <c:if test="${tiezihuifu.userInfo.utype==1}">
+                                                ${tiezihuifu.userInfo.nickname}
+                                            </c:if>
+                                            <c:if test="${tiezihuifu.userInfo.utype==2}">
+                                                ${tiezihuifu.userInfo.nickname}
+                                            </c:if>
+                                            <c:if test="${tiezihuifu.userInfo.utype==3}">
+                                                ${tiezihuifu.userInfo.nickname}
+                                                <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
+                                            </c:if>
+                                        </cite>
+                                        <%--<i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                                        <i class="layui-badge fly-badge-vip">VIP3</i>--%>
+                                    </a>
 
-                                <span>(楼主)</span>
-                                <!--
-                                <span style="color:#5FB878">(管理员)</span>
-                                <span style="color:#FF9E3F">（社区之光）</span>
-                                <span style="color:#999">（该号已被封）</span>
-                                -->
+                                    <span>(楼主)</span>
+                                    <!--
+                                    <span style="color:#5FB878">(管理员)</span>
+                                    <span style="color:#FF9E3F">（社区之光）</span>
+                                    <span style="color:#999">（该号已被封）</span>
+                                    -->
+                                </div>
+
+                                <div class="detail-hits">
+                                    <span><fmt:formatDate value="${tiezihuifu.time}" pattern="yyyy-mm-dd"></fmt:formatDate></span>
+                                </div>
+
+                                <i class="iconfont icon-caina" title="最佳答案"></i>
                             </div>
-
-                            <div class="detail-hits">
-                                <span>2017-11-30</span>
+                            <div class="detail-body jieda-body photos">
+                                <p>${tiezihuifu.neirong}</p>
                             </div>
-
-                            <i class="iconfont icon-caina" title="最佳答案"></i>
-                        </div>
-                        <div class="detail-body jieda-body photos">
-                            <p>香菇那个蓝瘦，这是一条被采纳的回帖</p>
-                        </div>
-                        <div class="jieda-reply">
+                            <div class="jieda-reply">
               <span class="jieda-zan zanok" type="zan">
                 <i class="iconfont icon-zan"></i>
                 <em>66</em>
               </span>
-                            <span type="reply">
+                                <span type="reply">
                 <i class="iconfont icon-svgmoban53"></i>
                 回复
               </span>
-                            <div class="jieda-admin">
-                                <span type="edit">编辑</span>
-                                <span type="del">删除</span>
-                                <!-- <span class="jieda-accept" type="accept">采纳</span> -->
+                                <div class="jieda-admin">
+                                    <span type="edit">编辑</span>
+                                    <span type="del">删除</span>
+                                    <!-- <span class="jieda-accept" type="accept">采纳</span> -->
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    </c:forEach>
 
-                    <li data-id="111">
+                    <%--<li data-id="111">
                         <a name="item-1111111111"></a>
                         <div class="detail-about detail-about-reply">
                             <a class="fly-avatar" href="">
@@ -263,7 +330,7 @@
                                 <span class="jieda-accept" type="accept">采纳</span>
                             </div>
                         </div>
-                    </li>
+                    </li>--%>
 
                     <!-- 无数据时 -->
                     <!-- <li class="fly-none">消灭零回复</li> -->
@@ -286,9 +353,9 @@
             </div>
         </div>
         <div class="layui-col-md4">
-            <dl class="fly-panel fly-list-one">
+            <dl class="fly-panel fly-list-one" id="remen">
                 <dt class="fly-panel-title">本周热议</dt>
-                <dd>
+                <%--<dd>
                     <a href="">基于 layui 的极简社区页面模版</a>
                     <span><i class="iconfont icon-pinglun1"></i> 16</span>
                 </dd>
@@ -327,14 +394,25 @@
                 <dd>
                     <a href="">基于 layui 的极简社区页面模版</a>
                     <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
+                </dd>--%>
 
                 <!-- 无数据时 -->
                 <!--
                 <div class="fly-none">没有相关数据</div>
                 -->
             </dl>
-
+            <script type="text/javascript">
+                $(function () {
+                    //发送请求
+                    $.post("/remen", function (result) {
+                        $.each(result.data.list, function (index, luntan) {
+                            console.log(luntan.title)
+                            var $li = $("<dd><a  href='' target='_blank'>" + luntan.title + "</a><span><i class=\"iconfont icon-pinglun1\"></i>${tiezihuifu.size()}</span></dd>");
+                            $("#remen").append($li);
+                        })
+                    }, "json")
+                })
+            </script>
             <div class="fly-panel">
                 <div class="fly-panel-title">
                     这里可作为广告区域
