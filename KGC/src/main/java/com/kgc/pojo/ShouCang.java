@@ -15,6 +15,37 @@ public class ShouCang {
 
     private Integer sctype;
 
+    private LunTan lunTan;
+
+    public ShouCang() {
+    }
+
+    public ShouCang(Integer id, Integer sctype) {
+        this.id = id;
+        this.sctype = sctype;
+    }
+
+    @Override
+    public String toString() {
+        return "ShouCang{" +
+                "id=" + id +
+                ", userid=" + userid +
+                ", tieziid=" + tieziid +
+                ", sc=" + sc +
+                ", time=" + time +
+                ", sctype=" + sctype +
+                ", lunTan=" + lunTan +
+                '}';
+    }
+
+    public LunTan getLunTan() {
+        return lunTan;
+    }
+
+    public void setLunTan(LunTan lunTan) {
+        this.lunTan = lunTan;
+    }
+
     public Integer getId() {
         return id;
     }
