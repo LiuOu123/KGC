@@ -223,14 +223,13 @@
                style="position: relative; top: -20px;">社区</a></li>
         <c:if test="${sessionScope.username != null }">
             <c:if test="${sessionScope.usertype==1}">
-                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;同学</a>
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;&nbsp;同学</a>
             </c:if>
             <c:if test="${sessionScope.usertype==2}">
-                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;老师</a>
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;&nbsp;老师</a>
             </c:if>
             <c:if test="${sessionScope.usertype==3}">
-                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;管理员</a>
-                <a style="margin-left:50px" href="guanlizhu">后台</a>
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;&nbsp;管理员</a>
             </c:if>
             <%--<c:forEach items="${sessionScope.denglu}" var="d">
 
@@ -247,14 +246,11 @@
             </c:forEach>--%>
         </c:if>
         <c:if test="${sessionScope.username == null }">
-            <li><a href="#"
-                   style="margin-left: 120px; color: #AECA2D; position: relative; top: -20px">APP下载</a>
+            <li><a href="#" style="margin-left: 120px; color: #AECA2D; position: relative; top: -20px">APP下载</a>
             </li>
-            <li><a class="wode" href="denglu.jsp"
-                   style="position: relative; top: -20px">登录</a></li>
+            <li><a class="wode" href="/static/jsp/denglu.jsp" style="position: relative; top: -20px">登录</a></li>
             <li style="position: relative; top: -20px">|</li>
-            <li><a class="wode" href="zhuce.jsp"
-                   style="position: relative; top: -20px">注册</a></li>
+            <li><a class="wode" href="/static/jsp/zhuce.jsp" style="position: relative; top: -20px">注册</a></li>
         </c:if>
     </ul>
 </div>

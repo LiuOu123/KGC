@@ -66,7 +66,18 @@
             <c:if test="${userid != null}">
                 <li class="layui-nav-item">
                     <a class="fly-nav-avatar" href="javascript:;">
-                        <cite class="layui-hide-xs" id="nicheng">${userxinxi.nickname}</cite>
+                        <cite class="layui-hide-xs" id="nicheng">
+                            <c:if test="${usertype==1}">
+                                ${userxinxi.nickname}
+                            </c:if>
+                            <c:if test="${usertype==2}">
+                                ${userxinxi.nickname}
+                            </c:if>
+                            <c:if test="${usertype==3}">
+                                ${userxinxi.nickname}
+                                <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
+                            </c:if>
+                        </cite>
                         <%--<i class="iconfont icon-renzheng layui-hide-xs" title="" id="gexingqianming">${userxinxi.qianming}</i>--%>
                         <%--<i class="layui-badge fly-badge-vip layui-hide-xs" id="vip"></i>--%>
                         <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
@@ -186,11 +197,22 @@
                                 </a>
                                 <h2>
                                     <a class="layui-badge">${l.lei}</a>
-                                    <a href="jie/detail.html">${l.title}</a>
+                                    <a href="/luntanxiangxi{title}?title=${l.title}">${l.title}</a>
                                 </h2>
                                 <div class="fly-list-info">
                                     <a href="user/home.html" link>
-                                        <cite>${l.userInfo.nickname}</cite>
+                                        <cite>
+                                            <c:if test="${l.userInfo.utype==1}">
+                                                ${l.userInfo.nickname}
+                                            </c:if>
+                                            <c:if test="${l.userInfo.utype==2}">
+                                                ${l.userInfo.nickname}
+                                            </c:if>
+                                            <c:if test="${l.userInfo.utype==3}">
+                                                ${l.userInfo.nickname}
+                                                <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
+                                            </c:if>
+                                        </cite>
                                         <!--
                                         <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                                         <i class="layui-badge fly-badge-vip">VIP3</i>
@@ -246,7 +268,7 @@
                             </a>
                             <h2>
                                 <a class="layui-badge">${l.lei}</a>
-                                <a href="jie/detail.html">${l.title}</a>
+                                <a href="/luntanxiangxi{title}?title=${l.title}">${l.title}</a>
                             </h2>
                             <div class="fly-list-info">
                                 <a href="user/home.html" link>

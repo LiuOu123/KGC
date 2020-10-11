@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +37,25 @@
     <input type="text" placeholder="搜索" id="sousuokuang" />
     <!--app下载 登录|注册-->
     <div id="sia">
-        <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative;left: -30px;">APP下载</a>
-        <a href="#" class="siaa" style="position:relative;left:-20px ;" ;>登录</a>
-        <a href="#" class="siaa" style="position:relative;left:-20px ;">|</a>
-        <a href="#" class="siaa" style="position:relative;left:-20px ;">注册</a>
+        <c:if test="${sessionScope.username==null}">
+            <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative;left: -30px;">APP下载</a>
+            <a href="/static/jsp/denglu.jsp" class="siaa" style="position:relative;left:-20px ;" ;>登录</a>
+            <a href="#" class="siaa" style="position:relative;left:-20px ;">|</a>
+            <a href="/static/jsp/zhuce.jsp" class="siaa" style="position:relative;left:-20px ;">注册</a>
+        </c:if>
+        <c:if test="${sessionScope.username!=null}">
+            <a href="#" id="appa" style=" color: #9FC005;text-decoration: none;position:relative;left: -30px;">APP下载</a>
+            <c:if test="${sessionScope.usertype==1}">
+                <a href="#" class="siaa" style="position:relative;left:-20px ;">欢迎&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;同学</a>
+            </c:if>
+            <c:if test="${sessionScope.usertype==2}">
+                <a href="#" class="siaa" style="position:relative;left:-20px ;">欢迎&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;老师</a>
+            </c:if>
+            <c:if test="${sessionScope.usertype==3}">
+                <a href="#" class="siaa" style="position:relative;left:-20px ;">欢迎&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;管理员</a>
+                <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
+            </c:if>
+        </c:if>
     </div>
     <img src="/static/img/zhihuierweima.jpg" id="apperweima" style="float: right;position: absolute;top: 50px;left: 1180px;" />
 </div>

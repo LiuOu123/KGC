@@ -103,13 +103,13 @@
         </li>
         <c:if test="${sessionScope.username != null }">
             <c:if test="${sessionScope.usertype==1}">
-                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;同学</a>
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;&nbsp;同学</a>
             </c:if>
             <c:if test="${sessionScope.usertype==2}">
-                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;老师</a>
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;&nbsp;老师</a>
             </c:if>
             <c:if test="${sessionScope.usertype==3}">
-                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${sessionScope.username }&nbsp;&nbsp;&nbsp;管理员</a>
+                <a class="xinwenhover" id="liuou" href="#" href="#" style="font-size: 13px; position: relative; top: -20px; margin-left: 50px;">欢迎&nbsp;&nbsp;&nbsp;${userxinxi.nickname}&nbsp;&nbsp;&nbsp;管理员</a>
                 <a style="margin-left:50px" href="guanlizhu">后台</a>
             </c:if>
            <%-- <c:forEach items="${sessionScope.denglu}" var="d">
@@ -131,11 +131,11 @@
                 <a href="#" style="margin-left: 120px; color: #AECA2D;position: relative;top: -20px">APP下载</a>
             </li>
             <li>
-                <a class="wode" href="denglu.jsp"  style="position: relative;top: -20px">登录</a>
+                <a class="wode" href="/static/jsp/denglu.jsp"  style="position: relative;top: -20px">登录</a>
             </li>
             <li style="position: relative;top: -20px">|</li>
             <li>
-                <a class="wode" href="zhuce.jsp" style="position: relative;top: -20px">注册</a>
+                <a class="wode" href="/static/jsp/zhuce.jsp" style="position: relative;top: -20px">注册</a>
             </li>
         </c:if>
     </ul>
@@ -154,44 +154,43 @@
     <div style="width: 100%;height: 60px;background-color: white;position: relative;top: -20px;">
         <ul>
             <li>
-                <a class="feilei" href="xilie?cao=quan" style="font-size: 18px;position: relative;top: 20px;">全部</a>
+                <a class="feilei" href="/xilie" style="font-size: 18px;position: relative;top: 20px;">全部</a>
             </li>
             <li>
-                <a class="feilei" href="xilie?cao=chuang" style="font-size: 18px;position: relative;top: 20px;">创意设计</a>
+                <a class="feilei" href="/xiliemo?lei=1" style="font-size: 18px;position: relative;top: 20px;">创意设计</a>
             </li>
             <li>
-                <a class="feilei" href="xilie?cao=java" style="font-size: 18px;position: relative;top: 20px;">java大数据</a>
+                <a class="feilei" href="/xiliemo?lei=2" style="font-size: 18px;position: relative;top: 20px;">java大数据</a>
             </li>
             <li>
-                <a class="feilei" href="xilie?cao=qian" style="font-size: 18px;position: relative;top: 20px;">前端</a>
+                <a class="feilei" href="/xiliemo?lei=3" style="font-size: 18px;position: relative;top: 20px;">前端</a>
             </li>
             <li>
-                <a class="feilei" href="xilie?cao=yun" style="font-size: 18px;position: relative;top: 20px;">云计算</a>
+                <a class="feilei" href="/xiliemo?lei=4" style="font-size: 18px;position: relative;top: 20px;">云计算</a>
             </li>
             <li>
-                <a class="feilei" href="xilie?cao=wang" style="font-size: 18px;position: relative;top: 20px;">网络营销</a>
+                <a class="feilei" href="/xiliemo?lei=5" style="font-size: 18px;position: relative;top: 20px;">网络营销</a>
             </li>
             <li>
-                <a class="feilei" href="xilie?cao=geng" style="font-size: 18px;position: relative;top: 20px;">更多技术</a>
+                <a class="feilei" href="/xiliemo?lei=6" style="font-size: 18px;position: relative;top: 20px;">更多技术</a>
             </li>
         </ul>
     </div>
 </center>
-
+<script type="text/javascript">
+    //alert("you ");
+</script>
 <!--课程图片-->
 <ul style="margin-left: 90px;">
-    <script type="text/javascript">
-        //alert("you ");
-    </script>
-    <c:forEach items="${requestScope.lie }" var="x">
+    <c:forEach items="${pictures}" var="x">
         <li style="margin-top: 20px;">
-            <div class="ct-coll-item">
+            <div class="ct-coll-item" style="width:;border: 0px solid red">
                 <a class="ct-coll-thumb" href="xiliekecheng?name=${x.name }&username=${sessionScope.username}&liu=0">
-                    <img src="quan/${x.src }.png" width="230px" height="285px" />
+                    <img src="/static/picture/${x.src }.png" width="230px" height="285px" />
                 </a>
+            </div>
         </li>
     </c:forEach>
-
 </ul>
 <c:if test="${applicationScope.xiliekong eq 1}">
     <script type="text/javascript">
