@@ -145,6 +145,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
         UserInfoExample example=new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andAccidEqualTo(id);
+        criteria.andUtypeEqualTo(1);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         return userInfos;
     }
@@ -260,5 +261,27 @@ public class LoLunTanServiceImpl implements LoLunTanService {
     public int updateShouCangType(ShouCang shouCang) {
         int i = shouCangMapper.updateByPrimaryKeySelective(shouCang);
         return i;
+    }
+
+    @Override
+    public int updateUserInfoType(UserInfo userInfo) {
+        int i = userInfoMapper.updateByPrimaryKeySelective(userInfo);
+        return i;
+    }
+
+    @Override
+    public int insertUserInfo(UserInfo userInfo) {
+        int i = userInfoMapper.insertSelective(userInfo);
+        return i;
+    }
+
+    @Override
+    public UserInfo selectUserInfoLimitNew1(int userid) {
+        UserInfoExample example=new UserInfoExample();
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andAccidEqualTo(userid);
+        List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
+        UserInfo userinfo=userInfos.get(userInfos.size()-1);
+        return userinfo;
     }
 }

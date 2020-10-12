@@ -5,12 +5,19 @@ import com.github.pagehelper.PageInfo;
 import com.kgc.pojo.*;
 import com.kgc.service.LoLunTanService;
 import javafx.beans.binding.ObjectExpression;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -152,30 +159,32 @@ public class LoLunTanController {
 
     @RequestMapping("/dengluchaxinxi")//在登陆的时候查询登陆用户的信息
     @ResponseBody
-    public Map<String, Object> dengluchaxinxi(int id){
+    public Map<String, Object> dengluchaxinxi(int id) {
         Map<String, Object> map = new HashMap<>();
         List<UserInfo> userInfos = loLunTanService.selectByUserId(id);
-        map.put("data",userInfos.get(userInfos.size()-1));
+        map.put("data", userInfos.get(userInfos.size() - 1));
         return map;
     }
+
     @RequestMapping("/luntanxiangxi{title}")//根据title查找帖子
-    public String luntanxiangxi(String title,Model model){
+    public String luntanxiangxi(String title, Model model) {
         LunTan lunTan = loLunTanService.selectLunTanByTiTle(title);//根据title查找帖子
         List<TieZiHiuFu> tieZiHiuFus = loLunTanService.selectHuiFU(lunTan.getId());//根据帖子id查找回复 并且将回复的用户信息一起查出来
-        model.addAttribute("luntan",lunTan);//帖子信息
-        model.addAttribute("tiezihuifu",tieZiHiuFus);//回复信息
+        model.addAttribute("luntan", lunTan);//帖子信息
+        model.addAttribute("tiezihuifu", tieZiHiuFus);//回复信息
         return "luntanxiang";
     }
+
     //论坛详细页面给帖子的回复
     @RequestMapping("/huitie")
-    public String huitie(Model model,TieZiHiuFu tieZiHiuFu){
+    public String huitie(Model model, TieZiHiuFu tieZiHiuFu) {
         tieZiHiuFu.setTime(new Date());
         tieZiHiuFu.setTiezitype(1);
         System.out.println(tieZiHiuFu.toString());
         int pljie = loLunTanService.insertTieZiHuiFu(tieZiHiuFu);
-        System.out.println("评论添加："+pljie);
+        System.out.println("评论添加：" + pljie);
         LunTan lunTan = loLunTanService.selectByLunTanId(tieZiHiuFu.getLuntanid());
-        return "redirect:/luntanxiangxi?title="+lunTan.getTitle();
+        return "redirect:/luntanxiangxi?title=" + lunTan.getTitle();
     }
 
     //论坛用户主页
@@ -183,79 +192,147 @@ public class LoLunTanController {
     //主页用户信息
     @RequestMapping("/zhuye{username}")
     @ResponseBody
-    public Map<String,Object> zhuye(String username,Model model){
-        Map<String,Object> map=new HashMap<>();
+    public Map<String, Object> zhuye(String username, Model model) {
+        Map<String, Object> map = new HashMap<>();
         UserInfo userInfo = loLunTanService.selectByNiCheng(username);//根据用户昵称查找用户信息
-        map.put("data",userInfo);
+        map.put("data", userInfo);
         return map;
     }
+
     //主页用户发过的帖子(分页)
     @RequestMapping("/zhuyefatie{id}")
     @ResponseBody
-    public Map<String,Object> fatie(int id,Model model){
-        Map<String,Object> map=new HashMap<>();
+    public Map<String, Object> fatie(int id, Model model) {
+        Map<String, Object> map = new HashMap<>();
         List<LunTan> lunTans = loLunTanService.selectLunTanByUserId(id);//根据用户id返回发过的帖子
         PageInfo<LunTan> pageInfo = new PageInfo<>(lunTans);
-        map.put("data",pageInfo);
+        map.put("data", pageInfo);
         return map;
     }
+
     //删除用户发过的帖子 将type改成2 让用户看不到
     @RequestMapping("/delfatie{id}")
     @ResponseBody
-    public Map<String,Object> delfatie(int id){
-        Map<String,Object> map=new HashMap<>();
-        LunTan lunTan=new LunTan(id,2);
+    public Map<String, Object> delfatie(int id) {
+        Map<String, Object> map = new HashMap<>();
+        LunTan lunTan = new LunTan(id, 2);
         int i = loLunTanService.updateLunTanType(lunTan);
-        if(i>0){
-            map.put("status","true");
-        }else{
-            map.put("status","false");
+        if (i > 0) {
+            map.put("status", "true");
+        } else {
+            map.put("status", "false");
         }
         return map;
     }
+
     //主页用户发过的回帖
     @RequestMapping("/zhuyehuitie{id}")
     @ResponseBody
-    public Map<String,Object> zhuyehuitie(int id,Model model){
-        Map<String,Object> map=new HashMap<>();
+    public Map<String, Object> zhuyehuitie(int id, Model model) {
+        Map<String, Object> map = new HashMap<>();
         List<TieZiHiuFu> tieZiHiuFus = loLunTanService.selectTZHFByUserId(id);//根据用户id查询给所有帖子的回帖
         PageInfo<TieZiHiuFu> pageInfo = new PageInfo<>(tieZiHiuFus);
-        map.put("data",pageInfo);
+        map.put("data", pageInfo);
         return map;
     }
+
     //论坛用户中心收藏的帖子
     @RequestMapping("/yonghuchoucangtiezi{id}")
     @ResponseBody
-    public Map<String,Object> yonghuchoucangtiezi(int id){//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
-        Map<String,Object> map=new HashMap<>();
+    public Map<String, Object> yonghuchoucangtiezi(int id) {//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
+        Map<String, Object> map = new HashMap<>();
         List<ShouCang> shouCangs = loLunTanService.selectSCByUserId(id);
-        map.put("data",shouCangs);
+        map.put("data", shouCangs);
         return map;
     }
+
     //将用户收藏的帖子类型修改为2让用户不可见
     @RequestMapping("/updateshoucang{id}")
     @ResponseBody
-    public Map<String,Object> updateshoucang(int id){
-        Map<String,Object> map=new HashMap<>();
-        ShouCang shouCang=new ShouCang(id,2);
+    public Map<String, Object> updateshoucang(int id) {
+        Map<String, Object> map = new HashMap<>();
+        ShouCang shouCang = new ShouCang(id, 2);
         int i = loLunTanService.updateShouCangType(shouCang);
-        if(i>0){
-            map.put("status","true");
-        }else{
-            map.put("status","false");
+        if (i > 0) {
+            map.put("status", "true");
+        } else {
+            map.put("status", "false");
         }
         return map;
     }
+
     //论坛基本设置
+    //读取用户信息数据
     @RequestMapping("/jibenshezhiyhxx{id}")
     @ResponseBody
-    public Map<String,Object> jibenshezhiyhxx(int id) {//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
+    public Map<String, Object> jibenshezhiyhxx(int id) {//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
         Map<String, Object> map = new HashMap<>();
         List<UserInfo> userInfos = loLunTanService.selectByUserId(id);
-        map.put("data",userInfos);
+        map.put("data", userInfos.get(userInfos.size()-1));
         return map;
     }
-    
+
+    //修改用户信息数据
+    @RequestMapping("/jibenshezhiyhxxupdate{id}")
+    @ResponseBody
+    public Map<String, Object> jibenshezhiyhxxupdate(UserInfo userInfo) {
+        Map<String, Object> map = new HashMap<>();
+        userInfo.setUtype(2);
+        UserInfo userInfoxiu = new UserInfo(userInfo.getUid(), 2);
+        int xiu = loLunTanService.updateUserInfoType(userInfoxiu);//将用户之前的信息修改为2
+        System.out.println("将用户之前的数据type修改成2是否成功:" + xiu);
+        int add = loLunTanService.insertUserInfo(userInfo);//添加用户信息
+        System.out.println("添加用户信息是否成功:" + add);
+        if (add > 0) {
+            map.put("status", "true");
+        } else {
+            map.put("status", "false");
+        }
+        return map;
+    }
+  //上传用户头像
+    @RequestMapping("/doTestUploadFile")
+    public String doTestUploadFile(MultipartFile test_pic, HttpServletRequest request) {
+        //获取源文件名
+        String originalFilename = test_pic.getOriginalFilename();
+        if (originalFilename == null || originalFilename.length() == 0) {
+            request.setAttribute("msg", "文件不能为空");
+            return "testUploadFile";
+        }
+        if (test_pic.getSize() > (1024 * 1024)) {
+            request.setAttribute("msg", "文件大小不能大于1M");
+            return "testUploadFile";
+        }
+        List<String> prefixs = new ArrayList<>();
+        prefixs.add("jpg");
+        prefixs.add("png");
+        prefixs.add("jpeg");
+        prefixs.add("pneg");
+
+        //获取上传路径
+        String realPath = request.getServletContext().getRealPath("static/luntan/touxiang");
+
+        //拓展名
+        String prefix = FilenameUtils.getExtension(originalFilename);
+        if (prefixs.contains(prefix) == false) {
+            request.setAttribute("msg", " * 上传图片格式不正确");
+            return "testUploadFile";
+        }
+        //生成新的文件名
+        String fileName = System.currentTimeMillis() + (RandomUtils.nextInt(1000) + "_test.") + prefix;
+        //封装File对象
+        File file = new File(realPath, fileName);
+        //上传
+        try {
+            test_pic.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            request.setAttribute("msg", e.getMessage());
+            return "testUploadFile";
+        }
+        request.setAttribute("uri", fileName);
+        return "upload-success";
+    }
 
 
 }

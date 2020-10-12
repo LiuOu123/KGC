@@ -24,4 +24,7 @@ public interface LoLunTanService {
     List<ShouCang> selectSCByUserId(int id);//根据用户id查找收藏的帖子并且显示收藏帖子的信息
     int updateLunTanType(LunTan lunTan);//根据用户id将这个论坛帖子修改成用户不可见
     int updateShouCangType(ShouCang shouCang);//根据收藏id将该条信息类型修改为2 让用户不可见
+    int updateUserInfoType(UserInfo userInfo);//将用该用户信息type修改成2 让用户不可见
+    int insertUserInfo(UserInfo userInfo);//添加用户信息
+    UserInfo selectUserInfoLimitNew1(int userid);//根据用户id查找userinfo表中最新的数据
 }
