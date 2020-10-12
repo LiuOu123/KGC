@@ -35,6 +35,7 @@ public class loQianTaiServiceImpl implements loQianTaiService {
         UserInfoExample example=new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andAccidEqualTo(id);
+        criteria.andUtypeEqualTo(1);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         return userInfos;
     }

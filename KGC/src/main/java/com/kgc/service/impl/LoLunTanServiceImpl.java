@@ -38,6 +38,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
+            uicriteria.andUtypeEqualTo(1);
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
@@ -56,6 +57,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
+            uicriteria.andUtypeEqualTo(1);
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
@@ -74,6 +76,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
+            uicriteria.andUtypeEqualTo(1);
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
@@ -91,6 +94,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
+            uicriteria.andUtypeEqualTo(1);
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
@@ -108,6 +112,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
+            uicriteria.andUtypeEqualTo(1);
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
@@ -168,6 +173,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
+            uicriteria.andUtypeEqualTo(1);
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
@@ -214,6 +220,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
         UserInfoExample example=new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andNicknameEqualTo(username);
+        criteria.andUtypeEqualTo(1);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         return userInfos.get(userInfos.size()-1);
     }
@@ -280,6 +287,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
         UserInfoExample example=new UserInfoExample();
         UserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andAccidEqualTo(userid);
+        criteria.andUtypeEqualTo(1);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         UserInfo userinfo=userInfos.get(userInfos.size()-1);
         return userinfo;

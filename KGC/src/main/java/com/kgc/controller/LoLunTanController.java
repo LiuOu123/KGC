@@ -281,6 +281,7 @@ public class LoLunTanController {
         UserInfo userInfoxiu = new UserInfo(userInfo.getUid(), 2);
         int xiu = loLunTanService.updateUserInfoType(userInfoxiu);//将用户之前的信息修改为2
         System.out.println("将用户之前的数据type修改成2是否成功:" + xiu);
+        userInfo.setUid(null);
         int add = loLunTanService.insertUserInfo(userInfo);//添加用户信息
         System.out.println("添加用户信息是否成功:" + add);
         if (add > 0) {
@@ -292,7 +293,7 @@ public class LoLunTanController {
     }
   //上传用户头像
     @RequestMapping("/doTestUploadFile")
-    public String doTestUploadFile(MultipartFile test_pic, HttpServletRequest request) {
+    public String doTestUploadFile(MultipartFile test_pic, HttpServletRequest request,int id) {
         //获取源文件名
         String originalFilename = test_pic.getOriginalFilename();
         if (originalFilename == null || originalFilename.length() == 0) {
@@ -320,6 +321,15 @@ public class LoLunTanController {
         }
         //生成新的文件名
         String fileName = System.currentTimeMillis() + (RandomUtils.nextInt(1000) + "_test.") + prefix;
+        UserInfo userInfo = loLunTanService.selectUserInfoLimitNew1(id);//查该用户的最新数据
+        userInfo.setTouxiang(fileName);//将更改后的头像修改进来
+        UserInfo userInfoxiu = new UserInfo(userInfo.getUid(), 2);
+        int xiu = loLunTanService.updateUserInfoType(userInfoxiu);//将用户之前的信息修改为2
+        System.out.println("将用户之前的数据type修改成2是否成功:" + xiu);
+        userInfo.setUid(null);
+        int add = loLunTanService.insertUserInfo(userInfo);//添加用户信息
+        System.out.println("添加用户信息是否成功:" + add);
+
         //封装File对象
         File file = new File(realPath, fileName);
         //上传
@@ -328,11 +338,13 @@ public class LoLunTanController {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("msg", e.getMessage());
-            return "testUploadFile";
+            System.out.println(e.getMessage());
+            return "luntanjibenshezhi";
         }
         request.setAttribute("uri", fileName);
-        return "upload-success";
+        return "luntanjibenshezhi";
     }
+
 
 
 }

@@ -32,6 +32,7 @@ public class UserInfo {
     public UserInfo() {
     }
 
+
     public UserInfo(Integer uid, Integer utype) {
         this.uid = uid;
         this.utype = utype;
