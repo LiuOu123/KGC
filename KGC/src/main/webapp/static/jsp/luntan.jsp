@@ -83,7 +83,7 @@
                         <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                        <dd><a href="/static/jsp/luntanjibenshezhi.jsp"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
                         <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a>
                         </dd>
                         <dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
@@ -192,7 +192,7 @@
                         <c:forEach items="${zhiding}" var="l">
                             <li>
                                 <a href="user/home.html" class="fly-avatar">
-                                    <img src="/static/luntan/touxiang/${l.img}"
+                                    <img src="/static/luntan/touxiang/${l.userInfo.touxiang}"
                                          alt="${l.userInfo.nickname}">
                                 </a>
                                 <h2>
@@ -263,7 +263,7 @@
                     <c:forEach items="${pageInfo.list}" var="l">
                         <li>
                             <a href="user/home.html" class="fly-avatar">
-                                <img src="/static/luntan/touxiang/${l.img}"
+                                <img src="/static/luntan/touxiang/${l.userInfo.touxiang}"
                                      alt="${l.userInfo.nickname}">
                             </a>
                             <h2>

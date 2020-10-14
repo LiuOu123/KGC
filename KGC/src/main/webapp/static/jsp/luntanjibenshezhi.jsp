@@ -17,6 +17,7 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="/static/res/layui/css/layui.css">
     <link rel="stylesheet" href="/static/res/css/global.css">
+    <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
 </head>
 <body>
 
@@ -95,25 +96,25 @@
 <div class="layui-container fly-marginTop fly-user-main">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
         <li class="layui-nav-item">
-            <a href="home.html">
+            <a href="luntanzhuye.jsp">
                 <i class="layui-icon">&#xe609;</i>
                 我的主页
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="index.html">
+            <a href="luntanyonghuzhongxin.jsp">
                 <i class="layui-icon">&#xe612;</i>
                 用户中心
             </a>
         </li>
         <li class="layui-nav-item layui-this">
-            <a href="set.html">
+            <a href="luntanjibenshezhi.jsp">
                 <i class="layui-icon">&#xe620;</i>
                 基本设置
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="message.html">
+            <a href="luntanwodexiaoxi.jsp">
                 <i class="layui-icon">&#xe611;</i>
                 我的消息
             </a>
@@ -141,50 +142,124 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                    <form method="post">
-                        <div class="layui-form-item">
+                    <%--<form method="post">--%>
+                        <%--<div class="layui-form-item">
                             <label for="L_email" class="layui-form-label">邮箱</label>
                             <div class="layui-input-inline">
                                 <input type="text" id="L_email" name="email" required lay-verify="email" autocomplete="off" value="" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
+                        </div>--%>
+                        <div class="layui-form-item">
+                            <label for="nickname" class="layui-form-label">昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="nickname" name="nickname" required lay-verify="required" autocomplete="off" value="" class="layui-input">
+                            </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_username" class="layui-form-label">昵称</label>
+                            <label for="sex" class="layui-form-label">性别</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="L_username" name="username" required lay-verify="required" autocomplete="off" value="" class="layui-input">
+                                <input type="text" id="sex" name="sex" autocomplete="off" readonly="readonly" value="" class="layui-input">
                             </div>
-                            <div class="layui-inline">
+                            <%--<div class="layui-inline">
                                 <div class="layui-input-inline">
-                                    <input type="radio" name="sex" value="0" checked title="男">
-                                    <input type="radio" name="sex" value="1" title="女">
+                                    <input type="radio" id="sex1" name="sex" value="男" title="男">
+                                    <input type="radio" id="sex2" name="sex" value="女" title="女">
                                 </div>
+                            </div>--%>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="age" class="layui-form-label">年龄</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="age" name="age" autocomplete="off" value="" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_city" class="layui-form-label">城市</label>
+                            <label for="address" class="layui-form-label">地址</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="L_city" name="city" autocomplete="off" value="" class="layui-input">
+                                <input type="text" id="address" name="address" autocomplete="off" value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="modification" class="layui-form-label">日期</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="modification" name="modification" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="score" class="layui-form-label">成绩</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="score" name="score" autocomplete="off"  class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item layui-form-text">
-                            <label for="L_sign" class="layui-form-label">签名</label>
+                            <label for="qianming" class="layui-form-label">签名</label>
                             <div class="layui-input-block">
-                                <textarea placeholder="随便写些什么刷下存在感" id="L_sign"  name="sign" autocomplete="off" class="layui-textarea" style="height: 80px;"></textarea>
+                                <textarea placeholder="随便写些什么刷下存在感" id="qianming"  name="qianming" autocomplete="off" class="layui-textarea" style="height: 80px;"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+                            <button class="layui-btn" key="set-mine" onclick="update()" lay-filter="*" lay-submit>确认修改</button>
                         </div>
                 </div>
+                <script type="text/javascript">
 
+                    /*function update() {
+                        var json={
+                            nickname:$("#nickname").val(),
+                            sex:$("#sex").val(),
+                            age:$("#age").val(),
+                            address:$("#address").val(),
+                            modification:$("#modification").val(),
+                            score:$("#score").val(),
+                            qianming:$("#qianming").val(),
+                        }
+                        $.post("/jibenshezhiyhxxupdate",json,function (result) {
+                            if(result.status=="true"){
+                                location.href="/luntan";
+                            }
+                        },"json")
+                    }*/
+
+
+                   $(function () {
+                       var id=${sessionScope.userid}
+                           alert(id);
+                           //发送请求
+                           $.post("/jibenshezhiyhxx",{id:id}, function (result) {
+                               $("#nickname").val(result.data.nickname);
+                               // alert(result.data.sex);
+                               /*if(result.data.sex=="男"){
+                                   $("#sex1").attr("checked","checked");
+                               }else if(result.data.sex=="女"){
+                                   $("#sex2").attr("checked","checked");
+                               }*/
+                               /*$("#sex1").attr("checked",result.data.sex == '男' ? true : false);
+                               $("#sex2").attr("checked",result.data.sex == '女' ? true : false);*/
+                               $("#sex").val(result.data.sex);
+                               $("#age").val(result.data.age);
+                               $("#address").val(result.data.address);
+                               $("#modification").val(result.data.modification);
+                               $("#score").val(result.data.score);
+                               $("#qianming").val(result.data.qianming);
+
+                           },"json")
+                   })
+
+
+
+                </script>
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <div class="layui-form-item">
                         <div class="avatar-add">
                             <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
-                            <button type="button" class="layui-btn upload-img">
+                            <%--<button type="button" class="layui-btn upload-img">
                                 <i class="layui-icon">&#xe67c;</i>上传头像
-                            </button>
+                            </button>--%>
+                            <form method="post" enctype="multipart/form-data" action="/doTestUploadFile">
+                                <input type="file" name="test_pic">
+                                <input type="submit" value="上传">
+                            </form>
                             <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
                             <span class="loading"></span>
                         </div>
@@ -192,7 +267,7 @@
                 </div>
 
                 <div class="layui-form layui-form-pane layui-tab-item">
-                    <form action="/user/repass" method="post">
+                    <%--<form action="/user/repass" method="post">--%>
                         <div class="layui-form-item">
                             <label for="L_nowpass" class="layui-form-label">当前密码</label>
                             <div class="layui-input-inline">
@@ -215,7 +290,7 @@
                         <div class="layui-form-item">
                             <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
                         </div>
-                    </form>
+                    <%--</form>--%>
                 </div>
 
                 <div class="layui-form layui-form-pane layui-tab-item">
@@ -235,6 +310,15 @@
 
                             <a href="" class="acc-weibo" type="weibo_id"  onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})" >立即绑定</a>
                             <span>，即可使用微博帐号登录Fly社区</span>
+                        </li>
+                        <li>
+                            <div class="layui-form-item">
+                                <label for="L_email" class="layui-form-label">邮箱</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="L_email" name="email" required lay-verify="email" autocomplete="off" value="" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
+                            </div>
                         </li>
                     </ul>
                 </div>

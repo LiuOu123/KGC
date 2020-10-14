@@ -17,6 +17,7 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="/static/res/layui/css/layui.css">
     <link rel="stylesheet" href="/static/res/css/global.css">
+    <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
 </head>
 <body style="margin-top: 65px;">
 
@@ -128,8 +129,16 @@
         <div class="layui-col-md6 fly-home-jie">
             <div class="fly-panel">
                 <h3 class="fly-panel-title">贤心 最近的提问</h3>
-                <ul class="jie-row">
-                    <li>
+                <ul class="jie-row" id="#fatie">
+
+                    <%--<
+                     <li>
+                        <span class="fly-jing">精</span>
+                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                        <i>刚刚</i>
+                        <em class="layui-hide-xs">1136阅/27答</em>
+                    </li>
+                    li>
                         <span class="fly-jing">精</span>
                         <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
                         <i>刚刚</i>
@@ -164,11 +173,22 @@
                         <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
                         <i>1天前</i>
                         <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
+                    </li>--%>
                     <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
                 </ul>
             </div>
         </div>
+        <script type="text/javascript">
+ /*           $(function () {
+                var id=${sessionScope.userid};
+                $.post("/zhuyefatie{id}",{id:id},function (result) {
+                    $.each(result.data.list,function (index,pageInfo) {
+                        var li=$("<li><span class=\"fly-jing\">精</span><a>+pageInfo.title+</a><i>+pageInfo.time+</i><em>+pageInfo.liulanliang阅/pageInfo.size答+</em></li>");
+                        $("#fatie").append(li);
+                    })
+                },"json")
+            })*/
+        </script>
 
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
