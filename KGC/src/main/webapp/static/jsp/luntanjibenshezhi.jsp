@@ -258,9 +258,10 @@
                             </button>--%>
                             <form method="post" enctype="multipart/form-data" action="/doTestUploadFile">
                                 <input type="file" name="test_pic">
+                                <input type="hidden" name="id" value="${userid}">
                                 <input type="submit" value="上传">
                             </form>
-                            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+                            <img src="/static/luntan/touxiang/${userxinxi.touxiang}">
                             <span class="loading"></span>
                         </div>
                     </div>
