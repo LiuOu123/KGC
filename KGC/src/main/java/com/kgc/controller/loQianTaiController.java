@@ -28,8 +28,8 @@ public class loQianTaiController {
         List<User> login = loQianTaiService.login(username, password);
         if(login.size()>0){
             User user=login.get(0);
-            List<UserInfo> userInfos = loQianTaiService.selectByAccid(user.getId());
-            UserInfo userInfo=userInfos.get(0);
+            UserInfo userInfos = loQianTaiService.selectByAccidAndUtype(user.getId());
+            UserInfo userInfo=userInfos;
             session.setAttribute("userxinxi",userInfo);
             session.setAttribute("username",userInfo.getNickname());//保存session作用域 昵称
             session.setAttribute("userid",user.getId());//保存session作用域 用户id

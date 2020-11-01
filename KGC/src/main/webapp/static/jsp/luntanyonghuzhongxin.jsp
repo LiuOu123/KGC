@@ -71,19 +71,19 @@
             </a>
         </li>
         <li class="layui-nav-item layui-this">
-            <a href="index.html">
+            <a href="/static/jsp/luntanyonghuzhongxin.jsp">
                 <i class="layui-icon">&#xe612;</i>
                 用户中心
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="set.html">
+            <a href="/jibenshezhiyhxx">
                 <i class="layui-icon">&#xe620;</i>
                 基本设置
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="message.html">
+            <a href="/static/jsp/luntanwodexiaoxi.jsp">
                 <i class="layui-icon">&#xe611;</i>
                 我的消息
             </a>
@@ -181,39 +181,43 @@
     function date(timei) {
         var weekDay = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
         var myDate = new Date(Date.parse(timei));
-        var myDay=new Date().getDay();
-        var times=timei.substring(0,10);
-        var bo=false;
-        for (var i=myDay-1;i>0;i--){
+        var myDay = new Date().getDay();
+        var times = timei.substring(0, 10);
+        var bo = false;
+        for (var i = myDay - 1; i >= 0; i--) {
             var day1 = new Date();
-            day1.setTime(day1.getTime()-24*60*60*1000*i);
-            var s1 = day1.getFullYear()+"-" + (day1.getMonth()+1) + "-0" + day1.getDate();
-            if (s1==times){
-                bo=true;
+            day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000 * i);
+            var s1 = day1.getFullYear() + "-" + (day1.getMonth() + 1) + "-" + day1.getDate();
+            if (s1 == times) {
+                bo = true;
                 break;
             }
         }
         var xingQi;
-        if (parseInt(new Date().getDate())-1==new Date(timei).getDate()){
-            xingQi="昨天";
-        }else if(new Date().getDate()==new Date(timei).getDate()){
-            var hours=parseInt(new Date(timei).getHours())+1;
-            if (hours>0&&hours<=6){
-                xingQi="凌晨"+timei.substring(11,16);;
-            }else if(hours>6&&hours<=10){
-                xingQi="早上"+timei.substring(11,16);;
-            }else if(hours>10&&hours<=14){
-                xingQi="中午"+timei.substring(11,16);;
-            }else if(hours>14&&hours<=19){
-                xingQi="下午"+timei.substring(11,16);;
-            }else if(hours>19&&hours<=23){
-                xingQi="晚上"+timei.substring(11,16);;
+        if (bo == false) {
+            xingQi = timei.substring(0, 10);
+        } else if (new Date().getDate() == new Date(timei).getDate()) {
+            var hours = parseInt(new Date(timei).getHours()) + 1;
+            if (hours > 0 && hours <= 6) {
+                xingQi = "凌晨" + timei.substring(11, 16);
+                ;
+            } else if (hours > 6 && hours <= 10) {
+                xingQi = "早上" + timei.substring(11, 16);
+                ;
+            } else if (hours > 10 && hours <= 14) {
+                xingQi = "中午" + timei.substring(11, 16);
+                ;
+            } else if (hours > 14 && hours <= 19) {
+                xingQi = "下午" + timei.substring(11, 16);
+                ;
+            } else if (hours > 19 && hours <= 23) {
+                xingQi = "晚上" + timei.substring(11, 16);
+                ;
             }
-        }else if(bo==false){
-            xingQi=timei.substring(0,10);
-        } else if(bo){
-
-            xingQi=weekDay[myDate.getDay()];
+        } else if (parseInt(new Date().getDate()) - 1 == new Date(timei).getDate()) {
+            xingQi = "昨天";
+        } else if (bo) {
+            xingQi = weekDay[myDate.getDay()];
         }
         return xingQi;
     }

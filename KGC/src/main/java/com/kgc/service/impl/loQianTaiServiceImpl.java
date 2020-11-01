@@ -61,5 +61,15 @@ public class loQianTaiServiceImpl implements loQianTaiService {
         return pleis;
     }
 
+    @Override
+    public UserInfo selectByAccidAndUtype(int id) {
+        UserInfoExample example=new UserInfoExample();
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andAccidEqualTo(id);
+        criteria.andUtypeEqualTo(1);
+        List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
+        return userInfos.get(0);
+    }
+
 
 }

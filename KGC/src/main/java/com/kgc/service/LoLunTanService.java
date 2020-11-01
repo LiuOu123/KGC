@@ -27,4 +27,13 @@ public interface LoLunTanService {
     int updateUserInfoType(UserInfo userInfo);//将用该用户信息type修改成2 让用户不可见
     int insertUserInfo(UserInfo userInfo);//添加用户信息
     UserInfo selectUserInfoLimitNew1(int userid);//根据用户id查找userinfo表中最新的数据
+    UserInfo selectByUid(int uid);//根据用户表uid查找信息
+    User selectByid(int id);//根据用户id查找注册信息
+    int updatepassword(User user);//根据用户id修改该用户密码;
+    List<WoDeXiaoXi> selectByShouUserId(int userid);//查询我的消息根据用户id
+    int updateWDXXLei(int id);//根据id将我的消息表中该数据类型修改成2
+    List<WoDeXiaoXi> selectByShouFa(int userid,int faid);//查询发送或者收件人为该id的数据
+    int addWDXX(WoDeXiaoXi woDeXiaoXi);//添加消息
+    WoDeXiaoXi selectByXid(int xid);//根据id查看我的消息表中的数据
+    int updateWDXXLei3(int id);//根据id将我的消息表中该数据类型修改成3
 }

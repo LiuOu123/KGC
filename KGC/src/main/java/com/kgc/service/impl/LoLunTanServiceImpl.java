@@ -1,11 +1,9 @@
 package com.kgc.service.impl;
 
-import com.kgc.mapper.LunTanMapper;
-import com.kgc.mapper.ShouCangMapper;
-import com.kgc.mapper.TieZiHiuFuMapper;
-import com.kgc.mapper.UserInfoMapper;
+import com.kgc.mapper.*;
 import com.kgc.pojo.*;
 import com.kgc.service.LoLunTanService;
+import com.kgc.service.loQianTaiService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +12,8 @@ import java.util.List;
 
 @Service("loLunTanService")
 public class LoLunTanServiceImpl implements LoLunTanService {
+    @Resource
+    WoDeXiaoXiMapper woDeXiaoXiMapper;
     @Resource
     LunTanMapper lunTanMapper;
     @Resource
@@ -24,7 +24,10 @@ public class LoLunTanServiceImpl implements LoLunTanService {
     LoLunTanService loLunTanService;
     @Resource
     ShouCangMapper shouCangMapper;
-
+    @Resource
+    UserMapper userMapper;
+@Resource
+com.kgc.service.loQianTaiService loQianTaiService;
 
     @Override
     public List<LunTan> selectAll() {
@@ -135,7 +138,7 @@ public class LoLunTanServiceImpl implements LoLunTanService {
             criteria.andUseridEqualTo(id.get(i));
             List<TieZiHiuFu> tieZiHiuFus1 = tieZiHiuFuMapper.selectByExample(example);
             List<UserInfo> userInfos = loLunTanService.selectByUserId(id.get(i));
-            UserInfo userInfo=userInfos.get(userInfos.size()-1);
+            UserInfo userInfo=userInfos.get(0);
             LunTanHuiTie lunTanHuiTie=new LunTanHuiTie(id.get(i),tieZiHiuFus1.size(),userInfo);
             lunTanHuiTies.add(lunTanHuiTie);
         }
@@ -291,5 +294,76 @@ public class LoLunTanServiceImpl implements LoLunTanService {
         List<UserInfo> userInfos = userInfoMapper.selectByExample(example);
         UserInfo userinfo=userInfos.get(userInfos.size()-1);
         return userinfo;
+    }
+
+    @Override
+    public UserInfo selectByUid(int uid) {
+        return userInfoMapper.selectByPrimaryKey(uid);
+    }
+
+    @Override
+    public User selectByid(int id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updatepassword(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public List<WoDeXiaoXi> selectByShouUserId(int userid) {
+        WoDeXiaoXiExample example=new WoDeXiaoXiExample();
+        WoDeXiaoXiExample.Criteria criteria = example.createCriteria();
+        criteria.andShouuseridEqualTo(userid);
+        criteria.andXleiNotEqualTo(2);
+/*        criteria.andXidEqualTo(1);
+        criteria.andXidEqualTo(3);*/
+        List<WoDeXiaoXi> woDeXiaoXis = woDeXiaoXiMapper.selectByExample(example);
+        for (int i = 0; i <woDeXiaoXis.size() ; i++) {
+            UserInfo userInfo = loQianTaiService.selectByAccidAndUtype(woDeXiaoXis.get(i).getSenduserid());
+            woDeXiaoXis.get(i).setUserInfo(userInfo);
+        }
+        return woDeXiaoXis;
+    }
+
+    @Override
+    public int updateWDXXLei(int id) {
+        WoDeXiaoXi woDeXiaoXi=new WoDeXiaoXi(id,2);
+        return woDeXiaoXiMapper.updateByPrimaryKeySelective(woDeXiaoXi);
+    }
+
+    @Override
+    public List<WoDeXiaoXi> selectByShouFa(int userid,int faid) {
+        WoDeXiaoXiExample example=new WoDeXiaoXiExample();
+        WoDeXiaoXiExample.Criteria criteria = example.createCriteria();
+        List<Integer> one=new ArrayList<>();
+        one.add(userid);
+        one.add(faid);
+        criteria.andShouuseridIn(one);
+        criteria.andSenduseridIn(one);
+        example.setOrderByClause("time asc");
+        List<WoDeXiaoXi> woDeXiaoXis = woDeXiaoXiMapper.selectByExample(example);
+        for (int i = 0; i <woDeXiaoXis.size() ; i++) {
+            UserInfo userInfo = loQianTaiService.selectByAccidAndUtype(woDeXiaoXis.get(i).getSenduserid());
+            woDeXiaoXis.get(i).setUserInfo(userInfo);
+        }
+        return woDeXiaoXis;
+    }
+
+    @Override
+    public int addWDXX(WoDeXiaoXi woDeXiaoXi) {
+        return woDeXiaoXiMapper.insertSelective(woDeXiaoXi);
+    }
+
+    @Override
+    public WoDeXiaoXi selectByXid(int xid) {
+        return woDeXiaoXiMapper.selectByPrimaryKey(xid);
+    }
+
+    @Override
+    public int updateWDXXLei3(int id) {
+        WoDeXiaoXi woDeXiaoXi=new WoDeXiaoXi(id,3);
+        return woDeXiaoXiMapper.updateByPrimaryKeySelective(woDeXiaoXi);
     }
 }
