@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="/static/res/layui/css/layui.css">
     <link rel="stylesheet" href="/static/res/css/global.css">
-    <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 
@@ -53,10 +54,12 @@
                     <a href="/static/jsp/zhuce.jsp">注册</a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs">
-                    <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+                    <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入"
+                       class="iconfont icon-qq"></a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs">
-                    <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+                    <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入"
+                       class="iconfont icon-weibo"></a>
                 </li>
             </c:if>
             <c:if test="${sessionScope.username!=null}">
@@ -65,25 +68,28 @@
                     <a class="fly-nav-avatar" href="javascript:;">
                         <cite class="layui-hide-xs">
                             <c:if test="${usertype==1}">
-                                ${userxinxi.nickname}
+                                ${shu.nickname}
                             </c:if>
                             <c:if test="${usertype==2}">
-                                ${userxinxi.nickname}
+                                ${shu.nickname}
                             </c:if>
                             <c:if test="${usertype==3}">
-                                ${userxinxi.nickname}
+                                ${shu.nickname}
                                 <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
                             </c:if>
                         </cite>
-                        <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
+                        <img src="/static/luntan/touxiang/${shu.touxiang}" alt="${shu.nickname}">
                             <%--<i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
                             <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
                             <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">--%>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                        <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                        <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                        <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi"
+                                                              style="top: 4px;"></i>我的消息</a></dd>
+                        <dd><a href="../user/home.html"><i class="layui-icon"
+                                                           style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+                        </dd>
                         <hr style="margin: 5px 0;">
                         <dd><a href="" style="text-align: center;">退出</a></dd>
                     </dl>
@@ -102,19 +108,19 @@
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="luntanyonghuzhongxin.jsp">
+            <a href="/static/jsp/luntanyonghuzhongxin.jsp">
                 <i class="layui-icon">&#xe612;</i>
                 用户中心
             </a>
         </li>
         <li class="layui-nav-item layui-this">
-            <a href="luntanjibenshezhi.jsp">
+            <a href="/jibenshezhiyhxx">
                 <i class="layui-icon">&#xe620;</i>
                 基本设置
             </a>
         </li>
         <li class="layui-nav-item">
-            <a href="luntanwodexiaoxi.jsp">
+            <a href="/static/jsp/luntanwodexiaoxi.jsp">
                 <i class="layui-icon">&#xe611;</i>
                 我的消息
             </a>
@@ -143,85 +149,85 @@
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
                     <%--<form method="post">--%>
-                        <%--<div class="layui-form-item">
-                            <label for="L_email" class="layui-form-label">邮箱</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="L_email" name="email" required lay-verify="email" autocomplete="off" value="" class="layui-input">
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
-                        </div>--%>
+                    <%--<div class="layui-form-item">
+                        <label for="L_email" class="layui-form-label">邮箱</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="L_email" name="email" required lay-verify="email" autocomplete="off" value="" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
+                    </div>--%>
+                    <form action="/jibenshezhiyhxxupdate" method="post">
                         <div class="layui-form-item">
                             <label for="nickname" class="layui-form-label">昵称</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="nickname" name="nickname" required lay-verify="required" autocomplete="off" value="" class="layui-input">
+                                <input type="text" id="nickname" name="nickname" required lay-verify="required"
+                                       autocomplete="off" value="${shu.nickname}" class="layui-input">
+                                <input type="hidden" name="uid" value="${userxinxi.uid}">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="sex" class="layui-form-label">性别</label>
-                            <div class="layui-input-inline">
+                            <label class="layui-form-label">性别</label>
+                            <%--<div class="layui-input-inline">
                                 <input type="text" id="sex" name="sex" autocomplete="off" readonly="readonly" value="" class="layui-input">
-                            </div>
-                            <%--<div class="layui-inline">
-                                <div class="layui-input-inline">
-                                    <input type="radio" id="sex1" name="sex" value="男" title="男">
-                                    <input type="radio" id="sex2" name="sex" value="女" title="女">
-                                </div>
                             </div>--%>
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <c:if test="${shu.sex=='男'}">
+                                        <input type="radio" checked="checked" name="sex" value="男" title="男">
+                                        <input type="radio" name="sex" value="女" title="女">
+                                    </c:if>
+                                    <c:if test="${shu.sex=='女'}">
+                                        <input type="radio" name="sex" value="男" title="男">
+                                        <input type="radio" checked="checked" name="sex" value="女" title="女">
+                                    </c:if>
+                                </div>
+                            </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="age" class="layui-form-label">年龄</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="age" name="age" autocomplete="off" value="" class="layui-input">
+                                <input type="text" id="age" name="age" autocomplete="off" value="${shu.age}"
+                                       class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="address" class="layui-form-label">地址</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="address" name="address" autocomplete="off" value="" class="layui-input">
+                                <input type="text" id="address" name="address" autocomplete="off" value="${shu.address}"
+                                       class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="modification" class="layui-form-label">日期</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="modification" name="modification" autocomplete="off" class="layui-input">
+                                <input type="text" id="modification" name="modification"
+                                       value="<fmt:formatDate pattern="yyyy-MM-dd" value="${shu.modification}" type="both"/>"
+                                       autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="score" class="layui-form-label">成绩</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="score" name="score" autocomplete="off"  class="layui-input">
+                                <input type="text" id="score" name="score" autocomplete="off" value="${shu.score}"
+                                       class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item layui-form-text">
                             <label for="qianming" class="layui-form-label">签名</label>
                             <div class="layui-input-block">
-                                <textarea placeholder="随便写些什么刷下存在感" id="qianming"  name="qianming" autocomplete="off" class="layui-textarea" style="height: 80px;"></textarea>
+                                <textarea placeholder="随便写些什么刷下存在感" id="qianming" name="qianming" autocomplete="off"
+                                          class="layui-textarea" style="height: 80px;">
+                                    ${shu.qianming}
+                                </textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn" key="set-mine" onclick="update()" lay-filter="*" lay-submit>确认修改</button>
+                            <%--<button class="layui-btn" key="set-mine" onclick="update()" lay-filter="*" lay-submit>确认修改</button>--%>
+                            <input type="submit" class="layui-btn" value="修改信息 ">
                         </div>
                 </div>
-                <script type="text/javascript">
-
-                    /*function update() {
-                        var json={
-                            nickname:$("#nickname").val(),
-                            sex:$("#sex").val(),
-                            age:$("#age").val(),
-                            address:$("#address").val(),
-                            modification:$("#modification").val(),
-                            score:$("#score").val(),
-                            qianming:$("#qianming").val(),
-                        }
-                        $.post("/jibenshezhiyhxxupdate",json,function (result) {
-                            if(result.status=="true"){
-                                location.href="/luntan";
-                            }
-                        },"json")
-                    }*/
-
-
+                </form>
+                <%--<script type="text/javascript">
                    $(function () {
                        var id=${sessionScope.userid}
                            alert(id);
@@ -245,10 +251,7 @@
 
                            },"json")
                    })
-
-
-
-                </script>
+                </script>--%>
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <div class="layui-form-item">
                         <div class="avatar-add">
@@ -256,10 +259,11 @@
                             <%--<button type="button" class="layui-btn upload-img">
                                 <i class="layui-icon">&#xe67c;</i>上传头像
                             </button>--%>
-                            <form method="post" enctype="multipart/form-data" action="/doTestUploadFile">
+                            <form method="post" class="layui-btn" enctype="multipart/form-data"
+                                  action="/doTestUploadFile">
                                 <input type="file" name="test_pic">
                                 <input type="hidden" name="id" value="${userid}">
-                                <input type="submit" value="上传">
+                                <input type="submit" class="layui-btn" value="上传">
                             </form>
                             <img src="/static/luntan/touxiang/${userxinxi.touxiang}">
                             <span class="loading"></span>
@@ -267,33 +271,129 @@
                     </div>
                 </div>
 
-                <div class="layui-form layui-form-pane layui-tab-item">
-                    <%--<form action="/user/repass" method="post">--%>
+                <div class="layui-form-pane layui-tab-item">
+                    <form action="/updatemima" id="updatepassword" method="post">
                         <div class="layui-form-item">
-                            <label for="L_nowpass" class="layui-form-label">当前密码</label>
+                            <label for="L_nowpass" class="layui-form-label" id="panduan" >当前密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_nowpass" name="nowpass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <input type="hidden" name="id" value="${userid}">
+                                <input type="password" id="L_nowpass" name="nowpass"  onblur="panpwd()" autocomplete="off"
+                                       class="layui-input">
                             </div>
+                            <div class="layui-form-mid layui-word-aux" id="panmima" style="color: red"></div>
                         </div>
-                        <div class="layui-form-item">
+                        <div class="layui-form-item" id="mima">
                             <label for="L_pass" class="layui-form-label">新密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_pass" name="pass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <input type="password" id="L_pass" name="pass" autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                         </div>
-                        <div class="layui-form-item">
+                        <div class="layui-form-item" id="quemima">
                             <label for="L_repass" class="layui-form-label">确认密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_repass" name="repass" required lay-verify="required" autocomplete="off" class="layui-input">
+                                <input type="password" id="L_repass" name="pwd" autocomplete="off"
+                                       class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+                        <div id="tijiao">
+                            <input type="submit" class="layui-btn" value="确认修改">
                         </div>
-                    <%--</form>--%>
+                    </form>
                 </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $("#mima").hide();
+                        $("#quemima").hide();
+                        $("#tijiao").hide();
+                    })
+                    function panpwd() {
+                        var password = $("#L_nowpass").val();
+                        if(password==""){
+                            $("#panmima").text("请输入密码");
+                            return
+                        }
+                        var json = {
+                            id:${userid},
+                            password: password
+                        }
+                        $.post("/quemima", json, function (result) {
+                            if (result.status == "true") {
+                                $("#panmima").text("");
+                                $("#mima").show();
+                                $("#quemima").show();
+                                $("#tijiao").show();
+                            } else {
+                                $("#panmima").text("密码不正确");
+                                $("#mima").hide();
+                                $("#quemima").hide();
+                                $("#tijiao").hide();
+                            }
+                        },"json")
+                    }
+                       function xiumima(){
+                        var password=$("#L_pass").val();
+                        var json={
+                            id:${userid},
+                            pwd: password
+                        }
+                        $.post("/updatemima",json,function (result) {
+                                if(result.status==true){
+                                    alert("密码修改成功");
+                                    location.href="/";
+                                }else{
+                                    alert("密码修改失败");
+                                }
+                        })
+                       }
+                      $("#updatepassword").submit(function () {
+                          var mima = $("#L_nowpass").val();
+                          if (mima == "") {
+                              alert("请输入密码");
+                              return;false;
+                          }
+                          var xinmima = $("#L_pass").val();
+                          if (xinmima == "") {
+                              alert("请输入新密码");
+                              return false;
+                          }
+                          var querenmima = $("#L_repass").val();
+                          if (querenmima == "") {
+                              alert("请确认密码");
+                              return false;
+                          }
+                          if (xinmima.length < 6) {
+                              alert("密码长度不能小于6");
+                              return false;
+                          } else if (xinmima.length > 16) {
+                              alert("密码成都不能大于16");
+                              return false;
+                          }
+                          if (xinmima != querenmima) {
+                              alert("两次密码不一样");
+                              return false;
+                          }
+                          if (mima == xinmima) {
+                              alert("新改的密码 不能和之前的密码一样");
+                              return false;
+                          }
+                              return  true
+                      })
 
+                </script>
+                <c:if test="${ujie==1}">
+                    <script type="text/javascript">
+                                alert("修改密码成功")
+                                ${ujie=0}
+                                location.href="/static/jsp/denglu.jsp"
+                    </script>
+                </c:if>
+                <c:if test="${ujie==-1}">
+                    <script type="text/javascript">
+                        ${ujie=0}
+                        alert("修改密码失败")
+                    </script>
+                </c:if>
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <ul class="app-bind">
                         <li class="fly-msg app-havebind">
@@ -309,16 +409,20 @@
                             <!-- <span>已成功绑定，您可以使用微博直接登录Fly社区，当然，您也可以</span>
                             <a href="javascript:;" class="acc-unbind" type="weibo_id">解除绑定</a> -->
 
-                            <a href="" class="acc-weibo" type="weibo_id"  onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})" >立即绑定</a>
+                            <a href="" class="acc-weibo" type="weibo_id"
+                               onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})">立即绑定</a>
                             <span>，即可使用微博帐号登录Fly社区</span>
                         </li>
                         <li>
                             <div class="layui-form-item">
                                 <label for="L_email" class="layui-form-label">邮箱</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="L_email" name="email" required lay-verify="email" autocomplete="off" value="" class="layui-input">
+                                    <input type="text" id="L_email" name="email" required lay-verify="email"
+                                           autocomplete="off" value="" class="layui-input">
                                 </div>
-                                <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
+                                <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html"
+                                                                                                   style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -331,7 +435,8 @@
 </div>
 
 <div class="fly-footer">
-    <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
+    <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/"
+                                                                                target="_blank">layui.com 出品</a></p>
     <p>
         <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
         <a href="http://www.layui.com/template/fly/" target="_blank">获取Fly社区模版</a>
@@ -344,14 +449,14 @@
     layui.cache.page = 'user';
     layui.cache.user = {
         username: '游客'
-        ,uid: -1
-        ,avatar: '/static/res/images/avatar/00.jpg'
-        ,experience: 83
-        ,sex: '男'
+        , uid: -1
+        , avatar: '/static/res/images/avatar/00.jpg'
+        , experience: 83
+        , sex: '男'
     };
     layui.config({
         version: "2.0.0"
-        ,base: '/static/res/mods/'
+        , base: '/static/res/mods/'
     }).extend({
         fly: 'index'
     }).use('fly');

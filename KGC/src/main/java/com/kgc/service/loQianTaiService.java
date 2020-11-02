@@ -13,4 +13,5 @@ public interface loQianTaiService {
     List<Picture> selectAll();
     List<Picture> selectBy(int lei);
     List<Plei> selectAllPLei();//查找系列所有的类型
+    UserInfo selectByAccidAndUtype(int id);
 }

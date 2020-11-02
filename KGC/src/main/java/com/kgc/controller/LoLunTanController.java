@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -263,37 +264,40 @@ public class LoLunTanController {
 
     //论坛基本设置
     //读取用户信息数据
-    @RequestMapping("/jibenshezhiyhxx{id}")
-    @ResponseBody
-    public Map<String, Object> jibenshezhiyhxx(int id) {//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
+    @RequestMapping("/jibenshezhiyhxx")
+    public String jibenshezhiyhxx(HttpSession session, Model model) {//根据id查找用户收藏的帖子并且将收藏的帖子信息显示出来
+        int id = (int) session.getAttribute("userid");
         Map<String, Object> map = new HashMap<>();
         List<UserInfo> userInfos = loLunTanService.selectByUserId(id);
-        map.put("data", userInfos.get(userInfos.size()-1));
-        return map;
+        model.addAttribute("shu", userInfos.get(userInfos.size() - 1));
+        return "luntanjibenshezhi";
     }
 
     //修改用户信息数据
-    @RequestMapping("/jibenshezhiyhxxupdate{id}")
-    @ResponseBody
-    public Map<String, Object> jibenshezhiyhxxupdate(UserInfo userInfo) {
+    @RequestMapping("/jibenshezhiyhxxupdate")
+    public String jibenshezhiyhxxupdate(UserInfo userInfo, HttpSession session) {
+        UserInfo chaUserInfo = loLunTanService.selectByUid(userInfo.getUid());//根据该uid(用户表的id)查找对应的信息 将信息插入进来 防止有的信息为空值
+        userInfo.setAccid(chaUserInfo.getAccid());
+        userInfo.setEmail(chaUserInfo.getEmail());
+        userInfo.setPhone(chaUserInfo.getPhone());
+        userInfo.setTouxiang(chaUserInfo.getTouxiang());
+        userInfo.setUtype(1);
+        System.out.println(userInfo.toString());
         Map<String, Object> map = new HashMap<>();
-        userInfo.setUtype(2);
+        //userInfo.setUtype(2);
         UserInfo userInfoxiu = new UserInfo(userInfo.getUid(), 2);
         int xiu = loLunTanService.updateUserInfoType(userInfoxiu);//将用户之前的信息修改为2
         System.out.println("将用户之前的数据type修改成2是否成功:" + xiu);
         userInfo.setUid(null);
         int add = loLunTanService.insertUserInfo(userInfo);//添加用户信息
         System.out.println("添加用户信息是否成功:" + add);
-        if (add > 0) {
-            map.put("status", "true");
-        } else {
-            map.put("status", "false");
-        }
-        return map;
+        session.setAttribute("userxinxi", userInfo);
+        return "redirect:/jibenshezhiyhxx";
     }
-  //上传用户头像
+
+    //上传用户头像
     @RequestMapping("/doTestUploadFile")
-    public String doTestUploadFile(MultipartFile test_pic, HttpServletRequest request,int id) {
+    public String doTestUploadFile(MultipartFile test_pic, HttpSession session, HttpServletRequest request, int id) {
         //获取源文件名
         String originalFilename = test_pic.getOriginalFilename();
         if (originalFilename == null || originalFilename.length() == 0) {
@@ -329,7 +333,7 @@ public class LoLunTanController {
         userInfo.setUid(null);
         int add = loLunTanService.insertUserInfo(userInfo);//添加用户信息
         System.out.println("添加用户信息是否成功:" + add);
-
+        session.setAttribute("userxinxi", userInfo);
         //封装File对象
         File file = new File(realPath, fileName);
         //上传
@@ -339,12 +343,132 @@ public class LoLunTanController {
             e.printStackTrace();
             request.setAttribute("msg", e.getMessage());
             System.out.println(e.getMessage());
-            return "luntanjibenshezhi";
+            return "redirect:/jibenshezhiyhxx";
         }
         request.setAttribute("uri", fileName);
-        return "luntanjibenshezhi";
+        return "redirect:/jibenshezhiyhxx";
     }
 
+    @RequestMapping("/quemima")
+    @ResponseBody
+    public Map<String, Object> quemima(int id, String password) {
+        Map<String, Object> map = new HashMap<>();
+        User user = loLunTanService.selectByid(id);
+        if (user.getPwd().trim().equals(password.trim())) {
+            map.put("status", "true");
+        } else {
+            map.put("status", "false");
+        }
+        return map;
+    }
 
+    @RequestMapping("/updatemima")
+    public String updatemima(User user, Model model, HttpSession session) {
+        int jie = loLunTanService.updatepassword(user);
+        int ujie = 0;
+        if (jie > 0) {
+            ujie = 1;
+        } else {
+            ujie = -1;
+        }
+        System.out.println("ujie" + ujie);
+        session.setAttribute("ujie", ujie);
+        return "redirect:/jibenshezhiyhxx";
+    }
 
+    /*@RequestMapping("/chaWoDeXiaoXi")
+    public String chaWoDeXiaoXi(HttpSession session,Model model){
+        int userid=(int)session.getAttribute("userid");
+        Map<String,Object> map=new HashMap<>();
+        List<WoDeXiaoXi> woDeXiaoXis = loLunTanService.selectByShouUserId(userid);
+        for (WoDeXiaoXi woDeXiaoXi : woDeXiaoXis) {
+            System.out.println(woDeXiaoXi.toString());
+        }
+        model.addAttribute("shu",woDeXiaoXis);
+        return "luntanwodexiaoxi";
+    }*/
+    @RequestMapping("/chaWoDeXiaoXi")
+    @ResponseBody
+    public Map<String, Object> chaWoDeXiaoXi(HttpSession session, Integer pageNum, Integer pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        int userid = (int) session.getAttribute("userid");
+        PageHelper.startPage(pageNum, pageSize);
+        List<WoDeXiaoXi> woDeXiaoXis = loLunTanService.selectByShouUserId(userid);
+        System.out.println(woDeXiaoXis.toString());
+        PageInfo<WoDeXiaoXi> pageInfo = new PageInfo<>(woDeXiaoXis);
+        map.put("data", pageInfo);
+        return map;
+    }
+
+    @RequestMapping("/updateWoDeXiaoXi")//根据我的消息表id将该数据修改成2(用户不可见)
+    @ResponseBody
+    public Map<String, Object> updateWoDeXiaoXi(int id) {
+        Map<String, Object> map = new HashMap<>();
+        int i = loLunTanService.updateWDXXLei(id);
+        if (i > 0) {
+            map.put("status", true);
+        } else {
+            map.put("status", false);
+        }
+        return map;
+    }
+
+    @RequestMapping("/chuanzhichaliaotian")
+    @ResponseBody
+    public Map<String, Object> chuanzhichaliaotian(int userid, int faid,int xid, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        WoDeXiaoXi woDeXiaoXi = loLunTanService.selectByXid(xid);
+        System.out.println("pan"+woDeXiaoXi.toString());
+        if(woDeXiaoXi.getXlei()==1){
+            int i = loLunTanService.updateWDXXLei3(xid);
+            System.out.println("将该条数据改成已读是否成功"+i);
+        }
+        session.setAttribute("chatuserid", userid);
+        session.setAttribute("chatfaid", faid);
+        map.put("status", true);
+        return map;
+    }
+
+    /*@RequestMapping("/chaliaotian")
+    public String chaliaotian(HttpSession session, Model model) {
+        int userid=(int) session.getAttribute("chatuserid");
+        int faid=(int) session.getAttribute("chatfaid");
+        List<WoDeXiaoXi> woDeXiaoXis = loLunTanService.selectByShouFa(userid, faid);
+        for (int i = 0; i < woDeXiaoXis.size(); i++) {
+            System.out.println(woDeXiaoXis.get(i).toString());
+        }
+        model.addAttribute("shu", woDeXiaoXis);
+        session.removeAttribute("chatuserid");
+        session.removeAttribute("chatfaid");
+        return "chat";
+    }*/
+    @RequestMapping("/chaliaotian")
+    @ResponseBody
+    public Map<String, Object> chaliaotian(HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        int userid = (int) session.getAttribute("chatuserid");
+        int faid = (int) session.getAttribute("chatfaid");
+        List<WoDeXiaoXi> woDeXiaoXis = loLunTanService.selectByShouFa(userid, faid);
+        for (int i = 0; i < woDeXiaoXis.size(); i++) {
+            System.out.println(woDeXiaoXis.get(i).toString());
+        }
+        map.put("data", woDeXiaoXis);
+        return map;
+    }
+
+    @RequestMapping("/addchat")
+    @ResponseBody
+    public Map<String, Object> addchat(WoDeXiaoXi woDeXiaoXi) {
+        Map<String, Object> map = new HashMap<>();
+        woDeXiaoXi.setBiao(woDeXiaoXi.getChat());
+        woDeXiaoXi.setTime(new Date());
+        woDeXiaoXi.setXlei(1);
+        int i = loLunTanService.addWDXX(woDeXiaoXi);
+        if (i > 0) {
+            map.put("status", true);
+        } else {
+            map.put("status", false);
+        }
+        return map;
+    }
 }

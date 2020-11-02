@@ -29,6 +29,25 @@ public class UserInfo {
 
     private Integer score;
 
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "uid=" + uid +
+                ", accid=" + accid +
+                ", nickname='" + nickname + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", touxiang='" + touxiang + '\'' +
+                ", qianming='" + qianming + '\'' +
+                ", modification=" + modification +
+                ", utype=" + utype +
+                ", score=" + score +
+                '}';
+    }
+
     public UserInfo() {
     }
 

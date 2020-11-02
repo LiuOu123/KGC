@@ -19,6 +19,49 @@ public class WoDeXiaoXi {
 
     private Integer xlei;
 
+    private UserInfo userInfo;
+
+    public WoDeXiaoXi() {
+    }
+
+    public WoDeXiaoXi(Integer xid, Integer xlei) {
+        this.xid = xid;
+        this.xlei = xlei;
+    }
+
+    public WoDeXiaoXi(Integer xid, Integer senduserid, String biao, String chat,Integer shouuserid, Date time, Integer xlei) {
+        this.xid = xid;
+        this.senduserid = senduserid;
+        this.biao = biao;
+        this.chat = chat;
+        this.shouuserid = shouuserid;
+        this.time = time;
+        this.xlei = xlei;
+    }
+
+    @Override
+    public String toString() {
+        return "WoDeXiaoXi{" +
+                "xid=" + xid +
+                ", senduserid=" + senduserid +
+                ", biao='" + biao + '\'' +
+                ", chat='" + chat + '\'' +
+                ", img='" + img + '\'' +
+                ", shouuserid=" + shouuserid +
+                ", time=" + time +
+                ", xlei=" + xlei +
+                ", userInfo=" + userInfo +
+                '}';
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
     public Integer getXid() {
         return xid;
     }
