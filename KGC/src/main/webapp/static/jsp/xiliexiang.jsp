@@ -260,32 +260,43 @@
     <h6 style="color: gainsboro; font-size: 15px;">系列课程 > Python
         Web编程-Django框架</h6>
     <center>
-        <h1 style="color: white; font-size: 50px;">${requestScope.namee }
+        <h1 style="color: white; font-size: 50px;">${xiLieKeChengs.name }
         </h1>
         <h5 style="color: #8CC600; font-size: 15px;">
-            课程数：${requestScope.kemun }节 课程有效期：${requestScope.qi }天
-            学习人数：${requestScope.people }</h5>
+            课程数：${xiLieKeChengs.kenum }节 课程有效期：${xiLieKeChengs.qi }天
+            学习人数：${xiLieKeChengs.people }</h5>
     </center>
 </div>
 <div class="dian_1">
     <div class="dian_11">
 			<span
                     style="color: white; font-size: 25px; position: relative; top: 10px;">
-				<c:choose>
-					<c:when test="${requestScope.price eq '免费' }">
-											价格：${requestScope.price }
+				<%--<c:choose>
+					<c:when test="${xiLieKeChengs.price eq '免费' }">
+											价格：${xiLieKeChengs.price }
 			</span>
-        </c:when>
-        <c:otherwise>
-            价格：${requestScope.price }元</span>
-        </c:otherwise>
-        </c:choose>
+        </c:when>--%>
+        <%--<c:otherwise>--%>
+            价格：${xiLieKeChengs.price }<%--元--%></span>
+        <%--</c:otherwise>--%>
+        <%--</c:choose>--%>
     </div>
     <a href="123.html">
         <div class="dian_12">
             <div class="dian_121">
 
-                <c:forEach items="${requestScope.userbuy }" var="u">
+                <c:if test="${xiLieKeChengs.lei == 0 }">
+                    <center>
+                        <a style="color: white; font-size: 20px" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}">立即购买</a>
+                    </center>
+                </c:if>
+                <c:if test="${xiLieKeChengs.lei == 1 }">
+                    <center>
+                        <a style="color: white; font-size: 20px" href="#">立即观看</a>
+                    </center>
+                </c:if>
+
+                <%--<c:forEach items="${requestScope.userbuy }" var="u">
 
                     <c:choose>
                         <c:when test="${u.lei == 0 }">
@@ -300,7 +311,7 @@
                         </c:when>
 
                     </c:choose>
-                </c:forEach>
+                </c:forEach>--%>
             </div>
         </div>
     </a>
@@ -308,25 +319,26 @@
 
 <div class="da_1">
     <div class="da_11">
-        <p>${requestScope.namee }</p>
+        <p>${xiLieKeChengs.name }</p>
     </div>
-    <div class="da_12">${requestScope.namee }
-        <p>共${requestScope.kemun }节课程，已更新完毕</p>
+    <div class="da_12">${xiLieKeChengs.name }
+        <p>共${xiLieKeChengs.kenum }节课程，已更新完毕</p>
     </div>
-    <c:forEach items="${requestScope.arr }" var="xx">
+    <c:forEach items="${list }" var="xx">
         <div class="da_13">
-				<span class="da_131"><img src="/static/img/小图标_副本.png" width="20px"
-                                          height="20px"></span> <a href="123.html"><span class="da_132"
-                                                                                         style="font-weight: 1000; position: relative; top: -5px;">${xx.jie}</span></a>
 
-            <br />
+				<span class="da_131"><img src="/static/img/小图标_副本.png" width="20px" height="20px"></span> <a href="123.html"><span class="da_132"style="font-weight: 1000; position: relative; top: -5px;">${xx.jie}</span></a>
+                    <br />
 
-            <p class="da_133">${xx.xiang}</p>
+                    <p class="da_133">${xx.xiang}</p>
 
 
 
-            <br />
-            <hr />
+                    <br />
+                    <hr />
+
+
+
         </div>
         <br />
     </c:forEach>
@@ -341,14 +353,15 @@
     </div>
     <div class="jiang_3">
         <ul>
-            <li style="position: relative; top: -20px;">${requestScope.tname }</li>
-
-            <li style="position: relative; top: -10px;">${requestScope.tchat }</li>
+            <li style="position: relative; top: -10px;font-size: 20px">${xiLieKeChengs.tname }</li>
+            <br />
+            <br />
+            <li style="position: relative; top: -10px;">${xiLieKeChengs.tchat }</li>
         </ul>
     </div>
 </div>
 
-<div class="xue">
+<%--<div class="xue">
     <div class="xue_1" style="color: #8CC600; font-size: 30px;">学员评价</div>
     <c:forEach items="${requestScope.xlxl }" var="xl">
         <div class="xue_2">
@@ -368,7 +381,7 @@
         </div>
         <br />
     </c:forEach>
-</div>
+</div>--%>
 
 
 <!--底部-->
