@@ -28,12 +28,14 @@ public class loQianTaiController {
         List<User> login = loQianTaiService.login(username, password);
         if(login.size()>0){
             User user=login.get(0);
+            session.setAttribute("login",user);
             UserInfo userInfos = loQianTaiService.selectByAccidAndUtype(user.getId());
             UserInfo userInfo=userInfos;
             session.setAttribute("userxinxi",userInfo);
             session.setAttribute("username",userInfo.getNickname());//保存session作用域 昵称
             session.setAttribute("userid",user.getId());//保存session作用域 用户id
             session.setAttribute("usertype",user.getLei());//保存session作用域 用户类型(管理权限)
+            session.setAttribute("shenfen", user.getLei());//保存session作用域 用户类型(管理权限)
             session.setAttribute("usertable",user);//保存session作用域 账号信息
             return "kgcshouye";
         }else{

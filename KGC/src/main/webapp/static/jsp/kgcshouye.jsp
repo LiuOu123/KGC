@@ -176,9 +176,11 @@
     <c:if test="${sessionScope.username!=null}">
         <c:if test="${sessionScope.usertype==1}">
             <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;同学</a>
+            <a href="/static/jsp/main.jsp">学生管理系统</a>
         </c:if>
         <c:if test="${sessionScope.usertype==2}">
             <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;老师</a>
+            <a href="/static/jsp/main.jsp">学生管理系统</a>
         </c:if>
         <c:if test="${sessionScope.usertype==3}">
             <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;管理员</a>
@@ -1435,6 +1437,9 @@
                     <a href="#" id="biaozizi" style="position: relative;left: 80px;">在线课程</a>
 
                     <a href="/static/jsp/pinpaijieshao.jsp" id="biaozizi" style="position: relative;left: 90px;">关于我们</a>
+
+                    <a href="/xilie" id="biaozizi" style="position: relative;left: 80px;">系列</a>
+                    <a href="/luntan" id="biaozizi" style="position: relative;left: 80px;">论坛</a>
                 </center>
             </div>
 
