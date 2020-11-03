@@ -18,7 +18,7 @@ public class newphone {
 	    Map<String, String> querys = new HashMap<String, String>();
 	    querys.put("mobile", "18201429936");
 	    querys.put("param", "code:0529");
-	    querys.put("tpl_id", "TP1711063");
+	    querys.put("tpl_id", "TP18041310");
 	    Map<String, String> bodys = new HashMap<String, String>();
 
 
