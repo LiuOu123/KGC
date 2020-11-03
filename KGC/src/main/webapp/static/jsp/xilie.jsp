@@ -185,7 +185,7 @@
     <c:forEach items="${pictures}" var="x">
         <li style="margin-top: 20px;">
             <div class="ct-coll-item" style="width:;border: 0px solid red">
-                <a class="ct-coll-thumb" href="xiliekecheng?name=${x.name }&username=${sessionScope.username}">
+                <a class="ct-coll-thumb" href="xiliekecheng?name=${x.name }&biao=admin">
                     <img src="/static/picture/${x.src }.png" width="230px" height="285px" />
                 </a>
             </div>

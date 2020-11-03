@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-
+<script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
 <head>
     <meta charset="utf-8" />
     <title>系列详细</title>
@@ -269,31 +269,34 @@
 </div>
 <div class="dian_1">
     <div class="dian_11">
-			<span
-                    style="color: white; font-size: 25px; position: relative; top: 10px;">
-				<%--<c:choose>
-					<c:when test="${xiLieKeChengs.price eq '免费' }">
-											价格：${xiLieKeChengs.price }
-			</span>
-        </c:when>--%>
-        <%--<c:otherwise>--%>
-            价格：${xiLieKeChengs.price }<%--元--%></span>
-        <%--</c:otherwise>--%>
-        <%--</c:choose>--%>
+			<span style="color: white; font-size: 25px; position: relative; top: 10px;">
+                <c:choose>
+					<c:when test="${xiLieKeChengs.price eq '免费' }">价格：${xiLieKeChengs.price }</span>
+                </c:when>
+                <c:otherwise>
+                    价格：${xiLieKeChengs.price }元</span>
+        </c:otherwise>
+        </c:choose>
     </div>
-    <a href="123.html">
+    <%--<a href="123.html">--%>
         <div class="dian_12">
             <div class="dian_121">
 
-                <c:if test="${xiLieKeChengs.lei == 0 }">
-                    <center>
-                        <a style="color: white; font-size: 20px" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}">立即购买</a>
-                    </center>
+                <c:if test="${xiLieKeChengs.price=='免费'}">
+                    <a style="color: white; font-size: 20px;margin-left: 25px;" href="/dingyue?name=${x.name }&biao=admin>立即订阅</a>
                 </c:if>
-                <c:if test="${xiLieKeChengs.lei == 1 }">
-                    <center>
-                        <a style="color: white; font-size: 20px" href="#">立即观看</a>
-                    </center>
+
+                <c:if test="${xiLieKeChengs.price!='免费'}">
+                    <c:if test="${ count==0 }">
+                        <center>
+                            <a style="color: white; font-size: 20px;" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}&miaoshu=课程数：${xiLieKeChengs.kenum }节 课程有效期：${xiLieKeChengs.qi }天">立即购买</a>
+                        </center>
+                    </c:if>
+                    <c:if test="${ count>0 }">
+                        <center>
+                            <a style="color: white; font-size: 20px" href="/dingyue?name=${xiLieKeChengs.name }&biao=admin">立即订阅</a>
+                        </center>
+                    </c:if>
                 </c:if>
 
                 <%--<c:forEach items="${requestScope.userbuy }" var="u">
@@ -314,7 +317,7 @@
                 </c:forEach>--%>
             </div>
         </div>
-    </a>
+    <%--</a>--%>
 </div>
 
 <div class="da_1">
@@ -361,28 +364,36 @@
     </div>
 </div>
 
-<%--<div class="xue">
-    <div class="xue_1" style="color: #8CC600; font-size: 30px;">学员评价</div>
-    <c:forEach items="${requestScope.xlxl }" var="xl">
-        <div class="xue_2">
-            <img id="yuanjiao" src="touxiang/${xl.src }.jpg" width="68px"
-                 height="68px" />
-        </div>
-        <div class="xue_3" style="margin-left: 300px; margin-top: -90px">
-            <ul>
-                <li style="color: gainsboro;">${xl.name }</li>
-                <br />
+<div class="xue" style="" id="fabiao">
+<c:if test="${userBuy!=null}">
+    <c:if test="${userBuy.lei==1}">
+        <div class="xue_1" style="color: #8CC600; font-size: 30px;">学员评价</div>
+        <input type="text" name="" style="width: 500px;height: 50px;position: relative;left: 410px;top: -45px;font-size: 30px">
+        <input type="submit" value="发表" style="width: 100px;height: 58px;position: relative;left: 430px;top: -50px">
+        <%--<c:forEach items="${requestScope.xlxl }" var="xl">
+            <div class="xue_2">
+                <img id="yuanjiao" src="touxiang/${xl.src }.jpg" width="68px"
+                     height="68px" />
+            </div>
+            <div class="xue_3" style="margin-left: 300px; margin-top: -90px">
+                <ul>
+                    <li style="color: gainsboro;">${xl.name }</li>
+                    <br />
 
-                <li>${xl.chat }</li>
-                <br />
+                    <li>${xl.chat }</li>
+                    <br />
 
-                <li style="color: gainsboro;">发表于${xl.time}</li>
-            </ul>
-        </div>
-        <br />
-    </c:forEach>
-</div>--%>
+                    <li style="color: gainsboro;">发表于${xl.time}</li>
+                </ul>
+            </div>
+            <br />
+        </c:forEach>--%>
+    </c:if>
+    <c:if test="${userBuy.lei==0}">
 
+    </c:if>
+</c:if>
+</div>
 
 <!--底部-->
 <div style="background-color: #F0F0F0; width: 100%; height: 340px;"

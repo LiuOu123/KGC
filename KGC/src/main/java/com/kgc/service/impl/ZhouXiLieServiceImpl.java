@@ -19,6 +19,8 @@ public class ZhouXiLieServiceImpl implements ZhouXiLieService{
     @Resource
     XiLieKeChengMapper xiLieKeChengMapper;
 
+    @Resource
+    UserBuyMapper userBuyMapper;
 
     @Override
     public XiLieKeCheng selectAll(String name) {
@@ -48,9 +50,37 @@ public class ZhouXiLieServiceImpl implements ZhouXiLieService{
     }
 
     @Override
-    public void update(XiLieKeCheng xiLieKeCheng) {
-        xiLieKeChengMapper.updateByPrimaryKeySelective(xiLieKeCheng);
+    public int count(String name, String biao) {
+        UserBuyExample example=new UserBuyExample();
+        UserBuyExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(name);
+        criteria.andBiaoEqualTo(biao);
+        int i = userBuyMapper.countByExample(example);
+        return i;
     }
 
+    @Override
+    public void insert(UserBuy userBuy) {
+        userBuyMapper.insertSelective(userBuy);
+    }
+
+    @Override
+    public void update(UserBuy userBuy) {
+        userBuyMapper.updateByPrimaryKeySelective(userBuy);
+    }
+
+    @Override
+    public UserBuy selectUserBuy(String name, String biao) {
+        UserBuy username=null;
+        UserBuyExample example=new UserBuyExample();
+        UserBuyExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(name);
+        criteria.andBiaoEqualTo(biao);
+        List<UserBuy> userBuys = userBuyMapper.selectByExample(example);
+        if(userBuys!=null && userBuys.size()!=0){
+            username=userBuys.get(0);
+        }
+        return username;
+    }
 
 }

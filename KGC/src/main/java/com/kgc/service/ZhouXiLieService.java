@@ -13,5 +13,12 @@ public interface ZhouXiLieService {
 
     List<XiLieKeCheng> selectXiLie();
 
-    void update(XiLieKeCheng xiLieKeCheng);
+    int count(String name,String biao);
+
+    void insert(UserBuy userBuy);
+
+    void update(UserBuy userBuy);
+
+    UserBuy selectUserBuy(String name,String biao);
+
 }
