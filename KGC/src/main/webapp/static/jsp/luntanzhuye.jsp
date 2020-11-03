@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,10 +52,12 @@
                     <a href="/static/jsp/zhuce.jsp">注册</a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs">
-                    <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+                    <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入"
+                       class="iconfont icon-qq"></a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs">
-                    <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+                    <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入"
+                       class="iconfont icon-weibo"></a>
                 </li>
             </c:if>
             <!-- 登入后的状态 -->
@@ -81,8 +84,11 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                        <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                        <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                        <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi"
+                                                              style="top: 4px;"></i>我的消息</a></dd>
+                        <dd><a href="../user/home.html"><i class="layui-icon"
+                                                           style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+                        </dd>
                         <hr style="margin: 5px 0;">
                         <dd><a href="" style="text-align: center;">退出</a></dd>
                     </dl>
@@ -93,29 +99,41 @@
 </div>
 
 <div class="fly-home fly-panel" style="background-image: url();">
-    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
-    <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
+    <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
+    <c:if test="${usertype==3}">
+        <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
+    </c:if>
     <h1>
-        贤心
-        <i class="iconfont icon-nan"></i>
-        <!-- <i class="iconfont icon-nv"></i>  -->
-        <i class="layui-badge fly-badge-vip">VIP3</i>
+        ${userxinxi.nickname}
+        <c:if test="${userxinxi.sex=='男'}">
+            <i class="iconfont icon-nan"></i>
+        </c:if>
+        <c:if test="${userxinxi.sex =='女'}">
+            <i class="iconfont icon-nv"></i>
+        </c:if>
+
+        <c:if test="${usertype==3}">
+            <span style="color:#c00;">（管理员）</span>
+        </c:if>
+
         <!--
-        <span style="color:#c00;">（管理员）</span>
         <span style="color:#5FB878;">（社区之光）</span>
         <span>（该号已被封）</span>
         -->
     </h1>
 
-    <p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>
+    <%--<p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>--%>
 
     <p class="fly-home-info">
-        <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">66666 飞吻</span>
-        <i class="iconfont icon-shijian"></i><span>2015-6-17 加入</span>
-        <i class="iconfont icon-chengshi"></i><span>来自杭州</span>
+        <c:if test="${usertype==1}">
+            <i class="iconfont layui-icon-face-smile-fine" title="成績"></i><span style="color: #FF7200;">${userxinxi.score}学分</span>
+        </c:if>
+
+        <i class="iconfont icon-shijian"></i><span><fmt:formatDate pattern="yyyy-MM-dd" value="${usertable.createdate}" type="both"/> 加入</span>
+        <i class="iconfont icon-chengshi"></i><span>${userxinxi.address}</span>
     </p>
 
-    <p class="fly-home-sign">（人生仿若一场修行）</p>
+    <p class="fly-home-sign">（${userxinxi.qianming}）</p>
 
     <div class="fly-sns" data-user="">
         <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
@@ -128,59 +146,60 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6 fly-home-jie">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">贤心 最近的提问</h3>
+                <h3 class="fly-panel-title">${userxinxi.nickname} 最近的浏览</h3>
                 <ul class="jie-row" id="#fatie">
 
-                    <%--<
+
                      <li>
                         <span class="fly-jing">精</span>
                         <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
                         <i>刚刚</i>
                         <em class="layui-hide-xs">1136阅/27答</em>
                     </li>
-                    li>
-                        <span class="fly-jing">精</span>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>刚刚</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>2017-10-30</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>--%>
+                    <%--<
+                   li>
+                       <span class="fly-jing">精</span>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>刚刚</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>
+                   <li>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>1天前</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>
+                   <li>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>2017-10-30</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>
+                   <li>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>1天前</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>
+                   <li>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>1天前</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>
+                   <li>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>1天前</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>
+                   <li>
+                       <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                       <i>1天前</i>
+                       <em class="layui-hide-xs">1136阅/27答</em>
+                   </li>--%>
                     <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
                 </ul>
             </div>
         </div>
         <script type="text/javascript">
- /*           $(function () {
-                var id=${sessionScope.userid};
+            /*           $(function () {
+                           var id=${sessionScope.userid};
                 $.post("/zhuyefatie{id}",{id:id},function (result) {
                     $.each(result.data.list,function (index,pageInfo) {
                         var li=$("<li><span class=\"fly-jing\">精</span><a>+pageInfo.title+</a><i>+pageInfo.time+</i><em>+pageInfo.liulanliang阅/pageInfo.size答+</em></li>");
@@ -192,7 +211,7 @@
 
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">贤心 最近的回答</h3>
+                <h3 class="fly-panel-title">${userxinxi.nickname} 最近的回答</h3>
                 <ul class="home-jieda">
                     <li>
                         <p>
@@ -225,7 +244,8 @@ full: true
 </div>
 
 <div class="fly-footer">
-    <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
+    <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/"
+                                                                                target="_blank">layui.com 出品</a></p>
     <p>
         <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
         <a href="http://www.layui.com/template/fly/" target="_blank">获取Fly社区模版</a>
@@ -238,14 +258,14 @@ full: true
     layui.cache.page = 'user';
     layui.cache.user = {
         username: '游客'
-        ,uid: -1
-        ,avatar: '/static/res/images/avatar/00.jpg'
-        ,experience: 83
-        ,sex: '男'
+        , uid: -1
+        , avatar: '/static/res/images/avatar/00.jpg'
+        , experience: 83
+        , sex: '男'
     };
     layui.config({
         version: "3.0.0"
-        ,base: '/static/res/mods/'
+        , base: '/static/res/mods/'
     }).extend({
         fly: 'index'
     }).use('fly');
