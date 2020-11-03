@@ -389,7 +389,10 @@ public class WorksExample {
             addCriterion("wortitle like", value, "wortitle");
             return (Criteria) this;
         }
-
+        public Criteria andnameLike(String value) {
+            addCriterion("user like", value, "user");
+            return (Criteria) this;
+        }
         public Criteria andWortitleNotLike(String value) {
             addCriterion("wortitle not like", value, "wortitle");
             return (Criteria) this;

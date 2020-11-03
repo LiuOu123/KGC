@@ -18,6 +18,7 @@ public interface ReleaseeMapper {
     int insertSelective(Releasee record);
 
     List<Releasee> selectByExample(ReleaseeExample example);
+    List<Releasee> studentworks(ReleaseeExample example);
 
     Releasee selectByPrimaryKey(Integer rid);
 
