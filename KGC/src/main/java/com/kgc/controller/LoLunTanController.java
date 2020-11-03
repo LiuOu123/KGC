@@ -1,5 +1,8 @@
 package com.kgc.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kgc.pojo.*;
@@ -452,10 +455,10 @@ public class LoLunTanController {
         for (int i = 0; i < woDeXiaoXis.size(); i++) {
             System.out.println(woDeXiaoXis.get(i).toString());
         }
-        map.put("data", woDeXiaoXis);
+
+        map.put("data", JSONObject.parse(JSONArray.toJSONString(woDeXiaoXis, SerializerFeature.DisableCircularReferenceDetect)));
         return map;
     }
-
     @RequestMapping("/addchat")
     @ResponseBody
     public Map<String, Object> addchat(WoDeXiaoXi woDeXiaoXi) {

@@ -6,6 +6,36 @@ public class GradeUser {
     private Integer gradeid;
 
     private Integer userid;
+    /*根据登录id查询属于哪个班级 然后在查询作业*/
+    private  Grade grade;
+    private  User user;
+
+    @Override
+    public String toString() {
+        return "GradeUser{" +
+                "guid=" + guid +
+                ", gradeid=" + gradeid +
+                ", userid=" + userid +
+                ", grade=" + grade +
+                ", user=" + user +
+                '}';
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getGuid() {
         return guid;

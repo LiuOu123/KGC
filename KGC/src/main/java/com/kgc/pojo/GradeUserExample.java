@@ -113,6 +113,17 @@ public class GradeUserExample {
             addCriterion("guid is not null");
             return (Criteria) this;
         }
+        /**/
+        public Criteria andleiEqualTo(Integer value) {
+            addCriterion("lei =", value, "lei");
+            return (Criteria) this;
+        }
+        public Criteria andtitleLike(String value) {
+            addCriterion("user like", value, "user");
+            return (Criteria) this;
+        }
+/**/
+
 
         public Criteria andGuidEqualTo(Integer value) {
             addCriterion("guid =", value, "guid");

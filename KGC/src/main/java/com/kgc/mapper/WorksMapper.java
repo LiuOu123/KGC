@@ -18,6 +18,9 @@ public interface WorksMapper {
     int insertSelective(Works record);
 
     List<Works> selectByExample(WorksExample example);
+    /**/
+    List<Works> workshuifu(WorksExample example);
+    /**/
 
     Works selectByPrimaryKey(Integer wid);
 

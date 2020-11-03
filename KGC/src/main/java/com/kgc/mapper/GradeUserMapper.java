@@ -18,6 +18,8 @@ public interface GradeUserMapper {
     int insertSelective(GradeUser record);
 
     List<GradeUser> selectByExample(GradeUserExample example);
+    /*根据登录id查询属于哪个班级 然后在查询作业*/
+    List<GradeUser> studengtselectClass(GradeUserExample example);
 
     GradeUser selectByPrimaryKey(Integer guid);
 

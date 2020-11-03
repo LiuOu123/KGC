@@ -227,7 +227,7 @@ h2 {
 					<hr class="one_line">
 					<dt>商品描述：</dt>
 					<dd>
-						<input id="WIDbody" name="WIDbody" value="${miaoshu}"/>
+						<input id="WIDbody" name="WIDbody" />
 					</dd>
 					<hr class="one_line">
 					<dt></dt>

@@ -8,7 +8,15 @@
     <result column="relnei" property="relnei" jdbcType="VARCHAR" />
     <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="reldate" property="reldate" jdbcType="TIMESTAMP" />
+    <!--grade 学生查询作业-->
+    <association property="grade" javaType="com.kgc.pojo.Grade">
+      <id column="gid" property="gid" jdbcType="INTEGER" />
+      <result column="gname" property="gname" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
+  <sql id="Base_Column_List2" >
+    rid, gradeid, reltitle, relnei, img, reldate,gid,gname
+  </sql>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -77,6 +85,20 @@
     </if>
     <include refid="Base_Column_List" />
     from releasee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="studentworks" resultMap="BaseResultMap" parameterType="com.kgc.pojo.ReleaseeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List2" />
+    from studentwork
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
