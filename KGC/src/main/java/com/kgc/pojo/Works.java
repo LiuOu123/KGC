@@ -20,6 +20,43 @@ public class Works {
     private Integer isverify;
 
     private String img;
+    /**/
+    private  User user;
+    private  Grade grade;
+    private  Reply reply;
+    private  Releasee releasee;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
+    }
+
+    public Releasee getReleasee() {
+        return releasee;
+    }
+
+    public void setReleasee(Releasee releasee) {
+        this.releasee = releasee;
+    }
 
     public Integer getWid() {
         return wid;

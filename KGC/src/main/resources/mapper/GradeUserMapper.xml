@@ -5,7 +5,23 @@
     <id column="guid" property="guid" jdbcType="INTEGER" />
     <result column="gradeid" property="gradeid" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
+    <!--user-->
+    <association property="user" javaType="com.kgc.pojo.User">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="user" property="user" jdbcType="VARCHAR" />
+      <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+      <result column="lei" property="lei" jdbcType="INTEGER" />
+      <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+    </association>
+    <!--grade-->
+    <association property="grade" javaType="com.kgc.pojo.Grade">
+      <id column="gid" property="gid" jdbcType="INTEGER" />
+      <result column="gname" property="gname" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
+  <sql id="Base_Column_List2" >
+    guid, gradeid, userid,id,user,pwd,lei,createdate,gid,gname
+  </sql>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -81,6 +97,22 @@
       order by ${orderByClause}
     </if>
   </select>
+  <!---->
+  <select id="studengtselectClass" resultMap="BaseResultMap" parameterType="com.kgc.pojo.GradeUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List2" />
+    from stduentclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!---->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

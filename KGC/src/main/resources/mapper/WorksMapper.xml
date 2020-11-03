@@ -11,6 +11,31 @@
     <result column="wordate" property="wordate" jdbcType="TIMESTAMP" />
     <result column="isverify" property="isverify" jdbcType="INTEGER" />
     <result column="img" property="img" jdbcType="VARCHAR" />
+    <!---->
+    <association property="user" javaType="com.kgc.pojo.User">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="user" property="user" jdbcType="VARCHAR" />
+      <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+      <result column="lei" property="lei" jdbcType="INTEGER" />
+      <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+    </association>
+    <association property="grade" javaType="com.kgc.pojo.Grade">
+      <id column="gid" property="gid" jdbcType="INTEGER" />
+      <result column="gname" property="gname" jdbcType="VARCHAR" />
+    </association>
+    <association property="reply" javaType="com.kgc.pojo.Reply">
+      <id column="rid" property="rid" jdbcType="INTEGER" />
+      <result column="worid" property="worid" jdbcType="INTEGER" />
+      <result column="replynei" property="replynei" jdbcType="VARCHAR" />
+    </association>
+    <association property="releasee" javaType="com.kgc.pojo.Releasee">
+      <id column="rid" property="rid" jdbcType="INTEGER" />
+      <result column="gradeid" property="gradeid" jdbcType="INTEGER" />
+      <result column="reltitle" property="reltitle" jdbcType="VARCHAR" />
+      <result column="relnei" property="relnei" jdbcType="VARCHAR" />
+      <result column="img" property="img" jdbcType="VARCHAR" />
+      <result column="reldate" property="reldate" jdbcType="TIMESTAMP" />
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,6 +98,23 @@
   <sql id="Base_Column_List" >
     wid, gradeid, userid, relid, wortitle, wornei, wordate, isverify, img
   </sql>
+  <sql id="Base_Column_List2" >
+    wid,  relid,  wordate,  img,user,replynei,gname
+  </sql>
+  <select id="workshuifu" resultMap="BaseResultMap" parameterType="com.kgc.pojo.WorksExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List2" />
+    from workshuifu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kgc.pojo.WorksExample" >
     select
     <if test="distinct" >
@@ -113,7 +155,7 @@
       #{wordate,jdbcType=TIMESTAMP}, #{isverify,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.kgc.pojo.Works" >
+  <insert id="insertSelective" keyProperty="wid" useGeneratedKeys="true" parameterType="com.kgc.pojo.Works" >
     insert into works
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="wid != null" >
