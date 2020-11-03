@@ -1,5 +1,6 @@
 package com.kgc.pojo;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import java.util.Date;
 
 public class WoDeXiaoXi {
@@ -15,6 +16,7 @@ public class WoDeXiaoXi {
 
     private Integer shouuserid;
 
+    @JsonbDateFormat("yyyy-MM-dd")
     private Date time;
 
     private Integer xlei;

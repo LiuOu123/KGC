@@ -1,5 +1,8 @@
 package com.kgc.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.kgc.mapper.*;
 import com.kgc.pojo.*;
 import com.kgc.service.LoLunTanService;
@@ -314,6 +317,7 @@ com.kgc.service.loQianTaiService loQianTaiService;
     @Override
     public List<WoDeXiaoXi> selectByShouUserId(int userid) {
         WoDeXiaoXiExample example=new WoDeXiaoXiExample();
+        example.setOrderByClause("time desc");
         WoDeXiaoXiExample.Criteria criteria = example.createCriteria();
         criteria.andShouuseridEqualTo(userid);
         criteria.andXleiNotEqualTo(2);

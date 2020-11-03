@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.json.JsonArray;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -392,7 +393,7 @@ public class LoLunTanController {
     }*/
     @RequestMapping("/chaWoDeXiaoXi")
     @ResponseBody
-    public Map<String, Object> chaWoDeXiaoXi(HttpSession session, Integer pageNum, Integer pageSize) {
+    public String chaWoDeXiaoXi(HttpSession session, Integer pageNum, Integer pageSize) {
         Map<String, Object> map = new HashMap<>();
         int userid = (int) session.getAttribute("userid");
         PageHelper.startPage(pageNum, pageSize);
@@ -400,7 +401,11 @@ public class LoLunTanController {
         System.out.println(woDeXiaoXis.toString());
         PageInfo<WoDeXiaoXi> pageInfo = new PageInfo<>(woDeXiaoXis);
         map.put("data", pageInfo);
-        return map;
+//        String s = JSONObject.toJSONString(map);
+        String s1 = JSONArray.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
+        String s2=JSONArray.toJSONStringWithDateFormat(map,"yyyy-MM-dd",SerializerFeature.DisableCircularReferenceDetect);
+
+        return s2;
     }
 
     @RequestMapping("/updateWoDeXiaoXi")//根据我的消息表id将该数据修改成2(用户不可见)
