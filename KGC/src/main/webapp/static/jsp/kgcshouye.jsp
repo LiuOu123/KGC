@@ -175,15 +175,15 @@
     </c:if>
     <c:if test="${sessionScope.username!=null}">
         <c:if test="${sessionScope.usertype==1}">
-            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;同学</a>
+            <a class="xinwenhover" id="liuou11" href="/static/jsp/luntanzhuye.jsp" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;同学</a>
             <a href="/static/jsp/main.jsp">学生管理系统</a>
         </c:if>
         <c:if test="${sessionScope.usertype==2}">
-            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;老师</a>
+            <a class="xinwenhover" id="liuou11" href="/static/jsp/luntanzhuye.jsp" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;老师</a>
             <a href="/static/jsp/main.jsp">学生管理系统</a>
         </c:if>
         <c:if test="${sessionScope.usertype==3}">
-            <a class="xinwenhover" id="liuou11" href="denglu.html" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;管理员</a>
+            <a class="xinwenhover" id="liuou11" href="/static/jsp/luntanzhuye.jsp" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;管理员</a>
             <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
         </c:if>
     </c:if>
@@ -284,7 +284,6 @@
                 <br />
                 <d class="xinwenhover" style="font-size: 14px;color: #5A5A5A;float: left;position: absolute;left: 10px;top: 130px;">[动态]共"享"新未来 "北大课工场...</d>
                 <br />
-                <d class="more" style="font-size: 14px;color: #AECA2D;float: left;position: absolute;left: 190px;top: 170px;">More</d>
             </div>
         </div>
 

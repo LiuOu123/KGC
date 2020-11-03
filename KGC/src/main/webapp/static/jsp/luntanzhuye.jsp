@@ -98,7 +98,7 @@
     </div>
 </div>
 
-<div class="fly-home fly-panel" style="background-image: url();">
+<div class="fly-home fly-panel" <%--style="background-image: url(/static/luntan/touxiang/1.jpg  );"--%>>
     <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
     <c:if test="${usertype==3}">
         <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
