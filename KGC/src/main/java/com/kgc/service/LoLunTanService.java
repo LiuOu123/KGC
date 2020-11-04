@@ -1,5 +1,6 @@
 package com.kgc.service;
 
+import com.fasterxml.jackson.databind.ser.impl.UnknownSerializer;
 import com.kgc.pojo.*;
 
 import java.util.List;
@@ -36,4 +37,5 @@ public interface LoLunTanService {
     int addWDXX(WoDeXiaoXi woDeXiaoXi);//添加消息
     WoDeXiaoXi selectByXid(int xid);//根据id查看我的消息表中的数据
     int updateWDXXLei3(int id);//根据id将我的消息表中该数据类型修改成3
+    List<UserInfo> selectHistoryTouXiang(int userid);//查询该用户历史头像
 }

@@ -378,4 +378,71 @@ com.kgc.service.loQianTaiService loQianTaiService;
         WoDeXiaoXi woDeXiaoXi=new WoDeXiaoXi(id,3);
         return woDeXiaoXiMapper.updateByPrimaryKeySelective(woDeXiaoXi);
     }
+
+    @Override
+    public List<UserInfo> selectHistoryTouXiang(int userid) {
+        UserInfoExample example=new UserInfoExample();
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andAccidEqualTo(userid);
+        List<UserInfo> userInfos = userInfoMapper.selectByExample(example);/*根据用户id查询该用户所有信息*/
+        List<UserInfo> jie=new ArrayList<>();
+        System.out.println("impl数据循环输出");
+        for (int i = 0; i <userInfos.size() ; i++) {
+            if(i==0){
+                jie.add(userInfos.get(i));
+            }else{
+                if(userInfos.get(i).getTouxiang().equals(userInfos.get(i+1).getTouxiang())){
+                    System.out.println((userInfos.get(i).getTouxiang()));
+                    System.out.println((userInfos.get(i+1).getTouxiang()));
+                    System.out.println("=========");
+                    jie.add(userInfos.get(i));
+                    for (int j = 0; j <jie.size() ; j++) {
+                        if(jie.get(i).getTouxiang().equals(userInfos.get(i+1))){
+                            jie.remove(i);
+                            break;
+                        }
+                    }
+                    jie.add(userInfos.get(i+1));
+                }
+            }
+        }
+        System.out.println("=================");
+        for (UserInfo userInfo : jie) {
+            System.out.println(userInfo.toString());
+        }
+        return jie;
+    }
+/*
+    for (int i = 0; i <userInfos.size()-1 ; i++) {
+
+        if(userInfos.size()!=0||userInfos.size()!=1){
+            System.out.println(userInfos.get(i).toString());
+            System.out.println(userInfos.get(i+1).toString());
+            if(i+1<userInfos.size()){
+                System.out.println("1");
+                if(jie.size()==0||jie==null){
+                    System.out.println("11");
+                    jie.add(userInfos.get(i));
+                }else if(userInfos.get(i).getTouxiang().equals(userInfos.get(i+1).getTouxiang())){
+                    System.out.println("111");
+
+                    jie.add(userInfos.get(i));
+                    jie.remove(jie.size()-1);
+                    jie.add(userInfos.get(i+1));
+                }else{
+                    System.out.println("2");
+                    jie.add(userInfos.get(i));
+                }
+            }
+        }else{*//*如果只有一条数据 直接全部给jie*//*
+            System.out.println("3");
+            for (int j = 0; j <userInfos.size() ; j++) {
+                jie.add(userInfos.get(i));
+            }
+        }
+        for (UserInfo userInfo : jie) {
+            System.out.println("当前jie："+userInfo.toString());
+        }
+    }*/
+
 }
