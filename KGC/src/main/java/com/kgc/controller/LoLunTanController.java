@@ -479,4 +479,16 @@ public class LoLunTanController {
         }
         return map;
     }
+    /*查看该用户历史头像*/
+    @RequestMapping("/historyTouXiang")
+    public String historyTouXiang(HttpSession session){
+        System.out.println("进入查询历史头像");
+
+        List<UserInfo> userInfos = loLunTanService.selectHistoryTouXiang(1);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo.toString());
+
+        }
+        return "";
+    }
 }
