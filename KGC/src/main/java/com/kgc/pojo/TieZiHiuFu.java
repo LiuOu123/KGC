@@ -16,6 +16,15 @@ public class TieZiHiuFu {
     private Integer tiezitype;
 
     private UserInfo userInfo;
+private  String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @Override
     public String toString() {

@@ -18,6 +18,7 @@ public interface TieZiHiuFuMapper {
     int insertSelective(TieZiHiuFu record);
 
     List<TieZiHiuFu> selectByExample(TieZiHiuFuExample example);
+    List<TieZiHiuFu> userhuifu(TieZiHiuFuExample example);
 
     TieZiHiuFu selectByPrimaryKey(Integer id);
 

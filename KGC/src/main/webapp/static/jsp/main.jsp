@@ -36,7 +36,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="iconfont">&#xe607;</i>我的班级</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="menu1.html" data-id='1' data-text="后台菜单"><span class="l-line"></span>后台菜单</a></dd>
+                        <dd><a href="javascript:;" data-url="/static/jsp/menu2.html" data-id='1' data-text="后台菜单"><span class="l-line"></span>后台菜单</a></dd>
                         <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="前台菜单"><span class="l-line"></span>前台菜单</a></dd>
                     </dl>
                 </li>
@@ -90,10 +90,10 @@
                 <a href="javascript:;"><i class="iconfont">&#xe600;</i>备份管理</a>
             </li>--%>
             <li class="layui-nav-item">
-                <a href="javascript:;" data-url="jsp/admin-info.jsp" data-id='5' data-text="个人信息"><i class="iconfont">&#xe606;</i>个人信息</a>
+                <a href="javascript:;" data-url="/static/jsp/admin-info.jsp" data-id='5' data-text="个人信息"><i class="iconfont">&#xe606;</i>个人信息</a>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:;" data-url="jsp/system.jsp" data-id='6' data-text="系统设置"><i class="iconfont">&#xe60b;</i>系统设置</a>
+                <a href="javascript:;" data-url="/static/jsp/system.jsp" data-id='6' data-text="系统设置"><i class="iconfont">&#xe60b;</i>系统设置</a>
             </li>
         </ul>
     </div>
@@ -124,7 +124,7 @@
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show" style="background: #f5f5f5;">
                         <!--1-->
-                        <iframe src="jsp/welcome.jsp" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>
+                        <iframe src="/static/jsp/welcome.jsp" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>
                         <!--1end-->
                     </div>
                 </div>

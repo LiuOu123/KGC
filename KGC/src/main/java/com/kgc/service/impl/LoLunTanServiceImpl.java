@@ -33,10 +33,16 @@ public class LoLunTanServiceImpl implements LoLunTanService {
 com.kgc.service.loQianTaiService loQianTaiService;
 
     @Override
-    public List<LunTan> selectAll() {
+    public List<LunTan> selectAll(Integer weijie,Integer jingtie) {
         LunTanExample example=new LunTanExample();
         LunTanExample.Criteria criteria = example.createCriteria();
         criteria.andTypeEqualTo(1);
+        if (weijie!=null){
+            criteria.andWanjieEqualTo(weijie);
+        }
+        if (jingtie!=null){
+            criteria.andJingtieEqualTo(jingtie);
+        }
         List<LunTan> lunTans = lunTanMapper.selectByExample(example);
         for(int i=0;i<lunTans.size();i++){
             /*将对应的userinfo表的信息填入luntan信息中*/
@@ -63,18 +69,20 @@ com.kgc.service.loQianTaiService loQianTaiService;
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
-            uicriteria.andUtypeEqualTo(1);
+           /* uicriteria.andUtypeEqualTo(1);*/
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
-            lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
+
+                lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
+
         }
         return lunTans;
     }
 
     @Override
-    public List<LunTan> selectJingHua() {
+    public List<LunTan> selectJingHua(int jingtie) {
         LunTanExample example=new LunTanExample();
         LunTanExample.Criteria criteria = example.createCriteria();
-        criteria.andJingtieEqualTo(1);
+        criteria.andJingtieEqualTo(jingtie);
         List<LunTan> lunTans = lunTanMapper.selectByExample(example);
         for(int i=0;i<lunTans.size();i++){
             /*将对应的userinfo表的信息填入luntan信息中*/
@@ -82,7 +90,7 @@ com.kgc.service.loQianTaiService loQianTaiService;
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
-            uicriteria.andUtypeEqualTo(1);
+            /* uicriteria.andUtypeEqualTo(1);*/
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }

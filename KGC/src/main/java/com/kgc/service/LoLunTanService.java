@@ -5,9 +5,9 @@ import com.kgc.pojo.*;
 import java.util.List;
 
 public interface LoLunTanService {
-    List<LunTan> selectAll();//查询全部帖子 但是只是查看type=1的 因为=2是已经删除
+    List<LunTan> selectAll(Integer weijie,Integer jingtie);//查询全部帖子 但是只是查看type=1的 因为=2是已经删除
     List<LunTan> selectWeiJie(int jie);//查找完结的
-    List<LunTan> selectJingHua();//查找精贴
+    List<LunTan> selectJingHua(int jingtie);//查找精贴
     List<LunTan> selectZuiXin();//按照时间倒叙排序
     List<LunTan> selectReYi();//按照热议排序
     List<LunTanHuiTie> selectHuiTie();//查找4位回帖数量最多的
