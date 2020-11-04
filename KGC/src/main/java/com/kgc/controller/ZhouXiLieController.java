@@ -24,25 +24,29 @@ public class ZhouXiLieController {
         XiLieKeCheng xiLieKeChengs = zhouXiLieService.selectAll(name);
         List<XiLieKeCheng> selectXiLie = zhouXiLieService.selectXiLie();
         List<XiLieKeCheng> selectXiangAndJie = zhouXiLieService.selectXiangAndJie(name);
-        String xiang = selectXiangAndJie.get(0).getXiang();
-        String[] split = xiang.split("~");
-
-        String jie = selectXiangAndJie.get(0).getJie();
-        String[] split1 = jie.split("~");
-
-        int count = zhouXiLieService.count(biao,name);
+        System.out.println(selectXiangAndJie.size());
+        System.out.println("哈哈哈");
         List<JieAndXiang> list=new ArrayList();
-        for (int i = 0; i < split1.length; i++) {
-            JieAndXiang jieAndXiang=new JieAndXiang(split1[i],split[i]);
-            list.add(jieAndXiang);
+        if(selectXiangAndJie!=null && selectXiangAndJie.size()!=0){
+            String xiang = selectXiangAndJie.get(0).getXiang();
+            System.out.println(xiang);
+            String[] split = xiang.split("~");
+
+            String jie = selectXiangAndJie.get(0).getJie();
+            System.out.println(jie);
+            String[] split1 = jie.split("~");
+            for (int i = 0; i < split1.length; i++) {
+                JieAndXiang jieAndXiang=new JieAndXiang(split1[i],split[i]);
+                list.add(jieAndXiang);
+            }
         }
+        int count = zhouXiLieService.count(biao,name);
         UserBuy userBuy = zhouXiLieService.selectUserBuy(biao, name);
         if(userBuy!=null) {
             model.addAttribute("userBuy", userBuy);
         }else{
 
         }
-
         model.addAttribute("list",list);
         model.addAttribute("count",count);
         System.out.println(count);

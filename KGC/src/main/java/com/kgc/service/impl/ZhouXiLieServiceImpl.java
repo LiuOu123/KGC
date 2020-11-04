@@ -29,7 +29,7 @@ public class ZhouXiLieServiceImpl implements ZhouXiLieService{
         XiLieKeChengExample.Criteria criteria = example.createCriteria();
         criteria.andNameEqualTo(name);
         List<XiLieKeCheng> xiLieKeChengs = xiLieKeChengMapper.selectByExample(example);
-        if(xiLieKeChengs!=null){
+        if(xiLieKeChengs!=null && xiLieKeChengs.size()!=0){
             username=xiLieKeChengs.get(0);
         }
         return username;
