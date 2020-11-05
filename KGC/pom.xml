@@ -20,6 +20,12 @@
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.codehaus.jettison/jettison -->
+    <dependency>
+      <groupId>org.codehaus.jettison</groupId>
+      <artifactId>jettison</artifactId>
+      <version>1.1</version>
+    </dependency>
     <!--poi-excel-->
     <dependency>
       <groupId>org.apache.poi</groupId>
