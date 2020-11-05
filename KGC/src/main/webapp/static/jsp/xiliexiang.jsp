@@ -283,13 +283,13 @@
             <div class="dian_121">
 
                 <c:if test="${xiLieKeChengs.price=='免费'}">
-                    <a style="color: white; font-size: 20px;margin-left: 25px;" href="/dingyue?name=${x.name }&biao=${usertable.user}">立即订阅</a>
+                    <a style="color: white; font-size: 20px;margin-left: 25px;" href="/mianfeidingyue?name=${xiLieKeChengs.name }&biao=${usertable.user}">立即订阅</a>
                 </c:if>
 
                 <c:if test="${xiLieKeChengs.price!='免费'}">
                     <c:if test="${ count==0 }">
                         <center>
-                            <a style="color: white; font-size: 20px;" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}&miaoshu=课程数：${xiLieKeChengs.kenum }节 课程有效期：${xiLieKeChengs.qi }天">立即购买</a>
+                            <a style="color: white; font-size: 20px;" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}&miaoshu=课程数：${xiLieKeChengs.kenum }节 课程有效期：${xiLieKeChengs.qi }天&username=${usertable.user}">立即购买</a>
                         </center>
                     </c:if>
                     <c:if test="${ count>0 }">

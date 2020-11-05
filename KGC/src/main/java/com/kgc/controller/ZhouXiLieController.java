@@ -65,17 +65,38 @@ public class ZhouXiLieController {
     }
 
     @RequestMapping("/FuKuan")
-    public String fukuan(Model model,String WIDsubject){
+    public String fukuan(Model model,String WIDsubject,String username){
+        System.out.println(username);
         System.out.println(WIDsubject);
         UserBuy userBuy=new UserBuy();
         userBuy.setBiao(WIDsubject);
-        userBuy.setUsername("admin");
+        userBuy.setUsername(username);
         zhouXiLieService.insert(userBuy);
         return "alipay.trade.page.pay";
     }
 
     @RequestMapping("/dingyue")
     public String dingyue(Model model,String name,String biao){
+        UserBuy userBuy1 = zhouXiLieService.selectUserBuy(biao, name);
+        System.out.println(name);
+        System.out.println(biao);
+        UserBuy userBuy=new UserBuy();
+        userBuy.setUsername(userBuy1.getUsername());
+        userBuy.setBiao(userBuy1.getBiao());
+        userBuy.setId(userBuy1.getId());
+        userBuy.setLei(1);
+        zhouXiLieService.update(userBuy);
+        return "redirect:/xilie";
+    }
+
+
+    @RequestMapping("/mianfeidingyue")
+    public String mianfeidingyue(Model model,String name,String biao){
+        UserBuy userBuy2=new UserBuy();
+        userBuy2.setUsername(biao);
+        userBuy2.setBiao(name);
+        zhouXiLieService.insert(userBuy2);
+
         UserBuy userBuy1 = zhouXiLieService.selectUserBuy(biao, name);
         System.out.println(name);
         System.out.println(biao);
