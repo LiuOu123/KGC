@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>html5带日期和动画场景的天气预报特效</title>
+    <title>课工场天气预报</title>
 
     <link rel="stylesheet" href="/static/css/SkWeatherStyle.css">
 
@@ -36,13 +36,13 @@
 		c37.2,6.4,72.7,19.2,105.4,38L22-40.9z"/>
         </svg>
         <nav>
-            <ul>
-                <li><a id="button-snow" class="active"><i class="wi wi-snow"></i></a></li>
-                <li><a id="button-wind"><i class="wi wi-strong-wind"></i></a></li>
-                <li><a id="button-rain"><i class="wi wi-rain"></i></a></li>
-                <li><a id="button-thunder"><i class="wi wi-lightning"></i></a></li>
-                <li><a id="button-sun"><i class="wi wi-day-sunny"></i></a></li>
-            </ul>
+<%--            <ul>--%>
+<%--                <li><a id="button-snow" class="active"><i class="wi wi-snow"></i></a></li>--%>
+<%--                <li><a id="button-wind"><i class="wi wi-strong-wind"></i></a></li>--%>
+<%--                <li><a id="button-rain"><i class="wi wi-rain"></i></a></li>--%>
+<%--                <li><a id="button-thunder"><i class="wi wi-lightning"></i></a></li>--%>
+<%--                <li><a id="button-sun"><i class="wi wi-day-sunny"></i></a></li>--%>
+<%--            </ul>--%>
         </nav>
         <div id="card" class="weather">
             <svg id="inner">
@@ -58,9 +58,11 @@
                 <g id="cloud1" class="cloud"></g>
             </svg>
             <div class="details">
-                <div class="temp">20<span>c</span></div>
+                <div class="temp">20<span>℃</span></div>
                 <div class="right">
                     <div id="date">Monday 22 August</div>
+                    <div id="windDirection">windDirection</div>
+                    <div id="todayTemperature">todayTemperature</div>
                     <div id="summary"></div>
                 </div>
             </div>
@@ -68,6 +70,8 @@
         <svg id="outer"></svg>
     </div>
 </div>
+
+<input type="hidden" class="abc">
 
 <script src="/static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src='/static/js/TweenMax.min.js'></script>

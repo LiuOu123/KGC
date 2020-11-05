@@ -27,7 +27,6 @@ var outerSnowHolder = outerSVG.group();
 var lightningTimeout;
 
 // Set mask for leaf holder 
-
 outerLeafHolder.attr({
 	'clip-path': leafMask
 });
@@ -50,12 +49,20 @@ var clouds = [
 // set weather types ☁️ 🌬 🌧 ⛈ ☀️
 
 var weather = [
-	{ type: 'snow', name: 'Snow'}, 
-	{ type: 'wind', name: 'Windy'}, 
-	{ type: 'rain', name: 'Rain'}, 
-	{ type: 'thunder', name: 'Storms'},
-	{ type: 'sun', name: 'Sunny'}
+	{ type: 'snow', name: 'Snow'},  //雪
+	{ type: 'wind', name: 'Windy'},  //有风
+	{ type: 'rain', name: 'Rain'},   //雨
+	{ type: 'thunder', name: 'Storms'}, //暴风雨
+	{ type: 'sun', name: 'Sunny'}  //晴朗
 ];
+
+// 页面取消了天气点击事件(ul)
+// 初始化只需要在weather中给下标即可
+
+var abc=0;
+
+
+
 
 // 🛠 app settings
 // in an object so the values can be animated in tweenmax
@@ -79,17 +86,63 @@ var snow = [];
 
 // ⚙ initialize app
 
-init();
+
 
 // 👁 watch for window resize
 
-$(window).resize(onResize);
+
 
 // 🏃 start animations
-
-requestAnimationFrame(tick);
-
-function init()
+var d=0;
+$(function () {
+	initindex();
+	//initinit();
+	$(window).resize(onResize);
+	requestAnimationFrame(tick);
+	// $('#search').on('click',function(){
+	// 	initindex()
+	// });
+})
+function urlencode (str) {
+	str = (str + '').toString();
+	return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
+	replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+}
+function initindex() {
+	var city = $('#city').val();//'北京';
+	url='/getWeather';
+	$.ajax({
+		url: url,
+		async: false,
+		dataType: "json",
+		type:"get",
+		data:{location:city},
+		success:function(data){
+			console.log(data)
+			$(".temp").html(""+data.o.currentTemperature+"<span>℃</span>");
+			$("#date").text(data.o.date.substring(0,10));
+			$("#windDirection").text(data.o.windDirection);
+			$("#todayTemperature").text(data.o.todayTemperature);
+			$("#summary").html(data.o.conditions);
+			if(data.o.conditions=="晴"||data.o.conditions=="多云"){
+				d=4;
+			}else if(data.o.conditions=="阴"||data.o.conditions=="阵雨"||data.o.conditions=="雷阵雨伴有冰雹"||data.o.conditions=="雨夹雪"||data.o.conditions=="小雨"||data.o.conditions=="中雨"||data.o.conditions=="大雨"||data.o.conditions=="冻雨"||data.o.conditions=="小雨-中雨"||data.o.conditions=="中雨-大雨"){
+				d=2;
+			}else if(data.o.conditions=="雷阵雨"||data.o.conditions=="暴雨"||data.o.conditions=="大暴雨"||data.o.conditions=="特大暴雨"||data.o.conditions=="暴雨-大暴雨"||data.o.conditions=="大暴雨-特大暴雨"||data.o.conditions=="大雨-暴雨"){
+				d=3;
+			}else if(data.o.conditions=="阵雪"||data.o.conditions=="小雪"||data.o.conditions=="中雪"||data.o.conditions=="大雪"||data.o.conditions=="暴雪"||data.o.conditions=="小雪-中雪"||data.o.conditions=="中雪-大雪"||data.o.conditions=="大雪-暴雪"){
+				d=0;
+			}else if(data.o.conditions=="沙尘暴"||data.o.conditions=="浮尘"||data.o.conditions=="扬沙"||data.o.conditions=="强沙尘暴"){
+				d=1;
+			}
+			weather[d].name=data.o.conditions;
+			// alert(d);
+		}
+	});
+	// alert(d+"w");
+	initinit();
+}
+function initinit()
 {
 	onResize();
 	
@@ -114,7 +167,8 @@ function init()
 	// ☀️ set initial weather
 	
 	TweenMax.set(sunburst.node, {opacity: 0})
-	changeWeather(weather[0]);
+
+	changeWeather(weather[d]);
 }
 
 function onResize()
@@ -201,7 +255,7 @@ function makeRain()
 	
 	// ⛈ line length is made longer for stormy weather
 	
-	var lineLength = currentWeather.type == 'thunder' ? 35 : 14;
+		var lineLength = currentWeather.type == 'thunder' ? 35 : 14;
 	
 	// Start the drop at a random point at the top but leaving 
 	// a 20px margin 
@@ -449,7 +503,8 @@ function tick()
 	}
 	
 	for(var i = 0; i < clouds.length; i++)
-	{		
+	{
+		// console.log(currentWeather)
 		if(currentWeather.type == 'sun')
 		{
 			if(clouds[i].offset > -(sizes.card.width * 1.5)) clouds[i].offset += settings.windSpeed / (i + 1);
@@ -523,7 +578,6 @@ function changeWeather(weather)
 	reset();
 	
 	currentWeather = weather;
-	
 	TweenMax.killTweensOf(summary);
 	TweenMax.to(summary, 1, {opacity: 0, x: -30, onComplete: updateSummaryText, ease: Power4.easeIn})
 	

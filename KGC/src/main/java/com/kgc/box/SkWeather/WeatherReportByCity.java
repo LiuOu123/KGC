@@ -1,6 +1,7 @@
 package com.kgc.box.SkWeather;
 
 import net.sf.json.JSONObject;
+import org.junit.Test;
 
 import java.io.Serializable;
 
@@ -20,7 +21,11 @@ public class WeatherReportByCity {
      */
     public static String excute(String cityName){
         String url=//此处以返回json格式数据示例,所以format=2,以根据城市名称为例,cityName传入中文
-                "http://v.juhe.cn/weather/index?cityname="+cityName+"&key=735b50bb1cc6addbf3325bf5ae233c1c";
+                "http://v.juhe.cn/weather/index?cityname="+cityName+"&key=8eab80fe12b5e9ec44bf8ad94963bf30";
+        System.out.println(url);
+        //http://v.juhe.cn/weather/index?cityname=北京&key=8eab80fe12b5e9ec44bf8ad94963bf30
+        //http://v.juhe.cn/weather/index?cityname=北京&key=8eab80fe12b5e9ec44bf8ad94963bf30
+        //http://v.juhe.cn/weather/index?cityname=北京&key=8eab80fe12b5e9ec44bf8ad94963bf30
         return PureNetUtil.get(url);//通过工具类获取返回数据
     }
     /**
@@ -30,7 +35,7 @@ public class WeatherReportByCity {
      * @return
      */
 
-    public static Serializable GetTodayTemperatureByCity(String cityName) {
+    public static Object GetTodayTemperatureByCity(String cityName) {
         System.out.println(cityName);
         String result=excute(cityName);
         if(result!=null){
@@ -58,7 +63,13 @@ public class WeatherReportByCity {
         }
     }
     public static void main(String[] args) {
-        Serializable 北京 = GetTodayTemperatureByCity("北京");
+        Object 北京 = GetTodayTemperatureByCity("北京");
         System.out.println(北京);
+    }
+
+    @Test
+    public void  test01(){
+        Object o = GetTodayTemperatureByCity("北京");
+        System.out.println(o);
     }
 }
