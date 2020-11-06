@@ -500,14 +500,24 @@ public class LoLunTanController {
         return map;
     }
     /*查看该用户历史头像*/
-    @RequestMapping("/historyTouXiang")
+        @RequestMapping("/historyTouXiang")
     public String historyTouXiang(HttpSession session){
         System.out.println("进入查询历史头像");
-
-        List<UserInfo> userInfos = loLunTanService.selectHistoryTouXiang(1);
+            int userid=(int)session.getAttribute("userid");
+        List<UserInfo> userInfos = loLunTanService.selectHistoryTouXiang(userid);
         for (UserInfo userInfo : userInfos) {
             System.out.println(userInfo.toString());
-
+        }
+        return "";
+    }
+    /*查看该用户历史签名*/
+    @RequestMapping("/historyQianMing")
+    public String historyNiCHeng(HttpSession session){
+        System.out.println("进入查询历史签名");
+        int userid=(int)session.getAttribute("userid");
+        List<UserInfo> userInfos = loLunTanService.selectHistoryQianMing(userid);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo.toString());
         }
         return "";
     }

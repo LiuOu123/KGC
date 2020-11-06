@@ -38,4 +38,5 @@ public interface LoLunTanService {
     WoDeXiaoXi selectByXid(int xid);//根据id查看我的消息表中的数据
     int updateWDXXLei3(int id);//根据id将我的消息表中该数据类型修改成3
     List<UserInfo> selectHistoryTouXiang(int userid);//查询该用户历史头像
+    List<UserInfo> selectHistoryQianMing(int userid);//查询该用户历史签名
 }
