@@ -18,4 +18,9 @@ public class ZhangUserimgServiceImpl implements ZhangUserimgService {
     public List<userimg> selectByExample(userimgExample example) {
         return userimgMapper.selectByExample(example);
     }
+
+    @Override
+    public int insertSelective(userimg record) {
+        return  userimgMapper.insertSelective(record);
+    }
 }

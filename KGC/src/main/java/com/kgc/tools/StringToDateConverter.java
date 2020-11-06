@@ -9,12 +9,10 @@ import java.util.Date;
 public class StringToDateConverter implements Converter<String, Date> {
     private String pattern=null;
 
-
     public StringToDateConverter(String pattern) {
         super();
         this.pattern = pattern;
     }
-
 
     @Override
     public Date convert(String arg0) {
@@ -28,5 +26,4 @@ public class StringToDateConverter implements Converter<String, Date> {
         }
         return date;
     }
-
 }

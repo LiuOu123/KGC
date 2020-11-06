@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.kgc.box.SkWeather.WeatherReportByCity.GetTodayTemperatureByCity;
+
 import static com.kgc.box.SkWeather2.TestWeather.getWeather;
 
 @Controller

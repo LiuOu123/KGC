@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -40,9 +41,16 @@ public class loQianTaiController {
             userimgExample example=new userimgExample();
             userimgExample.Criteria criteria = example.createCriteria();
             criteria.andUserinfoUseridEqualTo(user.getId());
-
-            List<userimg> userimgs = zhangUserimgService.selectByExample(example);
-            session.setAttribute("userimgs",userimgs.get(0).getUserinfoImgname());//保存session作用域 账号信息个性化背景
+            List<userimg> userimgs = null;
+            try {
+                userimgs = zhangUserimgService.selectByExample(example);
+                session.setAttribute("userimgs",userimgs.get(0).getUserinfoImgname());//保存session作用域 账号信息个性化背景
+            } catch (Exception e) {
+                userimg userimg=new userimg();
+                userimg.setUserinfoUserid(user.getId());
+                userimg.setUserinfoImgdate(new Date());
+                zhangUserimgService.insertSelective(userimg);
+            }
 
             return "kgcshouye";
         }else{

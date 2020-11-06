@@ -25,6 +25,20 @@ public class Works {
     private  Grade grade;
     private  Reply reply;
     private  Releasee releasee;
+    /**/
+    private  UserInfo userInfo;
+    public Works(Integer wid, Integer isverify) {
+        this.wid = wid;
+        this.isverify = isverify;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     public User getUser() {
         return user;

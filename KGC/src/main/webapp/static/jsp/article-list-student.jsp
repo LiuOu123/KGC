@@ -55,18 +55,6 @@
                 </colgroup>
                 <thead>
                 <tr>
-                  <%--  private Integer rid;
-
-                    private Integer gradeid;
-
-                    private String reltitle;
-
-                    private String relnei;
-
-                    private String img;
-
-                    private Date reldate;
-                    private  Grade grade;--%>
                     <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
                     <th>ID</th>
                     <th>标题</th>

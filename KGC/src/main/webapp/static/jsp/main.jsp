@@ -36,7 +36,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="iconfont">&#xe607;</i>我的班级</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/static/jsp/menu2.html" data-id='1' data-text="后台菜单"><span class="l-line"></span>后台菜单</a></dd>
+                        <dd><a href="javascript:;" data-url="/static/jsp/article-ceshi-student.jsp" data-id='1' data-text="后台菜单"><span class="l-line"></span>练习题测试</a></dd>
                         <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="前台菜单"><span class="l-line"></span>前台菜单</a></dd>
                     </dl>
                 </li>
@@ -60,7 +60,7 @@
                     <a href="javascript:;"><i class="iconfont">&#xe608;</i>内容管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/toReleaseTest" data-id='3' data-text="发布测试"><span class="l-line"></span>发布测试</a></dd>
-                        <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="单页管理"><span class="l-line"></span>单页管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/static/jsp/article-ceshi-tearcher.jsp" data-id='9' data-text="单页管理"><span class="l-line"></span>发布测试题</a></dd>
                     </dl>
                 </li>
             </c:if>
@@ -69,7 +69,7 @@
                     <a href="javascript:;"><i class="iconfont">&#xe607;</i>班级管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="toClass.do" data-id='1' data-text="查看班级"><span class="l-line"></span>查看班级</a></dd>
-                        <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="前台菜单"><span class="l-line"></span>前台菜单</a></dd>
+                        <dd><a href="javascript:;" data-url="/static/jsp/menu2.jsp" data-id='2' data-text="前台菜单"><span class="l-line"></span>前台菜单</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

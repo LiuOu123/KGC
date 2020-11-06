@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ZhangUserimgService {
     List<userimg> selectByExample(userimgExample example);
+    int insertSelective(userimg record);
 }

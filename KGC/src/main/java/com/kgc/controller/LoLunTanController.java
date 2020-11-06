@@ -41,7 +41,6 @@ public class LoLunTanController {
             pageNum=Integer.parseInt(pageNumStr);
         }
         Integer pageSize=5;//每页的数量
-
 //排序
         PageHelper.startPage(pageNum,pageSize);
         PageHelper.orderBy("id desc");

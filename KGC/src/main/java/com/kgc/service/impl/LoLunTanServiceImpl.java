@@ -50,7 +50,7 @@ com.kgc.service.loQianTaiService loQianTaiService;
             //userInfoExample.setOrderByClause("id desc");
             UserInfoExample.Criteria uicriteria = userInfoExample.createCriteria();
             uicriteria.andAccidEqualTo(lunTans.get(i).getUserid());
-            uicriteria.andUtypeEqualTo(1);
+          /*  uicriteria.andUtypeEqualTo(1);*/
             List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
             lunTans.get(i).setUserInfo(userInfos.get(userInfos.size()-1));
         }
