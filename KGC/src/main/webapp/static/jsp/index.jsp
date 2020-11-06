@@ -228,6 +228,7 @@ h2 {
 					<dt>商品描述：</dt>
 					<dd>
 						<input id="WIDbody" name="WIDbody" value="${miaoshu}" />
+						<input type="hidden" name="username" value="${username}" />
 					</dd>
 					<hr class="one_line">
 					<dt></dt>
