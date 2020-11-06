@@ -245,11 +245,11 @@
                 <div class="fly-panel-title fly-filter">
                     <a href="/luntan" class="layui-this">综合</a>
                     <span class="fly-mid"></span>
-                    <a href="/luntanweijie?weijie=0">未结</a>
+                    <a href="/luntan?weijie=0">未结</a>
                     <span class="fly-mid"></span>
-                    <a href="/luntanweijie?weijie=1">已结</a>
+                    <a href="/luntan?weijie=1">已结</a>
                     <span class="fly-mid"></span>
-                    <a href="/jingtie">精贴</a>
+                    <a href="/luntan?jingtie=1">精贴</a>
                     <span class="fly-filter-right layui-hide-xs">
             <a href="/zuixin" class="layui-this">按最新</a>
             <span class="fly-mid"></span>
@@ -286,9 +286,12 @@
                                 <c:if test="${l.wanjie==1}">
                                     <span class="layui-badge fly-badge-accept layui-hide-xs">已完结</span>
                                 </c:if>
+                                <c:if test="${l.wanjie==0}">
+                                    <span class="layui-badge fly-badge-accept layui-hide-xs">未完结</span>
+                                </c:if>
                                 <span class="fly-list-nums">
                 <i class="iconfont icon-pinglun1" title="回答"></i> ${l.liulanliang}
-              </span>
+                                </span>
                             </div>
                             <div class="fly-list-badge">
                                 <c:if test="${l.jingtie==1}">
@@ -305,19 +308,19 @@
                     </div>--%>
                     <div style="text-align: center;">
                         <div class="laypage-main">
-                            <a href="/luntanfen?pageNumStr=${pageInfo.firstPage}" class="laypage-frist"
+                            <a href="/luntan?jingtie=${jingtie}&pageNumStr=${pageInfo.firstPage}&weijie=${weijie}" class="laypage-frist"
                                title="首页">首页</a>
                             <c:if test="${pageInfo.hasPreviousPage}">
-                                <a class="laypage-next" href="/luntanfen?pageNumStr=${pageInfo.prePage}">上一页</a>
+                                <a class="laypage-next" href="/luntan?jingtie=${jingtie}&pageNumStr=${pageInfo.prePage}&weijie=${weijie}">上一页</a>
                             </c:if>
                             <c:forEach items="${pageInfo.navigatepageNums}" var="i">
                                 <a class="mulu" id="${i}" onclick="bian(${i})"
-                                   href="/luntanfen?pageNumStr=${i}">${i}</a>
+                                   href="/luntan?jingtie=${jingtie}&pageNumStr=${i}&weijie=${weijie}">${i}</a>
                             </c:forEach>
                             <c:if test="${pageInfo.hasNextPage}">
-                                <a class="laypage-next" href="/luntanfen?pageNumStr=${pageInfo.nextPage}">下一页</a>
+                                <a class="laypage-next" href="/luntan?jingtie=${jingtie}&pageNumStr=${pageInfo.nextPage}&weijie=${weijie}">下一页</a>
                             </c:if>
-                            <a href="/luntanfen?pageNumStr=${pageInfo.lastPage}" class="laypage-frist" title="尾页">尾页</a>
+                            <a href="/luntan?jingtie=${jingtie}&pageNumStr=${pageInfo.lastPage}&weijie=${weijie}" class="laypage-frist" title="尾页">尾页</a>
                         </div>
                     </div>
                 </div>

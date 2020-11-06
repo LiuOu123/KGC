@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kgc.mapper.userimgMapper" >
+  <resultMap id="BaseResultMap" type="com.kgc.pojo.userimg" >
+    <id column="userinfo_imgid" property="userinfoImgid" jdbcType="INTEGER" />
+    <result column="userinfo_userid" property="userinfoUserid" jdbcType="INTEGER" />
+    <result column="userinfo_imgname" property="userinfoImgname" jdbcType="VARCHAR" />
+    <result column="userinfo_imgdate" property="userinfoImgdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userinfo_imgid, userinfo_userid, userinfo_imgname, userinfo_imgdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kgc.pojo.userimgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userimg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userimg
+    where userinfo_imgid = #{userinfoImgid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from userimg
+    where userinfo_imgid = #{userinfoImgid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kgc.pojo.userimgExample" >
+    delete from userimg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kgc.pojo.userimg" >
+    insert into userimg (userinfo_imgid, userinfo_userid, userinfo_imgname, 
+      userinfo_imgdate)
+    values (#{userinfoImgid,jdbcType=INTEGER}, #{userinfoUserid,jdbcType=INTEGER}, #{userinfoImgname,jdbcType=VARCHAR}, 
+      #{userinfoImgdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kgc.pojo.userimg" >
+    insert into userimg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userinfoImgid != null" >
+        userinfo_imgid,
+      </if>
+      <if test="userinfoUserid != null" >
+        userinfo_userid,
+      </if>
+      <if test="userinfoImgname != null" >
+        userinfo_imgname,
+      </if>
+      <if test="userinfoImgdate != null" >
+        userinfo_imgdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userinfoImgid != null" >
+        #{userinfoImgid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoUserid != null" >
+        #{userinfoUserid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoImgname != null" >
+        #{userinfoImgname,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoImgdate != null" >
+        #{userinfoImgdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kgc.pojo.userimgExample" resultType="java.lang.Integer" >
+    select count(*) from userimg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update userimg
+    <set >
+      <if test="record.userinfoImgid != null" >
+        userinfo_imgid = #{record.userinfoImgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userinfoUserid != null" >
+        userinfo_userid = #{record.userinfoUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userinfoImgname != null" >
+        userinfo_imgname = #{record.userinfoImgname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoImgdate != null" >
+        userinfo_imgdate = #{record.userinfoImgdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update userimg
+    set userinfo_imgid = #{record.userinfoImgid,jdbcType=INTEGER},
+      userinfo_userid = #{record.userinfoUserid,jdbcType=INTEGER},
+      userinfo_imgname = #{record.userinfoImgname,jdbcType=VARCHAR},
+      userinfo_imgdate = #{record.userinfoImgdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kgc.pojo.userimg" >
+    update userimg
+    <set >
+      <if test="userinfoUserid != null" >
+        userinfo_userid = #{userinfoUserid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoImgname != null" >
+        userinfo_imgname = #{userinfoImgname,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoImgdate != null" >
+        userinfo_imgdate = #{userinfoImgdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userinfo_imgid = #{userinfoImgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kgc.pojo.userimg" >
+    update userimg
+    set userinfo_userid = #{userinfoUserid,jdbcType=INTEGER},
+      userinfo_imgname = #{userinfoImgname,jdbcType=VARCHAR},
+      userinfo_imgdate = #{userinfoImgdate,jdbcType=TIMESTAMP}
+    where userinfo_imgid = #{userinfoImgid,jdbcType=INTEGER}
+  </update>
+</mapper>

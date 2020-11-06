@@ -1,9 +1,7 @@
 package com.kgc.controller;
 
-import com.kgc.pojo.Picture;
-import com.kgc.pojo.Plei;
-import com.kgc.pojo.User;
-import com.kgc.pojo.UserInfo;
+import com.kgc.pojo.*;
+import com.kgc.service.ZhangUserimgService;
 import com.kgc.service.loQianTaiService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +16,8 @@ import java.util.List;
 public class loQianTaiController {
     @Resource
     loQianTaiService loQianTaiService;
+    @Resource
+    ZhangUserimgService zhangUserimgService;
     @RequestMapping("/")//初始页面跳转
     public String kai() {
         return "denglu";
@@ -37,6 +37,13 @@ public class loQianTaiController {
             session.setAttribute("usertype",user.getLei());//保存session作用域 用户类型(管理权限)
             session.setAttribute("shenfen", user.getLei());//保存session作用域 用户类型(管理权限)
             session.setAttribute("usertable",user);//保存session作用域 账号信息
+            userimgExample example=new userimgExample();
+            userimgExample.Criteria criteria = example.createCriteria();
+            criteria.andUserinfoUseridEqualTo(user.getId());
+
+            List<userimg> userimgs = zhangUserimgService.selectByExample(example);
+            session.setAttribute("userimgs",userimgs.get(0).getUserinfoImgname());//保存session作用域 账号信息个性化背景
+
             return "kgcshouye";
         }else{
             model.addAttribute("msg","账号或密码错误");

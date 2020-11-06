@@ -18,6 +18,7 @@
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="/static/res/layui/css/layui.css">
     <link rel="stylesheet" href="/static/res/css/global.css">
+
     <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
 </head>
 <body style="margin-top: 65px;">
@@ -98,7 +99,7 @@
     </div>
 </div>
 
-<div class="fly-home fly-panel" <%--style="background-image: url(/static/luntan/touxiang/1.jpg  );"--%>>
+<div class="fly-home fly-panel" style="background-image: url(/static/luntan/touxiang/${sessionScope.userimgs});">
     <img src="/static/luntan/touxiang/${userxinxi.touxiang}" alt="${userxinxi.nickname}">
     <c:if test="${usertype==3}">
         <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
@@ -146,16 +147,24 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6 fly-home-jie">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">${userxinxi.nickname} 最近的浏览</h3>
+                <form action="/doluntanzhuye" method="post">
+                    <input type="text" name="title" placeholder="请输入关键词">
+
+                    <input type="submit" value="搜索">
+                </form>
+                <h3 class="fly-panel-title">${userxinxi.nickname} 最近的浏览
+                </h3>
                 <ul class="jie-row" id="#fatie">
 
-
+<c:forEach items="${luntanhistories}" var="list">
                      <li>
-                        <span class="fly-jing">精</span>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>刚刚</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
+                         private  LunTan lunTan;
+                        <span class="fly-jing">${list.hoistroyId}</span>
+                        <a href="/histotyluntanxiangxi{title}?title=${list.luntan.title}" class="jie-title">${list.luntan.title}</a>
+                        <i><fmt:formatDate value="${list.hoistroyDate}" pattern="yyyy-MM-dd HH:mm:ss"/></i>
+                     <em class="layui-hide-xs"><a onclick="return window.confirm('确定删除吗？')" href="historydel?hisID=${list.hoistroyId}">删除</a></em>
                     </li>
+</c:forEach>
                     <%--<
                    li>
                        <span class="fly-jing">精</span>
@@ -213,29 +222,18 @@
             <div class="fly-panel">
                 <h3 class="fly-panel-title">${userxinxi.nickname} 最近的回答</h3>
                 <ul class="home-jieda">
+                    <c:forEach items="${userhuifu}" var="listhui">
                     <li>
-                        <p>
-                            <span>1分钟前</span>
-                            在<a href="" target="_blank">tips能同时渲染多个吗?</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            尝试给layer.photos加上这个属性试试：
-                            <pre>
-full: true         
-</pre>
-                            文档没有提及
-                        </div>
-                    </li>
-                    <li>
-                        <p>
-                            <span>5分钟前</span>
-                            在<a href="" target="_blank">在Fly社区用的是什么系统啊?</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            Fly社区采用的是NodeJS。分享出来的只是前端模版
-                        </div>
-                    </li>
 
+                        <p>
+                            <span><fmt:formatDate value="${listhui.time}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+                            在<a href="/histotyluntanxiangxi{title}?title=${listhui.title}" target="_blank">${listhui.title}</a>中回答：
+                        </p>
+                        <div class="home-dacontent">
+                                ${listhui.neirong}
+                        </div>
+                    </li>
+                    </c:forEach>
                     <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div> -->
                 </ul>
             </div>

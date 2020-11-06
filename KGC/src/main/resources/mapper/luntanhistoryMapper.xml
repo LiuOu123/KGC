@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kgc.mapper.luntanhistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.kgc.pojo.luntanhistory" >
+    <id column="hoistroy_id" property="hoistroyId" jdbcType="INTEGER" />
+    <result column="hoistroy_luntanid" property="hoistroyLuntanid" jdbcType="INTEGER" />
+    <result column="hoistroy_userid" property="hoistroyUserid" jdbcType="INTEGER" />
+    <result column="hoistroy_date" property="hoistroyDate" jdbcType="TIMESTAMP" />
+    <association property="luntan"  javaType="com.kgc.pojo.LunTan">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="neirong" property="neirong" jdbcType="VARCHAR" />
+      <result column="userid" property="userid" jdbcType="INTEGER" />
+      <result column="img" property="img" jdbcType="VARCHAR" />
+      <result column="time" property="time" jdbcType="TIMESTAMP" />
+      <result column="liulanliang" property="liulanliang" jdbcType="INTEGER" />
+      <result column="lei" property="lei" jdbcType="VARCHAR" />
+      <result column="wanjie" property="wanjie" jdbcType="INTEGER" />
+      <result column="jingtie" property="jingtie" jdbcType="INTEGER" />
+      <result column="type" property="type" jdbcType="INTEGER" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hoistroy_id, hoistroy_luntanid, hoistroy_userid, hoistroy_date
+  </sql>
+  <sql id="Base_Column_List2" >
+      id, title, neirong, userid, img, time, liulanliang, lei, wanjie, jingtie, type, hoistroy_id, hoistroy_userid, hoistroy_date
+  </sql>
+  <select id="lthistory" resultMap="BaseResultMap" parameterType="com.kgc.pojo.luntanhistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List2" />
+    from lthistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kgc.pojo.luntanhistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from luntanhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from luntanhistory
+    where hoistroy_id = #{hoistroyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from luntanhistory
+    where hoistroy_id = #{hoistroyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kgc.pojo.luntanhistoryExample" >
+    delete from luntanhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kgc.pojo.luntanhistory" >
+    insert into luntanhistory (hoistroy_id, hoistroy_luntanid, hoistroy_userid, 
+      hoistroy_date)
+    values (#{hoistroyId,jdbcType=INTEGER}, #{hoistroyLuntanid,jdbcType=INTEGER}, #{hoistroyUserid,jdbcType=INTEGER}, 
+      #{hoistroyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kgc.pojo.luntanhistory" >
+    insert into luntanhistory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hoistroyId != null" >
+        hoistroy_id,
+      </if>
+      <if test="hoistroyLuntanid != null" >
+        hoistroy_luntanid,
+      </if>
+      <if test="hoistroyUserid != null" >
+        hoistroy_userid,
+      </if>
+      <if test="hoistroyDate != null" >
+        hoistroy_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hoistroyId != null" >
+        #{hoistroyId,jdbcType=INTEGER},
+      </if>
+      <if test="hoistroyLuntanid != null" >
+        #{hoistroyLuntanid,jdbcType=INTEGER},
+      </if>
+      <if test="hoistroyUserid != null" >
+        #{hoistroyUserid,jdbcType=INTEGER},
+      </if>
+      <if test="hoistroyDate != null" >
+        #{hoistroyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kgc.pojo.luntanhistoryExample" resultType="java.lang.Integer" >
+    select count(*) from luntanhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update luntanhistory
+    <set >
+      <if test="record.hoistroyId != null" >
+        hoistroy_id = #{record.hoistroyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hoistroyLuntanid != null" >
+        hoistroy_luntanid = #{record.hoistroyLuntanid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hoistroyUserid != null" >
+        hoistroy_userid = #{record.hoistroyUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hoistroyDate != null" >
+        hoistroy_date = #{record.hoistroyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update luntanhistory
+    set hoistroy_id = #{record.hoistroyId,jdbcType=INTEGER},
+      hoistroy_luntanid = #{record.hoistroyLuntanid,jdbcType=INTEGER},
+      hoistroy_userid = #{record.hoistroyUserid,jdbcType=INTEGER},
+      hoistroy_date = #{record.hoistroyDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kgc.pojo.luntanhistory" >
+    update luntanhistory
+    <set >
+      <if test="hoistroyLuntanid != null" >
+        hoistroy_luntanid = #{hoistroyLuntanid,jdbcType=INTEGER},
+      </if>
+      <if test="hoistroyUserid != null" >
+        hoistroy_userid = #{hoistroyUserid,jdbcType=INTEGER},
+      </if>
+      <if test="hoistroyDate != null" >
+        hoistroy_date = #{hoistroyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where hoistroy_id = #{hoistroyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kgc.pojo.luntanhistory" >
+    update luntanhistory
+    set hoistroy_luntanid = #{hoistroyLuntanid,jdbcType=INTEGER},
+      hoistroy_userid = #{hoistroyUserid,jdbcType=INTEGER},
+      hoistroy_date = #{hoistroyDate,jdbcType=TIMESTAMP}
+    where hoistroy_id = #{hoistroyId,jdbcType=INTEGER}
+  </update>
+</mapper>

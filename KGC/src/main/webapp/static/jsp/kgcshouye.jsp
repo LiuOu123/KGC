@@ -175,7 +175,7 @@
     </c:if>
     <c:if test="${sessionScope.username!=null}">
         <c:if test="${sessionScope.usertype==1}">
-            <a class="xinwenhover" id="liuou11" href="/static/jsp/luntanzhuye.jsp" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;同学</a>
+            <a class="xinwenhover" id="liuou11" href="/doluntanzhuye" href="#" style="font-size:13px ;position: relative;top: 2px;margin-left: 50px;">欢迎你,${userxinxi.nickname}&nbsp;&nbsp;同学</a>
             <a href="/static/jsp/main.jsp">学生管理系统</a>
         </c:if>
         <c:if test="${sessionScope.usertype==2}">

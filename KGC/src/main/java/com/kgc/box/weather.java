@@ -1,13 +1,18 @@
 package com.kgc.box;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class weather {
-    public static void main(String[] args) {
+
+    public static Object  result2() {
+        JSONObject resultJsonObject=null;
         String host = "https://iweather.market.alicloudapi.com";
         String path = "/address";
         String method = "GET";
@@ -20,25 +25,24 @@ public class weather {
         querys.put("city", "北京");
         querys.put("needday", "1");
         querys.put("prov", "北京");
-
-
+        Object string1=null;
         try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
-             * 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-            System.out.println(response.toString());
+           // System.out.println(response.toString());
             //获取response的body
-
-            System.out.println(EntityUtils.toString(response.getEntity()));
+            String string = EntityUtils.toString(response.getEntity());
+           string1 = JSON.toJSONString(string);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return string1;
+    }
+
+
+
+
+
+    public static void main(String[] args) {
+        System.out.println(result2());
     }
 }

@@ -1,13 +1,14 @@
 package com.kgc.service;
 
+import com.fasterxml.jackson.databind.ser.impl.UnknownSerializer;
 import com.kgc.pojo.*;
 
 import java.util.List;
 
 public interface LoLunTanService {
-    List<LunTan> selectAll();//查询全部帖子 但是只是查看type=1的 因为=2是已经删除
+    List<LunTan> selectAll(Integer weijie,Integer jingtie);//查询全部帖子 但是只是查看type=1的 因为=2是已经删除
     List<LunTan> selectWeiJie(int jie);//查找完结的
-    List<LunTan> selectJingHua();//查找精贴
+    List<LunTan> selectJingHua(int jingtie);//查找精贴
     List<LunTan> selectZuiXin();//按照时间倒叙排序
     List<LunTan> selectReYi();//按照热议排序
     List<LunTanHuiTie> selectHuiTie();//查找4位回帖数量最多的
@@ -36,4 +37,6 @@ public interface LoLunTanService {
     int addWDXX(WoDeXiaoXi woDeXiaoXi);//添加消息
     WoDeXiaoXi selectByXid(int xid);//根据id查看我的消息表中的数据
     int updateWDXXLei3(int id);//根据id将我的消息表中该数据类型修改成3
+    List<UserInfo> selectHistoryTouXiang(int userid);//查询该用户历史头像
+    List<UserInfo> selectHistoryQianMing(int userid);//查询该用户历史签名
 }

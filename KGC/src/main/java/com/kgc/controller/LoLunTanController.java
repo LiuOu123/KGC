@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kgc.pojo.*;
 import com.kgc.service.LoLunTanService;
+import com.kgc.service.ZhangluntanhistoryService;
 import javafx.beans.binding.ObjectExpression;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.RandomUtils;
@@ -29,27 +30,38 @@ import java.util.*;
 public class LoLunTanController {
     @Resource
     LoLunTanService loLunTanService;
+    @Resource
+    ZhangluntanhistoryService zhangluntanhistoryService;
 
     @RequestMapping("/luntan")//进入论坛的值
-    public String luntan(Model model) {
-        Integer pageNum = 1;
-        Integer pageSize = 6;
+    public String luntan(Model model, Integer weijie, Integer jingtie, String pageNumStr) {
+
+        Integer pageNum = 1;//第几页
+        if (pageNumStr != null) {
+            pageNum = Integer.parseInt(pageNumStr);
+        }
+        Integer pageSize = 5;//每页的数量
+
+//排序
         PageHelper.startPage(pageNum, pageSize);
-        List<LunTan> lunTans = loLunTanService.selectAll();
+        PageHelper.orderBy("id desc");
+        List<LunTan> lunTans = loLunTanService.selectAll(weijie, jingtie);
         List<LunTan> zhiding = loLunTanService.selectZhiDing();
         PageInfo<LunTan> pageInfo = new PageInfo<>(lunTans);
         System.out.println(lunTans.toString());
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("zhiding", zhiding);
+        model.addAttribute("jingtie", jingtie);
+        model.addAttribute("weijie", weijie);
         return "luntan";
     }
 
     @RequestMapping("/luntanfen")//论坛的分页功能
-    public String luntanfen(Model model, int pageNumStr) {
+    public String luntanfen(Model model, int pageNumStr, Integer weijie, Integer jingtie) {
         Integer pageNum = pageNumStr;
         Integer pageSize = 6;
         PageHelper.startPage(pageNum, pageSize);
-        List<LunTan> lunTans = loLunTanService.selectAll();
+        List<LunTan> lunTans = loLunTanService.selectAll(weijie, jingtie);
         List<LunTan> zhiding = loLunTanService.selectZhiDing();
         PageInfo<LunTan> pageInfo = new PageInfo<>(lunTans);
         System.out.println(lunTans.toString());
@@ -72,17 +84,18 @@ public class LoLunTanController {
         return "luntan";
     }
 
-    @RequestMapping("/jingtie")//查看是精帖的帖子
-    public String jingtie(Model model) {
+    @RequestMapping("/jingtie{jingtie}")//查看是精帖的帖子
+    public String jingtie(Model model, int jingtie) {
         Integer pageNum = 1;
         Integer pageSize = 6;
         PageHelper.startPage(pageNum, pageSize);
-        List<LunTan> lunTans = loLunTanService.selectJingHua();
+        List<LunTan> lunTans = loLunTanService.selectJingHua(jingtie);
         List<LunTan> zhiding = loLunTanService.selectZhiDing();
         PageInfo<LunTan> pageInfo = new PageInfo<>(lunTans);
         System.out.println(lunTans.toString());
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("zhiding", zhiding);
+
         return "luntan";
     }
 
@@ -172,13 +185,20 @@ public class LoLunTanController {
     }
 
     @RequestMapping("/luntanxiangxi{title}")//根据title查找帖子
-    public String luntanxiangxi(String title, Model model) {
+    public String luntanxiangxi(String title, Model model, HttpSession session) {
+        Integer userid = (Integer) session.getAttribute("userid");
         LunTan lunTan = loLunTanService.selectLunTanByTiTle(title);//根据title查找帖子
+        luntanhistory luntanhistory = new luntanhistory();
+        luntanhistory.setHoistroyDate(new Date());
+        luntanhistory.setHoistroyLuntanid(lunTan.getId());
+        luntanhistory.setHoistroyUserid(userid);
+        int i = zhangluntanhistoryService.insertSelective(luntanhistory);
         List<TieZiHiuFu> tieZiHiuFus = loLunTanService.selectHuiFU(lunTan.getId());//根据帖子id查找回复 并且将回复的用户信息一起查出来
         model.addAttribute("luntan", lunTan);//帖子信息
         model.addAttribute("tiezihuifu", tieZiHiuFus);//回复信息
         return "luntanxiang";
     }
+
 
     //论坛详细页面给帖子的回复
     @RequestMapping("/huitie")
@@ -403,7 +423,7 @@ public class LoLunTanController {
         map.put("data", pageInfo);
 //        String s = JSONObject.toJSONString(map);
         String s1 = JSONArray.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
-        String s2=JSONArray.toJSONStringWithDateFormat(map,"yyyy-MM-dd",SerializerFeature.DisableCircularReferenceDetect);
+        String s2 = JSONArray.toJSONStringWithDateFormat(map, "yyyy-MM-dd", SerializerFeature.DisableCircularReferenceDetect);
 
         return s2;
     }
@@ -423,13 +443,13 @@ public class LoLunTanController {
 
     @RequestMapping("/chuanzhichaliaotian")
     @ResponseBody
-    public Map<String, Object> chuanzhichaliaotian(int userid, int faid,int xid, HttpSession session) {
+    public Map<String, Object> chuanzhichaliaotian(int userid, int faid, int xid, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         WoDeXiaoXi woDeXiaoXi = loLunTanService.selectByXid(xid);
-        System.out.println("pan"+woDeXiaoXi.toString());
-        if(woDeXiaoXi.getXlei()==1){
+        System.out.println("pan" + woDeXiaoXi.toString());
+        if (woDeXiaoXi.getXlei() == 1) {
             int i = loLunTanService.updateWDXXLei3(xid);
-            System.out.println("将该条数据改成已读是否成功"+i);
+            System.out.println("将该条数据改成已读是否成功" + i);
         }
         session.setAttribute("chatuserid", userid);
         session.setAttribute("chatfaid", faid);
@@ -464,6 +484,7 @@ public class LoLunTanController {
         map.put("data", JSONObject.parse(JSONArray.toJSONString(woDeXiaoXis, SerializerFeature.DisableCircularReferenceDetect)));
         return map;
     }
+
     @RequestMapping("/addchat")
     @ResponseBody
     public Map<String, Object> addchat(WoDeXiaoXi woDeXiaoXi) {
@@ -478,5 +499,31 @@ public class LoLunTanController {
             map.put("status", false);
         }
         return map;
+    }
+
+    /*查看该用户历史头像*/
+    @RequestMapping("/historyTouXiang")
+    public String historyTouXiang(HttpSession session, Model model) {
+        System.out.println("进入查询历史头像");
+        int userid = (int) session.getAttribute("userid");
+        List<UserInfo> userInfos = loLunTanService.selectHistoryTouXiang(userid);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo.toString());
+        }
+        model.addAttribute("shu", userInfos);
+        return "luntanjibenshezhi";
+    }
+
+    /*查看该用户历史签名*/
+    @RequestMapping("/historyQianMing")
+    public String historyNiCHeng(HttpSession session, Model model) {
+        System.out.println("进入查询历史签名");
+        int userid = (int) session.getAttribute("userid");
+        List<UserInfo> userInfos = loLunTanService.selectHistoryQianMing(userid);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo.toString());
+        }
+        model.addAttribute("shu", userInfos);
+        return "luntanjibenshezhi";
     }
 }
