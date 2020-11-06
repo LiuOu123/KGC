@@ -54,8 +54,8 @@
             </div>
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                 <div class="layui-form-item">
-                    <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" for="LAY-user-login-cellphone"></label>
-                    <input type="text" name="phone" id="phone" lay-verify="phone" placeholder="手机" class="layui-input">
+                    <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" ></label>
+                    <input type="text" name="phone" id="phone" lay-verify="phone" placeholder="手机/邮箱" class="layui-input">
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-row">

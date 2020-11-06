@@ -500,14 +500,28 @@ public class LoLunTanController {
     }
     /*查看该用户历史头像*/
     @RequestMapping("/historyTouXiang")
-    public String historyTouXiang(HttpSession session){
+    public String historyTouXiang(HttpSession session, Model model) {
         System.out.println("进入查询历史头像");
-
-        List<UserInfo> userInfos = loLunTanService.selectHistoryTouXiang(1);
+        int userid = (int) session.getAttribute("userid");
+        List<UserInfo> userInfos = loLunTanService.selectHistoryTouXiang(userid);
         for (UserInfo userInfo : userInfos) {
             System.out.println(userInfo.toString());
-
         }
-        return "";
+        model.addAttribute("shu", userInfos);
+        return "luntanjibenshezhi";
     }
+
+    /*查看该用户历史签名*/
+    @RequestMapping("/historyQianMing")
+    public String historyNiCHeng(HttpSession session, Model model) {
+        System.out.println("进入查询历史签名");
+        int userid = (int) session.getAttribute("userid");
+        List<UserInfo> userInfos = loLunTanService.selectHistoryQianMing(userid);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo.toString());
+        }
+        model.addAttribute("shu", userInfos);
+        return "luntanjibenshezhi";
+    }
+
 }

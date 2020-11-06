@@ -6,7 +6,7 @@ $(function() {
         let phone = $("#phone").val()
         if (phone != null && phone.trim().length == 11) {
             if (!(/^1[3456789]\d{9}$/.test(phone))) {
-                layer.msg('请输入正确的手机号');
+                layer.msg('请输入正确的手机号33333');
             } else {
                 $("#getsmscode").removeClass("layui-disabled");
                 $("#getsmscode").attr("disabled", false);
@@ -23,10 +23,10 @@ $(function() {
                 $url = responseText.protocol + responseText.domain + responseText.port + responseText.context;
                 break;
             case 'error':
-                layer.msg('走丢了', {
-                    icon: 2,
-                    shade: 0.01
-                })
+                // layer.msg('走丢了', {
+                //     icon: 2,
+                //     shade: 0.01
+                // })
                 break;
             default:
                 break;
@@ -52,10 +52,11 @@ $(function() {
         let $res = "";
         var btn = $("#getsmscode");
         btn.click(function() {
+            alert("发送")
             $("#getsmscode").addClass("layui-disabled");
             let $phone = document.getElementById('phone').value;
             if (!(/^1[3456789]\d{9}$/.test($phone))) {
-                layer.msg('请输入正确的手机号');
+                layer.msg('请输入正确的手机号123');
                 return false;
             }
 
@@ -69,10 +70,7 @@ $(function() {
 
                 },
                 error: function() {
-                    layer.msg('哎呦,服务器走丢了', {
-                        icon: 2,
-                        time: 1000,
-                    })
+                    alert("发送")
                 }
             })
 
