@@ -2,10 +2,8 @@ package com.kgc.service.impl;
 
 import com.kgc.mapper.UserBuyMapper;
 import com.kgc.mapper.XiLieKeChengMapper;
-import com.kgc.pojo.UserBuy;
-import com.kgc.pojo.UserBuyExample;
-import com.kgc.pojo.XiLieKeCheng;
-import com.kgc.pojo.XiLieKeChengExample;
+import com.kgc.mapper.XiLieXiangLunMapper;
+import com.kgc.pojo.*;
 import com.kgc.service.ZhouXiLieService;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +79,24 @@ public class ZhouXiLieServiceImpl implements ZhouXiLieService{
             username=userBuys.get(0);
         }
         return username;
+    }
+
+    @Resource
+    XiLieXiangLunMapper xiLieXiangLunMapper;
+
+    @Override
+    public List<XiLieXiangLun> selectXiLieXiangLun(String name) {
+        XiLieXiangLunExample example=new XiLieXiangLunExample();
+        XiLieXiangLunExample.Criteria criteria = example.createCriteria();
+        if (name!=null){
+            criteria.andNameEqualTo(name);
+        }
+        return xiLieXiangLunMapper.selectByExample(example);
+    }
+
+    @Override
+    public void insert(XiLieXiangLun xiLieXiangLun) {
+        xiLieXiangLunMapper.insert(xiLieXiangLun);
     }
 
 }

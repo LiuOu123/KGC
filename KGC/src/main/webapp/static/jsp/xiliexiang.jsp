@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
@@ -283,18 +284,33 @@
             <div class="dian_121">
 
                 <c:if test="${xiLieKeChengs.price=='免费'}">
-                    <a style="color: white; font-size: 20px;margin-left: 25px;" href="/dingyue?name=${x.name }&biao=${usertable.user}">立即订阅</a>
+                    <c:if test="${userBuy!=null}">
+                        <c:if test="${userBuy.lei==0}">
+                            <a style="color: white; font-size: 20px;margin-left: 25px;" href="/mianfeidingyue?name=${xiLieKeChengs.name }&biao=${usertable.user}">立即订阅</a>
+                        </c:if>
+                        <c:if test="${userBuy.lei==1}">
+                            <a style="color: white; font-size: 20px;margin-left: 25px;" href="#">立即观看</a>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${userBuy==null}">
+                        <a style="color: white; font-size: 20px;margin-left: 25px;" href="/mianfeidingyue?name=${xiLieKeChengs.name }&biao=${usertable.user}">立即订阅</a>
+                    </c:if>
                 </c:if>
 
                 <c:if test="${xiLieKeChengs.price!='免费'}">
                     <c:if test="${ count==0 }">
                         <center>
-                            <a style="color: white; font-size: 20px;" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}&miaoshu=课程数：${xiLieKeChengs.kenum }节 课程有效期：${xiLieKeChengs.qi }天">立即购买</a>
+                            <a style="color: white; font-size: 20px;" href="/ZhiFuBao?name=${xiLieKeChengs.name}&price=${xiLieKeChengs.price}&id=${xiLieKeChengs.id}&miaoshu=课程数：${xiLieKeChengs.kenum }节 课程有效期：${xiLieKeChengs.qi }天&biao=${usertable.user}">立即购买</a>
                         </center>
                     </c:if>
                     <c:if test="${ count>0 }">
                         <center>
-                            <a style="color: white; font-size: 20px" href="/dingyue?name=${xiLieKeChengs.name }&biao=${usertable.user}">立即订阅</a>
+                            <c:if test="${userBuy.lei==0}">
+                                <a style="color: white; font-size: 20px" href="/dingyue?name=${xiLieKeChengs.name }&biao=${usertable.user}">立即订阅</a>
+                            </c:if>
+                            <c:if test="${userBuy.lei==1}">
+                                <a style="color: white; font-size: 20px" href="#">立即观看</a>
+                            </c:if>
                         </center>
                     </c:if>
                 </c:if>
@@ -365,34 +381,44 @@
 </div>
 
 <div class="xue" style="" id="fabiao">
-<c:if test="${userBuy!=null}">
-    <c:if test="${userBuy.lei==1}">
-        <div class="xue_1" style="color: #8CC600; font-size: 30px;">学员评价</div>
-        <input type="text" name="" style="width: 500px;height: 50px;position: relative;left: 410px;top: -45px;font-size: 30px">
-        <input type="submit" value="发表" style="width: 100px;height: 58px;position: relative;left: 430px;top: -50px">
-        <%--<c:forEach items="${requestScope.xlxl }" var="xl">
+        <c:forEach items="${xiliexianglun}" var="xl">
             <div class="xue_2">
-                <img id="yuanjiao" src="touxiang/${xl.src }.jpg" width="68px"
+                <img id="yuanjiao" src="/static/luntan/touxiang/${xl.src }" width="68px"
                      height="68px" />
             </div>
             <div class="xue_3" style="margin-left: 300px; margin-top: -90px">
                 <ul>
-                    <li style="color: gainsboro;">${xl.name }</li>
-                    <br />
-
+                    <li style="color: black;font-weight: bold">${xl.user }</li>
+                    <br/>
+                    <br/>
                     <li>${xl.chat }</li>
                     <br />
 
-                    <li style="color: gainsboro;">发表于${xl.time}</li>
+                    <li style="color: gainsboro;">发表于<fm:formatDate value="${xl.time}" pattern="yyyy-MM-dd"></fm:formatDate></li>
                 </ul>
             </div>
             <br />
-        </c:forEach>--%>
-    </c:if>
-    <c:if test="${userBuy.lei==0}">
+        </c:forEach>
+    <c:if test="${userBuy!=null}">
+            <c:if test="${userBuy.lei==1}">
+                <form action="/insertXiangLun" method="post">
+                <div class="xue_1" style="color: #8CC600; font-size: 30px;">学员评价</div>
+                    <input type="hidden" name="name" value="${xiLieKeChengs.name}">
+                    <input type="hidden" name="user" value="${userxinxi.nickname}">
+                    <%--<script type="text/javascript">--%>
+                        <%--$(function () {--%>
+                            <%--alert("${userxinxi.touxiang}")--%>
+                        <%--})--%>
+                    <%--</script>--%>
+                    <input type="hidden" name="src" value="${userxinxi.touxiang}">
+                <input type="text" name="chat" style="width: 500px;height: 50px;position: relative;left: 410px;top: -45px;font-size: 30px">
+                <input type="submit" value="发表" style="width: 100px;height: 58px;position: relative;left: 430px;top: -50px">
+                </form>
+            </c:if>
 
+        <c:if test="${userBuy.lei==0}">
+        </c:if>
     </c:if>
-</c:if>
 </div>
 
 <!--底部-->
@@ -458,12 +484,10 @@
 
     </div>
     <hr />
-    <a
-            style="font-size: 11px; color: #767676; position: relative; left: 80px;">2020
+    <a style="font-size: 11px; color: #767676; position: relative; left: 80px;">2020
         北京课工场教育科技有限公司 版权所有 京ICP备15057271号 京公网安备11010802017390号</a> <a
         style="font-size: 11px; color: #767676; margin-left: 500px; position: relative; left: 250px;">客服邮箱
     ke@kgc.cn</a>
 </div>
 </body>
-
 </html>

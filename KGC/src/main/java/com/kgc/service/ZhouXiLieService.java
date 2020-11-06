@@ -2,6 +2,7 @@ package com.kgc.service;
 
 import com.kgc.pojo.UserBuy;
 import com.kgc.pojo.XiLieKeCheng;
+import com.kgc.pojo.XiLieXiangLun;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface ZhouXiLieService {
 
     UserBuy selectUserBuy(String name,String biao);
 
+    List<XiLieXiangLun> selectXiLieXiangLun(String name);
+
+    void insert(XiLieXiangLun xiLieXiangLun);
 }
