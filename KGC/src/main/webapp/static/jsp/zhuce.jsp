@@ -65,7 +65,7 @@
                         </div>
                         <div class="layui-col-xs5">
                             <div style="margin-left: 10px;">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" id="getsmscode">获取验证码</button>
+                                <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" >获取验证码</button>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="submit">注 册</button>
+                    <button class="layui-btn layui-btn-fluid"   >注 册</button>
 
                 </div>
 
@@ -97,3 +97,6 @@
 </body>
 
 </html>
+<script type="text/javascript">
+
+</script>
