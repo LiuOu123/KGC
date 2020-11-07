@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid"   >注 册</button>
+                    <button class="layui-btn layui-btn-fluid">注 册</button>
 
                 </div>
 
